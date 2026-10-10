@@ -1,0 +1,1426 @@
+{
+ "categories": [
+  {
+   "slug": "golfette-utilitaire",
+   "name": "Golfettes électriques",
+   "description": "Découvrez notre gamme de golfettes électriques conçues pour répondre à de nombreux usages : transport de personnes, utilitaire, tout-terrain, homologation route ou encore transport médical et PMR.",
+   "image": "/media/gamme-golfettes-electriques.webp",
+   "order": 0,
+   "parent": null
+  },
+  {
+   "slug": "transport-de-personnes",
+   "name": "Transport de personnes",
+   "description": "Golfettes électriques conçues pour le transport de passagers sur les sites touristiques, hôteliers, industriels, privés ou au sein des collectivités.",
+   "image": "/media/gamme-transport-de-personnes.webp",
+   "order": 0,
+   "parent": "golfette-utilitaire"
+  },
+  {
+   "slug": "utilitaires",
+   "name": "Golfettes utilitaires",
+   "description": "Golfettes électriques utilitaires conçues pour le transport de matériel, les interventions techniques, l’entretien et les besoins logistiques sur site.",
+   "image": "/media/gamme-golfettes-utilitaires.webp",
+   "order": 1,
+   "parent": "golfette-utilitaire"
+  },
+  {
+   "slug": "tout-terrain",
+   "name": "Golfettes tout-terrain",
+   "description": "Golfettes électriques adaptées aux terrains plus exigeants, avec des configurations pensées pour évoluer sur différents types de chemins et d’environnements.",
+   "image": "/media/gamme-golfettes-tout-terrain.webp",
+   "order": 2,
+   "parent": "golfette-utilitaire"
+  },
+  {
+   "slug": "homologues-route",
+   "name": "Véhicules homologués route",
+   "description": "Golfettes électriques homologuées pour circuler sur la voie publique, selon la catégorie d’homologation propre à chaque modèle.",
+   "image": "/media/gamme-vehicules-homologues-route.webp",
+   "order": 3,
+   "parent": null
+  },
+  {
+   "slug": "medical-pmr",
+   "name": "Médical & PMR",
+   "description": "Golfettes électriques spécialement aménagées pour répondre aux besoins de transport médical et faciliter le transport des personnes à mobilité réduite.",
+   "image": "/media/gamme-medical-pmr.webp",
+   "order": 4,
+   "parent": "golfette-utilitaire"
+  },
+  {
+   "slug": "bus",
+   "name": "Bus & navettes électriques",
+   "description": "Bus électriques conçus pour le transport de groupes de passagers sur les sites touristiques, hôteliers, industriels, événementiels ou au sein des collectivités.",
+   "image": "/media/gamme-bus-navettes-electriques.webp",
+   "order": 4,
+   "parent": null
+  }
+ ],
+ "vehicles": [
+  {
+   "legacyId": "veh-tracteur-4x4",
+   "slug": "tracteur-industriel-4x4",
+   "name": "Le tracteur industriel 4x4",
+   "shortDescription": "Le véhicule LITTLE en option 4x4 équipé de sa cabine confort, d'un bac aluminium arrière et d'un crochet.",
+   "description": "Le tracteur industriel 4x4 EBOX est conçu pour les environnements exigeants. Équipé de 2 moteurs électriques de 4kw chacun, il offre des performances inégalées en mode tout-terrain.\n\nSa cabine confort assure une protection optimale pour l'opérateur. Les batteries plomb-pur ne nécessitent aucun entretien et offrent une autonomie d'une journée complète.\n\nHomologué route, ce véhicule peut circuler sur la voie publique sans permis spécial.",
+   "price": "Sur devis",
+   "characteristics": {
+    "Batterie": "Plomb-pur ou Lithium",
+    "Autonomie": "Journée complète",
+    "Fabrication": "France (Loiret)",
+    "Vitesse maximale": "25 km/h",
+    "Charge utile": "500 kg",
+    "Homologation": "Route européenne",
+    "Moteur": "2x4 kW électrique",
+    "Transmission": "4x4"
+   },
+   "images": [
+    "/media/le-tracteur-industriel-4x4.webp"
+   ],
+   "featured": true,
+   "published": false,
+   "categories": []
+  },
+  {
+   "legacyId": "veh-voirie",
+   "slug": "vehicule-voirie-immatriculable",
+   "name": "Petit véhicule de voirie immatriculable",
+   "shortDescription": "DÉCOUVREZ LE PLAISIR DE CIRCULER EN VÉHICULE ÉLECTRIQUE. Partagez ces nouvelles sensations avec nos véhicules.",
+   "description": "Ce petit véhicule de voirie électrique est immatriculable et permet de circuler sur la voie publique. Idéal pour les collectivités, les espaces verts et les zones piétonnes.\n\nSon design compact et sa maniabilité en font l'outil parfait pour l'entretien des espaces publics. Silencieux et écologique, il s'intègre parfaitement dans les environnements urbains.",
+   "price": "Sur devis",
+   "characteristics": {
+    "Batterie": "Plomb-pur",
+    "Autonomie": "8 heures",
+    "Entretien": "Réduit - 12€ la recharge",
+    "Vitesse maximale": "25 km/h",
+    "Moteur": "4 kW électrique",
+    "Immatriculation": "Oui"
+   },
+   "images": [
+    "/media/petit-vehicule-de-voirie-immatriculable.webp"
+   ],
+   "featured": true,
+   "published": false,
+   "categories": []
+  },
+  {
+   "legacyId": "veh-transport-personnel",
+   "slug": "vehicule-transport-personnel",
+   "name": "Véhicule transport personnel",
+   "shortDescription": "Le 1er 4X4 ÉLECTRIQUE 6 PLACES ! Et maintenant en 8 PLACES. Transportez désormais 6 ou 8 personnes confortablement.",
+   "description": "Ce véhicule de transport de personnel électrique est disponible en version 6 ou 8 places. Idéal pour les grands sites industriels, les parcs de loisirs, les hôpitaux et les aéroports.\n\nSon confort et sa capacité en font la solution parfaite pour le transport de groupes dans les environnements où le silence et l'absence de pollution sont essentiels.",
+   "price": "Sur devis",
+   "characteristics": {
+    "Batterie": "Plomb-pur ou Lithium",
+    "Autonomie": "Journée complète",
+    "Places": "6 ou 8 places",
+    "Vitesse maximale": "25 km/h",
+    "Homologation": "Route",
+    "Moteur": "4 kW électrique"
+   },
+   "images": [
+    "/media/vehicule-transport-personnel.webp"
+   ],
+   "featured": false,
+   "published": false,
+   "categories": []
+  },
+  {
+   "legacyId": "veh-transport-marchandises",
+   "slug": "vehicule-transport-marchandises",
+   "name": "Véhicule de transport de marchandises",
+   "shortDescription": "BÂCHES POUR BENNES GALVANISÉES. L'accessoire idéal pour votre benne. Protège des intempéries et sécurise le chargement.",
+   "description": "Le véhicule de transport de marchandises électrique est équipé d'un plateau galvanisé robuste, idéal pour le transport de charges lourdes sur de courtes distances.\n\nÉquipé en option de bâches et de ridelles, il assure la sécurité et la protection de vos marchandises.",
+   "price": "Sur devis",
+   "characteristics": {
+    "Options": "Bâches, ridelles",
+    "Plateau": "Galvanisé",
+    "Batterie": "Plomb-pur",
+    "Charge utile": "1000 kg",
+    "Moteur": "4 kW électrique"
+   },
+   "images": [
+    "/media/vehicule-de-transport-de-marchandises.webp"
+   ],
+   "featured": false,
+   "published": false,
+   "categories": []
+  },
+  {
+   "legacyId": "veh-entretien-jardin",
+   "slug": "vehicule-entretien-jardin",
+   "name": "Véhicule entretien de jardin",
+   "shortDescription": "BENNE DIMENSIONS STANDARD. L'outil idéal pour un usage couvert. En Acier et habillage extérieur en plastique.",
+   "description": "Ce véhicule d'entretien de jardin électrique est spécialement conçu pour les travaux de jardinage et d'aménagement paysager.\n\nCompact et maniable, il accède facilement aux espaces restreints tout en offrant une capacité de charge suffisante pour vos outils et matériaux.",
+   "price": "Sur devis",
+   "characteristics": {
+    "Benne": "Acier avec habillage plastique",
+    "Usage": "Jardinage / Paysage",
+    "Batterie": "Plomb-pur",
+    "Dimensions": "Standard",
+    "Moteur": "Électrique"
+   },
+   "images": [
+    "/media/vehicule-entretien-de-jardin.webp"
+   ],
+   "featured": false,
+   "published": false,
+   "categories": []
+  },
+  {
+   "legacyId": "veh-nacelle-tractable",
+   "slug": "nacelle-tractable-12m",
+   "name": "Nacelle tractable 12m",
+   "shortDescription": "Nacelle élévatrice tractable électrique, hauteur de travail 12m, légère et maniable.",
+   "description": "Cette nacelle tractable électrique offre une hauteur de travail de 12 mètres. Montée sur une remorque légère, elle peut être tractée par un véhicule léger ou un fourgon.\n\nSa simplicité d'utilisation ne nécessite aucune connaissance particulière. Elle s'adapte à tous les besoins : entretien de bâtiments, élagage, travaux électriques, etc.",
+   "price": "Sur devis",
+   "characteristics": {
+    "Poids": "Léger",
+    "Support": "Remorque tractable",
+    "Énergie": "Électrique",
+    "Utilisation": "Simple, sans formation spéciale",
+    "Hauteur de travail": "12 m"
+   },
+   "images": [
+    "/media/nacelle-tractable-12m.webp"
+   ],
+   "featured": true,
+   "published": false,
+   "categories": []
+  },
+  {
+   "legacyId": "veh-tricycle",
+   "slug": "tricycle-electrique-professionnel",
+   "name": "Tricycle électrique professionnel",
+   "shortDescription": "Moyen de déplacement professionnel compact et silencieux, idéal pour les sites industriels.",
+   "description": "Le tricycle électrique professionnel est un moyen de déplacement compact et écologique. Idéal pour les déplacements fréquents sur les sites industriels, les entrepôts et les campus.\n\nSa maniabilité et sa compacité lui permettent de circuler dans les espaces les plus étroits.",
+   "price": "Sur devis",
+   "characteristics": {
+    "Type": "Tricycle électrique",
+    "Usage": "Déplacement professionnel",
+    "Batterie": "Électrique",
+    "Avantages": "Compact, silencieux, écologique"
+   },
+   "images": [
+    "/media/tricycle-electrique-professionnel.webp"
+   ],
+   "featured": true,
+   "published": false,
+   "categories": []
+  },
+  {
+   "legacyId": "veh-nacelle-agricole",
+   "slug": "nacelle-tracteur-agricole-thomas",
+   "name": "Nacelle sur tracteur agricole",
+   "shortDescription": "Nacelle hydraulique montée sur tracteur agricole, qualité Thomas Hoogwerkers.",
+   "description": "La nacelle sur tracteur agricole Thomas Hoogwerkers est une solution robuste et fiable pour les travaux en hauteur dans le domaine agricole.\n\nMontée sur l'attelage 3 points du tracteur, elle s'installe et se désinstalle rapidement. Sa construction hydraulique garantit une sécurité et une fiabilité optimales.",
+   "price": "Sur devis",
+   "characteristics": {
+    "Montage": "Attelage 3 points tracteur",
+    "Qualité": "Européenne",
+    "Énergie": "Hydraulique (prise de force)",
+    "Constructeur": "Thomas Hoogwerkers",
+    "Installation": "Rapide"
+   },
+   "images": [
+    "/media/nacelle-sur-tracteur-agricole.webp"
+   ],
+   "featured": true,
+   "published": false,
+   "categories": []
+  },
+  {
+   "legacyId": "cmtitspqj0000mp0809xp8hn8",
+   "slug": "atlas-2-cargo",
+   "name": "Atlas 2 Cargo",
+   "shortDescription": "Robuste, maniable et polyvalente, l’Atlas 2 Cargo est une golfette électrique 2 places à châssis aluminium équipée d’une benne arrière, pensée pour les déplacements et le transport de matériel au quotidien.",
+   "description": "L’Atlas 2 Cargo est une golfette électrique 2 places conçue pour associer déplacement et transport de matériel au quotidien. Polyvalente et maniable, elle trouve naturellement sa place dans les hôtels, domaines, campings, sites professionnels et grands espaces privés.\nComme l’ensemble de la gamme Atlas, elle bénéficie d’un châssis en aluminium. Cette conception constitue l’un de ses principaux atouts, notamment grâce à son excellente résistance à la corrosion, particulièrement intéressante pour un véhicule destiné à une utilisation régulière sur site.\n\nSa benne arrière de 1 100 × 800 mm offre une capacité de charge pouvant atteindre 250 kg, permettant de transporter facilement du matériel, de l’outillage, des fournitures ou les équipements nécessaires aux différentes activités d’un site.\nElle associe un moteur électrique AC de 3,8 kW à une batterie Lithium 105 Ah garantie 5 ans. Elle peut atteindre 32 km/h et offrir jusqu’à 90 km d’autonomie, pour vous accompagner sereinement tout au long de la journée.\n\nAvec seulement 1,18 m de largeur et un rayon de braquage de 4 mètres, l’Atlas 2 Cargo conserve un gabarit compact et une bonne maniabilité, particulièrement appréciables pour circuler dans les espaces restreints.\nL’Atlas 2 Cargo est également disponible dans plusieurs coloris de carrosserie. Différentes configurations de sellerie sont proposées afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "9 600 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 90 km",
+    "Places": "2 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "32 km/h"
+   },
+   "images": [
+    "/media/golfette-electrique-atlas-2-cargo.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "utilitaires",
+    "golfette-utilitaire"
+   ]
+  },
+  {
+   "legacyId": "cmtjwl0tn0001qg08riprbhgn",
+   "slug": "urban-2",
+   "name": "Urban 2",
+   "shortDescription": "Compacte, confortable et homologuée pour la route, l’Urban 2 est une golfette électrique 2 places pensée pour faciliter les déplacements aussi bien sur les voies ouvertes à la circulation que sur les sites privés. Son faible encombrement et sa maniabilité en font une solution idéale pour les déplacements du quotidien.",
+   "description": "L’Urban 2 est une golfette électrique 2 places homologuée route L7e, conçue pour offrir une solution de mobilité compacte et polyvalente. Elle trouve naturellement sa place dans les hôtels, domaines, sites touristiques et grands espaces privés, tout en permettant également de circuler sur route conformément à son homologation.\n\nElle associe un moteur électrique AC de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Elle peut atteindre 40 km/h et offrir jusqu’à 100 km d’autonomie, pour vous accompagner sereinement dans vos déplacements quotidiens.\n\nAvec seulement 1,18 m de largeur, une longueur de 2,67 m et un rayon de braquage de 3,5 mètres, l’Urban 2 conserve un gabarit particulièrement compact. Elle se montre ainsi parfaitement adaptée aux environnements où la maniabilité et la facilité de déplacement sont essentielles.\n\nSon équipement de série comprend notamment un pare-brise en verre, des rétroviseurs latéraux, un éclairage complet avec phares et clignotants, des feux arrière et feux stop, un compteur de vitesse et kilométrique, un freinage hydraulique ainsi qu’un frein de stationnement.\n\nL’Urban 2 est également disponible dans plusieurs coloris de carrosserie. La sellerie peut être personnalisée selon les configurations proposées, afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "10 500 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 100 km",
+    "Places": "2 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "40 km/h",
+    "Permis de conduire": "Permis B"
+   },
+   "images": [
+    "/media/golfette-electrique-urban-2.webp",
+    "/media/golfette-electrique-urban-2-2.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "homologues-route",
+    "transport-de-personnes",
+    "golfette-utilitaire"
+   ]
+  },
+  {
+   "legacyId": "cmtjwqlxj0002qg08nfc23jyh",
+   "slug": "roadland-4-flex",
+   "name": "Roadland 4 Flex",
+   "shortDescription": "Polyvalent, surélevé et homologué pour la route, le Roadland 4 Flex est un véhicule électrique 4 places capable de s’adapter à vos besoins. Sa banquette arrière convertible en plateau permet de passer facilement du transport de passagers au transport de matériel, aussi bien sur route que sur les chemins.",
+   "description": "Le Roadland 4 Flex est un véhicule électrique 4 places homologué route L7e BR, conçu pour associer transport de personnes, polyvalence et capacité à évoluer sur des terrains variés. Avec sa garde au sol de 250 mm et son gabarit surélevé, il trouve naturellement sa place dans les domaines, hôtels, campings, sites touristiques ou grands espaces privés, tout en permettant également de circuler sur route conformément à son homologation.\n\nSa véritable particularité réside dans sa configuration Flex. La banquette arrière permet d’accueillir des passagers et peut être transformée en plateau de chargement d’une capacité annoncée de 150 kg lorsque vous avez besoin de transporter du matériel. Des ridelles amovibles sont également disponibles en option, renforçant encore sa polyvalence.\nLe Roadland 4 Flex associe un moteur électrique AC de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Il peut atteindre 40 km/h et offrir jusqu’à 100 km d’autonomie, pour vous accompagner sereinement dans vos déplacements quotidiens.\n\nAvec une largeur de 1,29 m, une longueur de 3,015 m et un rayon de braquage de 4 mètres, il conserve une bonne maniabilité malgré sa capacité d’accueil et son caractère tout-chemin. Sa capacité de franchissement annoncée atteint 20 %.\n\nSon équipement de série comprend notamment un pare-brise en verre, des rétroviseurs latéraux, un éclairage complet avec phares, clignotants, feux arrière et feux stop, un compteur de vitesse et kilométrique, un freinage hydraulique, un frein de stationnement ainsi que des jantes aluminium.\n\nLe Roadland 4 Flex est également disponible dans plusieurs coloris de carrosserie. La sellerie peut être personnalisée selon les configurations proposées, afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "11 900 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 100 km",
+    "Places": "4 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "40 km/h",
+    "Permis de conduire": "Permis B"
+   },
+   "images": [
+    "/media/golfette-electrique-roadland-4-flex.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "transport-de-personnes",
+    "homologues-route",
+    "tout-terrain"
+   ]
+  },
+  {
+   "legacyId": "cmtjtg19b0000qw07ffym9szo",
+   "slug": "atlas-4-flex",
+   "name": "Atlas 4 Flex",
+   "shortDescription": "Polyvalente et modulable, l’Atlas 4 Flex est une golfette électrique 4 places à châssis aluminium équipée d’une banquette arrière réversible, permettant d’alterner facilement entre transport de passagers et transport de matériel.",
+   "description": "L’Atlas 4 Flex est une golfette électrique 4 places conçue pour s’adapter aux différents besoins du quotidien. Grâce à sa banquette arrière réversible, elle permet de transporter jusqu’à 4 personnes ou de transformer rapidement l’espace arrière en plateau pour le transport de matériel.\n\nComme l’ensemble de la gamme Atlas, elle bénéficie d’un châssis en aluminium. Cette conception constitue l’un de ses principaux atouts, notamment grâce à son excellente résistance à la corrosion et en fait un véhicule particulièrement adapté à une utilisation régulière sur site.\n\nEn configuration transport, son plateau arrière offre une capacité de charge pouvant atteindre 150 kg. Des ridelles amovibles sont également disponibles en option afin d’adapter davantage le véhicule aux besoins de transport.\n\nElle associe un moteur électrique AC de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Elle peut atteindre 32 km/h et offrir jusqu’à 90 km d’autonomie, pour vous accompagner sereinement tout au long de la journée.\n\nAvec seulement 1,18 m de largeur et un rayon de braquage de 4 mètres, l’Atlas 4 Flex conserve un gabarit compact et une excellente maniabilité malgré sa capacité d’accueil de 4 personnes.\n\nL’Atlas 4 Flex est également disponible dans plusieurs coloris de carrosserie. Différentes configurations de sellerie sont proposées afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "9 700 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 90 km",
+    "Places": "4 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "32 km/h"
+   },
+   "images": [
+    "/media/golfette-electrique-atlas-4-flex.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "transport-de-personnes",
+    "golfette-utilitaire"
+   ]
+  },
+  {
+   "legacyId": "cmtk3h5qq0000nz088bsze8za",
+   "slug": "shuttle-8",
+   "name": "Shuttle 8",
+   "shortDescription": "Spacieux, silencieux et conçu pour le transport de passagers, le Shuttle 8 est une navette électrique 8 places idéale pour assurer les déplacements au sein des hôtels, domaines, sites touristiques, industriels ou événementiels.",
+   "description": "Le Shuttle 8 est une navette électrique 8 places conçue pour transporter confortablement jusqu’à 7 passagers en plus du conducteur. Sa capacité d’accueil en fait une solution particulièrement adaptée aux hôtels, resorts, domaines, sites touristiques, industriels ou événementiels nécessitant des déplacements réguliers de personnes.\n\nSon architecture ouverte facilite la montée et la descente des passagers et permet d’enchaîner facilement les trajets. Avec ses différentes rangées de sièges et son gabarit pensé pour le transport collectif, le Shuttle 8 permet de déplacer un groupe dans un seul véhicule tout en conservant le silence et la souplesse d’une motorisation électrique.\n\nIl est équipé d’un moteur électrique AC de 7 kW associé à une batterie Lithium. Il peut atteindre 42 km/h et offrir jusqu’à 110 km d’autonomie, pour assurer de nombreux déplacements au cours d’une même journée.\n\nAvec une longueur de 4,23 m, une largeur de 1,49 m et un rayon de braquage de 5 mètres, le Shuttle 8 conserve une bonne maniabilité compte tenu de sa capacité d’accueil. Sa capacité de franchissement annoncée atteint 20 %.\n\nSon équipement de série comprend notamment un pare-brise en verre, des rétroviseurs droit et gauche, un éclairage LED avant et arrière, des clignotants, des feux Warning, un klaxon, un tableau de bord avec écran LED, un indicateur de vitesse et kilométrique, un indicateur de charge batterie, des prises 12 V, un chargeur embarqué, un freinage hydraulique avant et arrière ainsi que des jantes aluminium.\n\nLe Shuttle 8 est également disponible dans plusieurs coloris de carrosserie et différentes configurations de sellerie, afin d’adapter la navette à l’identité de votre établissement ou de votre flotte.\n\nEt parce qu’un véhicule destiné au transport régulier de passagers doit rester disponible, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "18 000 € HT",
+   "characteristics": {
+    "Batterie": "Lithium",
+    "Autonomie": "Jusqu'à 110 km",
+    "Places": "8 personnes",
+    "Moteur": "7 kW - Electrique",
+    "Vitesse maximale": "42 km/h"
+   },
+   "images": [
+    "/media/bus-electrique-shuttle-8.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "bus"
+   ]
+  },
+  {
+   "legacyId": "cmtisbgrd0000qm082p3lhuhq",
+   "slug": "atlas-2",
+   "name": "Atlas 2",
+   "shortDescription": "Compacte, polyvalente et agréable à conduire, l’Atlas 2 est une golfette électrique 2 places qui se distingue notamment par son châssis en aluminium, pensé pour associer légèreté, durabilité et utilisation au quotidien.",
+   "description": "L’Atlas 2 est une golfette électrique 2 places pensée pour offrir un déplacement simple, confortable et silencieux au quotidien. Son format compact et sa polyvalence lui permettent de trouver naturellement sa place dans les hôtels, domaines, sites professionnels et grands espaces privés.\n\nL’un de ses principaux atouts réside dans son châssis en aluminium. Cette conception constitue une véritable différence au sein de notre gamme et offre notamment l’avantage d’une excellente résistance à la corrosion.\n\nManiable et agréable à conduire, elle accueille confortablement 2 personnes et dispose d’une capacité de charge pouvant atteindre 150 kg.\n\nElle associe un moteur électrique AC de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Elle peut atteindre 32 km/h et offrir jusqu’à 90 km d’autonomie, pour vous accompagner sereinement tout au long de la journée.\n\nAvec seulement 1,18 m de largeur et un rayon de braquage de 4 mètres, son gabarit compact est particulièrement adapté aux déplacements dans les espaces où la maniabilité est essentielle.\n\nL’Atlas 2 est également disponible dans plusieurs coloris de carrosserie. Différentes configurations de sellerie sont proposées afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "9 300 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 90 km",
+    "Places": "2 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "32 km/h"
+   },
+   "images": [
+    "/media/golfette-electrique-atlas-2.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "transport-de-personnes",
+    "golfette-utilitaire"
+   ]
+  },
+  {
+   "legacyId": "cmtk4zip90006nz084gzf0q2o",
+   "slug": "link-2-cargo-xl",
+   "name": "Link 2 Cargo XL",
+   "shortDescription": "Conçue pour transporter davantage de matériel tout en conservant un gabarit compact, la Link 2 Cargo XL associe 2 places à une benne arrière longue de 250 kg de capacité. Une solution particulièrement adaptée à l’entretien, la maintenance et aux besoins logistiques des hôtels, campings, domaines, golfs et sites professionnels.",
+   "description": "La Link 2 Cargo XL est une golfette électrique 2 places avec benne longue, conçue pour les professionnels ayant besoin d’un véritable espace de chargement tout en conservant la maniabilité d’un véhicule compact.\n\nSa principale différence réside dans sa grande benne arrière de 1100 × 1350 × 250 mm, capable de recevoir jusqu’à 250 kg de charge. Ses dimensions généreuses permettent de transporter facilement du matériel, de l’outillage, des équipements ou des marchandises lors des différentes interventions sur site.\n\nElle associe un moteur électrique AC de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Elle peut atteindre 32 km/h et offrir jusqu’à 80 km d’autonomie, pour accompagner les équipes dans leurs déplacements et leurs interventions tout au long de la journée.\n\nMalgré sa benne longue, la Link 2 Cargo XL conserve un format compact avec 3,18 m de longueur et seulement 1,18 m de largeur. Son rayon de braquage de 5 mètres lui permet de rester maniable dans les allées, les zones techniques et les espaces où les manœuvres peuvent être limitées.\n\nPensée pour une utilisation quotidienne, elle dispose de nombreux équipements de série : feux LED avant et arrière, clignotants, klaxon, prise 12 V, tableau de bord avec volant finition carbone, écran LED, indicateur de vitesse et kilométrique, feux Warning, marche avant/arrière, rétroviseurs et jantes aluminium.\n\nLa Link 2 Cargo XL est également disponible dans plusieurs coloris de carrosserie. La sellerie peut être personnalisée selon les configurations proposées, afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "9 700 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 80 km",
+    "Places": "2 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "32 km/h"
+   },
+   "images": [
+    "/media/golfette-electrique-link-2-cargo-xl.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "utilitaires"
+   ]
+  },
+  {
+   "legacyId": "cmtk4js3k0003nz08jscc5rgk",
+   "slug": "link-4-flex",
+   "name": "Link 4 Flex",
+   "shortDescription": "Polyvalente et compacte, la Link 4 Flex est une golfette électrique 4 places équipée d’une banquette arrière réversible. En quelques instants, elle permet de passer du transport de passagers au transport de matériel grâce à son plateau arrière, pour s’adapter facilement aux différents besoins du quotidien.",
+   "description": "La Link 4 Flex est une golfette électrique 4 places pensée pour offrir davantage de polyvalence au quotidien. Elle trouve naturellement sa place dans les hôtels, domaines, campings, golfs et grands espaces privés où les besoins peuvent évoluer entre transport de personnes et transport de matériel.\n\nSa principale particularité réside dans sa banquette arrière réversible. En configuration passagers, elle permet d’accueillir jusqu’à 4 personnes. Une fois rabattue, elle se transforme en plateau arrière d’une capacité annoncée de 150 kg, permettant de transporter facilement du matériel, des équipements ou des marchandises. Des ridelles amovibles sont également disponibles en option pour compléter cette configuration.\n\nElle associe un moteur électrique AC de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Elle peut atteindre 32 km/h et offrir jusqu’à 100 km d’autonomie, pour vous accompagner sereinement tout au long de la journée.\n\nAvec seulement 1,18 m de largeur et un rayon de braquage de 4 mètres, la Link 4 Flex conserve un gabarit compact et une bonne maniabilité malgré ses quatre places. Sa capacité de franchissement annoncée atteint 25 %.\n\nSon équipement de série comprend notamment des feux LED avant et arrière, des clignotants, un klaxon, une prise 12 V, un tableau de bord avec volant finition carbone, un écran LED, un indicateur de vitesse et kilométrique, des feux Warning, une marche avant/arrière, des rétroviseurs ainsi que des jantes aluminium.\n\nLa Link 4 Flex est également disponible dans plusieurs coloris de carrosserie. La sellerie peut être personnalisée selon les configurations proposées, afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "9 500 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5kWh",
+    "Autonomie": "Jusqu'à 100 km",
+    "Places": "4 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "32 km/h"
+   },
+   "images": [
+    "/media/golfette-electrique-link-4-flex.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "transport-de-personnes"
+   ]
+  },
+  {
+   "legacyId": "cmtk7t3xi0002mr09aa55se16",
+   "slug": "atlas-4-cargo",
+   "name": "Atlas 4 Cargo",
+   "shortDescription": "L’Atlas 4 Cargo est une golfette électrique 4 places avec benne arrière, pensée pour associer le transport de passagers au transport de matériel. Son châssis en aluminium, sa benne pouvant recevoir jusqu’à 250 kg et sa motorisation électrique de 5 kW en font un véhicule polyvalent pour les déplacements et les besoins logistiques sur site.",
+   "description": "L’Atlas 4 Cargo est une golfette électrique 4 places avec benne arrière, conçue pour associer le transport de personnes et de matériel au sein d’un même véhicule. Elle trouve naturellement sa place dans les hôtels, domaines, campings, sites touristiques, industriels ou grands espaces privés.\n\nSa conception repose sur un châssis en aluminium, l’une des caractéristiques distinctives de la gamme Atlas. Léger et résistant à la corrosion, il accompagne parfaitement la polyvalence du véhicule et son utilisation régulière sur site.\n\nL’Atlas 4 Cargo peut accueillir jusqu’à 4 personnes tout en conservant à l’arrière une benne de 1100 × 800 × 250 mm, capable de recevoir jusqu’à 250 kg de charge. Cette configuration permet d’accompagner une équipe tout en transportant de l’outillage, des équipements, des marchandises ou du matériel.\n\nElle associe un moteur électrique AC de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Elle peut atteindre 32 km/h et offrir jusqu’à 70 km d’autonomie, pour accompagner les déplacements et les différentes interventions au cours de la journée.\n\nAvec 3,67 m de longueur pour seulement 1,18 m de largeur, l’Atlas 4 Cargo conserve un gabarit adapté aux déplacements sur site. Son rayon de braquage de 5 mètres lui permet de rester maniable malgré sa capacité à transporter simultanément passagers et matériel.\n\nPensée pour une utilisation quotidienne, elle dispose de nombreux équipements de série : feux LED avant et arrière, clignotants, klaxon, prise 12 V, tableau de bord avec volant finition carbone, jantes aluminium, écran LED, indicateur de vitesse et kilométrique, feux Warning, marche avant/arrière et rétroviseurs.\n\nL’Atlas 4 Cargo est également disponible dans plusieurs coloris de carrosserie. La sellerie peut être personnalisée selon les configurations proposées, afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "10 500 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 70 km",
+    "Places": "4 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "32 km/h"
+   },
+   "images": [
+    "/media/golfette-electrique-atlas-4-cargo.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "utilitaires"
+   ]
+  },
+  {
+   "legacyId": "cmtk4sg3l0005nz08fdyzn0yl",
+   "slug": "link-4-cargo",
+   "name": "Link 4 Cargo",
+   "shortDescription": "Polyvalente et fonctionnelle, la Link 4 Cargo associe 4 places à une benne arrière de 250 kg de capacité. Elle permet de transporter simultanément passagers, matériel et équipements, une configuration particulièrement adaptée aux hôtels, campings, domaines, golfs et sites professionnels.",
+   "description": "La Link 4 Cargo est une golfette électrique 4 places avec benne arrière, pensée pour combiner transport de passagers et transport de matériel au sein d’un même véhicule.\nElle accueille jusqu’à 4 personnes tout en disposant d’une benne arrière de 1100 × 800 × 250 mm, capable de recevoir jusqu’à 250 kg de charge. Cette configuration en fait un véhicule particulièrement polyvalent pour les équipes techniques, l’entretien des espaces verts, la maintenance ou encore les déplacements quotidiens au sein des hôtels, campings, domaines, golfs et sites professionnels.\n\nElle associe un moteur électrique AC de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Elle peut atteindre 32 km/h et offrir jusqu’à 80 km d’autonomie, pour assurer les différents déplacements et interventions au cours de la journée.\n\nAvec 3,43 m de longueur pour seulement 1,18 m de largeur et un rayon de braquage de 5 mètres, la Link 4 Cargo conserve un gabarit compact malgré sa capacité de transport. Elle peut ainsi circuler facilement dans les allées et les espaces où la maniabilité reste essentielle.\n\nPensée pour une utilisation quotidienne, elle dispose de nombreux équipements de série : feux LED avant et arrière, clignotants, klaxon, prise 12 V, tableau de bord avec volant finition carbone, écran LED, indicateur de vitesse et kilométrique, feux Warning, marche avant/arrière, rétroviseurs et jantes aluminium.\n\nLa Link 4 Cargo est également disponible dans plusieurs coloris de carrosserie. La sellerie peut être personnalisée selon les configurations proposées, afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "9 900 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 80 km",
+    "Places": "4 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "32 km/h"
+   },
+   "images": [
+    "/media/golfette-electrique-link-4-cargo.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "utilitaires"
+   ]
+  },
+  {
+   "legacyId": "cmtk54h0z0007nz08nqp8htcb",
+   "slug": "link-6-flex",
+   "name": "Link 6 Flex",
+   "shortDescription": "Modulable et polyvalente, la Link 6 Flex est une golfette électrique pouvant accueillir jusqu’à 6 personnes. Sa banquette arrière réversible se transforme en plateau de chargement, permettant d’adapter rapidement le véhicule au transport de passagers comme de matériel.",
+   "description": "La Link 6 Flex est une golfette électrique 6 places à banquette arrière réversible, conçue pour s’adapter facilement aux différents besoins rencontrés au quotidien.\n\nEn configuration passagers, elle peut accueillir jusqu’à 6 personnes. Lorsque le transport de matériel devient nécessaire, la banquette arrière peut être rabattue pour former un plateau de chargement capable de recevoir jusqu’à 150 kg. Cette modularité permet d’utiliser un même véhicule pour le transport de personnes, de bagages, de petits équipements ou de matériel. Des ridelles amovibles sont également disponibles en option pour compléter le plateau.\n\nElle associe un moteur électrique AC de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Elle peut atteindre 32 km/h et offrir jusqu’à 75 km d’autonomie, pour accompagner les déplacements quotidiens dans les hôtels, campings, domaines, golfs, sites touristiques et professionnels.\n\nAvec 3,62 m de longueur pour seulement 1,18 m de largeur, la Link 6 Flex conserve un gabarit relativement compact au regard de sa capacité d’accueil. Son rayon de braquage de 5 mètres facilite les manœuvres dans les allées et les espaces où la maniabilité est essentielle.\n\nPensée pour une utilisation quotidienne, elle dispose de nombreux équipements de série : feux LED avant et arrière, clignotants, klaxon, prise 12 V, tableau de bord avec volant finition carbone, écran LED, indicateur de vitesse et kilométrique, feux Warning, marche avant/arrière, rétroviseurs et jantes aluminium.\n\nLa Link 6 Flex est également disponible dans plusieurs coloris de carrosserie. La sellerie peut être personnalisée selon les configurations proposées, afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "10 000 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 75 km",
+    "Places": "6 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "32 km/h"
+   },
+   "images": [
+    "/media/golfette-electrique-link-6-flex.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "transport-de-personnes"
+   ]
+  },
+  {
+   "legacyId": "cmtk592810008nz087cyh9sw0",
+   "slug": "link-6",
+   "name": "Link 6",
+   "shortDescription": "Spacieuse et confortable, la Link 6 est une golfette électrique 6 places conçue pour le transport de passagers. Avec ses six sièges orientés face à la route, elle constitue une solution idéale pour assurer les déplacements au sein des hôtels, campings, domaines, golfs, sites touristiques et grands espaces privés.",
+   "description": "La Link 6 est une golfette électrique 6 places pensée pour transporter confortablement plusieurs passagers au quotidien. Avec ses six sièges orientés face à la route, elle privilégie avant tout le confort et la simplicité pour les déplacements réguliers.\n\nSa capacité d’accueil en fait une solution particulièrement adaptée aux hôtels, campings, domaines, golfs, sites touristiques et grands espaces privés, notamment pour assurer le transport de clients, visiteurs ou collaborateurs.\n\nElle associe un moteur électrique AC de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Elle peut atteindre 32 km/h et offrir jusqu’à 90 km d’autonomie, pour assurer de nombreux déplacements au cours d’une même journée.\n\nAvec 3,86 m de longueur pour seulement 1,18 m de largeur, la Link 6 conserve une largeur contenue malgré ses six places. Son rayon de braquage de 6 mètres lui permet de rester adaptée aux déplacements dans les allées et sur les différents espaces d’un établissement.\n\nPensée pour une utilisation quotidienne, elle dispose de nombreux équipements de série : feux LED avant et arrière, clignotants, klaxon, prise 12 V, tableau de bord avec volant finition carbone, écran LED, indicateur de vitesse et kilométrique, feux Warning, marche avant/arrière, rétroviseurs et jantes aluminium.\n\nLa Link 6 est également disponible dans plusieurs coloris de carrosserie. La sellerie peut être personnalisée selon les configurations proposées, afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "10 000 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 90 km",
+    "Places": "6 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "32 km/h"
+   },
+   "images": [
+    "/media/golfette-electrique-link-6.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "transport-de-personnes"
+   ]
+  },
+  {
+   "legacyId": "cmtjvqcw80000qg08n7ycdscw",
+   "slug": "tracker-2-cargo",
+   "name": "Tracker 2 Cargo",
+   "shortDescription": "Robuste et polyvalent, le Tracker 2 Cargo est un véhicule électrique utilitaire 2 places conçu pour le transport de matériel sur tous types de sites. Sa benne généreuse et sa garde au sol surélevée en font un véritable outil de travail, aussi à l’aise sur les chemins que sur les zones aménagées.",
+   "description": "Le Tracker 2 Cargo est un véhicule électrique utilitaire 2 places pensé pour les professionnels ayant besoin de transporter du matériel sur des terrains variés. Avec son look tout-chemin, sa garde au sol de 250 mm et ses pneumatiques adaptés, il permet d’évoluer facilement sur les chemins, domaines, exploitations, espaces verts ou sites professionnels.\n\nSa benne arrière de 1 100 × 1 400 × 250 mm offre un espace de chargement particulièrement intéressant pour transporter outils, équipements, déchets verts ou marchandises. Le véhicule dispose d’une capacité de charge annoncée de 350 kg.\n\nLe Tracker 2 Cargo est équipé d’un moteur électrique AC de 5 kW, associé à une batterie Lithium 105 Ah garantie 5 ans. Il peut atteindre 32 km/h et offre une autonomie annoncée supérieure à 70 km, dans les conditions précisées sur la fiche technique.\n\nAvec une longueur de 3,56 m, une largeur de 1,34 m et un rayon de braquage de 5 m, il conserve des dimensions contenues tout en proposant une véritable capacité utilitaire. Sa capacité de franchissement annoncée atteint 20 %, renforçant sa vocation pour les utilisations sur terrains irréguliers.\n\nDe série, il bénéficie notamment d’un éclairage avant et arrière LED, de clignotants, d’un klaxon, d’une prise 12 V, d’un tableau de bord avec écran LED, d’un indicateur de vitesse, d’un kilométrage, de feux Warning ainsi que de rétroviseurs droit et gauche.\nPlusieurs coloris de carrosserie et configurations de sellerie sont disponibles afin d’adapter le Tracker 2 Cargo à votre activité ou à l'identité de votre établissement.\n\nEt parce qu’un véhicule professionnel doit pouvoir rester opérationnel, le SAV Alsimat intervient directement sur site pour assurer l’entretien, le diagnostic et le suivi du véhicule.",
+   "price": "10 100 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 70 km",
+    "Places": "2 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "32 km/h"
+   },
+   "images": [
+    "/media/golfette-electrique-tracker-2-cargo.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "utilitaires",
+    "tout-terrain",
+    "golfette-utilitaire"
+   ]
+  },
+  {
+   "legacyId": "cmtl4s3x30000qs087ks7bj6a",
+   "slug": "tracker-4-flex",
+   "name": "Tracker 4 Flex",
+   "shortDescription": "Le Tracker 4 Flex est une golfette électrique 4 places surélevée, pensée pour évoluer confortablement sur les chemins et terrains irréguliers. Sa banquette arrière réversible permet de passer du transport de passagers à un plateau arrière offrant une capacité de charge maximale de 150 kg, pour une utilisation particulièrement polyvalente.",
+   "description": "Le Tracker 4 Flex est une golfette électrique surélevée conçue pour offrir polyvalence et aisance sur les chemins et terrains irréguliers. Avec ses 4 places et sa garde au sol de 250 mm, il convient aussi bien aux déplacements de personnes qu’aux besoins des domaines, exploitations, sites de loisirs et grands espaces privés.\n\nSa banquette arrière réversible permet de transformer rapidement l’espace passagers en plateau de chargement, offrant une capacité de charge maximale de 150 kg. Cette configuration permet d’adapter le véhicule aux besoins du moment, qu’il s’agisse de transporter des personnes, du matériel ou différents équipements. Des ridelles amovibles sont également disponibles en option pour compléter le plateau arrière.\n\nLe Tracker 4 Flex associe un moteur électrique AC de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Il peut atteindre 32 km/h et offrir jusqu’à 70 km d’autonomie, pour accompagner les déplacements et les différentes missions au quotidien.\n\nAvec 2,95 m de longueur, 1,34 m de largeur et un rayon de braquage de 4 mètres, il conserve un format compact et maniable. Sa garde au sol de 250 mm, ses jantes aluminium et ses pneumatiques adaptés à cette configuration renforcent son positionnement de véhicule destiné aux déplacements sur chemins et grands espaces.\n\nLe Tracker 4 Flex est disponible dans plusieurs coloris de carrosserie. Plusieurs configurations de sellerie sont également proposées afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "10 300 €",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 70 km",
+    "Places": "4 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "32 km/h"
+   },
+   "images": [
+    "/media/golfette-electrique-tracker-4-flex.webp",
+    "/media/golfette-electrique-tracker-4-flex-2.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "tout-terrain",
+    "transport-de-personnes"
+   ]
+  },
+  {
+   "legacyId": "cmtk3l5ng0001nz08akuoh1j9",
+   "slug": "convoy-23",
+   "name": "Convoy 23",
+   "shortDescription": "Conçu pour le transport collectif, le Convoy 23 est une navette électrique grande capacité pouvant accueillir jusqu’à 23 personnes. Spacieux et silencieux, il constitue une solution idéale pour assurer les déplacements de groupes au sein des sites touristiques, parcs, domaines, complexes hôteliers ou grands sites privés.",
+   "description": "Le Convoy 23 est une navette électrique 23 places conçue pour assurer le transport régulier de groupes importants. Avec 1 conducteur et jusqu’à 22 passagers, il permet de déplacer un grand nombre de personnes en un seul trajet et répond particulièrement bien aux besoins des sites accueillant un flux important de visiteurs.\n\nSon architecture ouverte et ses différentes rangées de sièges facilitent la montée et la descente des passagers. Le Convoy 23 trouve ainsi naturellement sa place dans les sites touristiques, parcs, domaines, complexes hôteliers, sites événementiels ou grands espaces privés, où il permet d’organiser simplement les déplacements entre différents points.\nIl est équipé d’un moteur électrique AC de 16,6 kW associé à une batterie Lithium. Il peut atteindre 45 km/h et offrir jusqu’à 70 km d’autonomie, une configuration adaptée aux rotations et déplacements réalisés au cours de la journée.\n\nAvec une longueur de 5,95 m, une largeur de 1,95 m et un rayon de braquage de 6,5 mètres, le Convoy 23 dispose d’un gabarit adapté à sa capacité de transport. Sa capacité de franchissement annoncée atteint 15 %.\n\nSon équipement de série comprend notamment un pare-brise en verre renforcé, des rétroviseurs droit et gauche, un éclairage LED avant et arrière, des clignotants, des feux Warning, un klaxon, un tableau de bord avec écran LED, un indicateur de vitesse et kilométrique, un indicateur de charge batterie, une prise 12 V, un chargeur embarqué, un freinage hydraulique avant et arrière avec frein de stationnement ainsi que des jantes aluminium.\n\nLe Convoy 23 est également disponible dans plusieurs coloris de carrosserie et différentes configurations de sellerie, afin d’adapter la navette à l’identité de votre établissement ou de votre flotte.\n\nEt parce qu’un véhicule destiné au transport régulier de nombreux passagers doit rester disponible, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "38 600 € HT",
+   "characteristics": {
+    "Batterie": "Lithium",
+    "Autonomie": "Jusqu'à 70 km",
+    "Places": "23 personnes",
+    "Moteur": "16,6 kW - Electrique",
+    "Vitesse maximale": "45 km/h"
+   },
+   "images": [
+    "/media/bus-electrique-convoy-23.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "bus"
+   ]
+  },
+  {
+   "legacyId": "cmtl4y1i60001qs08qmb4fj79",
+   "slug": "tracker-6-flex",
+   "name": "Tracker 6 Flex",
+   "shortDescription": "Le Tracker 6 Flex est une golfette électrique 6 places surélevée, conçue pour associer capacité d’accueil et polyvalence sur les chemins et terrains irréguliers. Sa banquette arrière réversible permet de passer du transport de passagers à un plateau arrière offrant une capacité de charge maximale de 150 kg.",
+   "description": "Le Tracker 6 Flex est une golfette électrique surélevée conçue pour transporter jusqu’à 6 personnes tout en conservant une grande polyvalence d’utilisation. Avec sa garde au sol de 250 mm, il est particulièrement adapté aux déplacements sur les chemins, terrains irréguliers, domaines, exploitations, sites de loisirs et grands espaces privés.\n\nSa banquette arrière réversible permet de transformer rapidement l’espace passagers en plateau de chargement, offrant une capacité de charge maximale de 150 kg. Cette configuration permet d’adapter le véhicule aux besoins du moment, qu’il s’agisse de transporter des personnes, du matériel ou différents équipements. Des ridelles amovibles sont également disponibles en option pour compléter le plateau arrière.\n\nLe Tracker 6 Flex associe un moteur électrique AC de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Il peut atteindre 32 km/h et offrir jusqu’à 70 km d’autonomie, pour accompagner les déplacements et les différentes missions au quotidien.\n\nAvec 3,56 m de longueur, 1,34 m de largeur et un rayon de braquage de 5 mètres, il conserve une bonne maniabilité malgré ses 6 places. Sa garde au sol de 250 mm, ses jantes aluminium et sa configuration surélevée lui permettent d’être à l’aise sur les chemins et les grands espaces.\n\nLe Tracker 6 Flex est disponible dans plusieurs coloris de carrosserie. Plusieurs configurations de sellerie sont également proposées afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "10 800 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 70 km",
+    "Places": "6 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "32 km/h"
+   },
+   "images": [
+    "/media/golfette-electrique-tracker-6-flex.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "transport-de-personnes",
+    "tout-terrain"
+   ]
+  },
+  {
+   "legacyId": "cmtk4da0g0002nz08ins6gatm",
+   "slug": "convoy-29",
+   "name": "Convoy 29",
+   "shortDescription": "Pensé pour le transport de groupes importants, le Convoy 29 est un ensemble électrique composé d’une navette de 14 places et d’une remorque de 15 places. Avec une capacité totale de 29 personnes, il constitue une solution particulièrement adaptée aux sites touristiques, parcs, domaines et grands sites accueillant d’importants flux de visiteurs.",
+   "description": "Le Convoy 29 est une solution de transport collectif électrique pouvant accueillir jusqu’à 29 personnes. Sa conception associe une navette principale de 14 places à une remorque de 15 places, permettant de transporter un groupe important en un seul ensemble.\n\nCette configuration est particulièrement adaptée aux sites touristiques, parcs, domaines, complexes de loisirs, sites événementiels ou grands espaces privés, où les déplacements de visiteurs nécessitent une capacité importante. Son architecture ouverte facilite également la montée et la descente des passagers lors des rotations régulières.\n\nLe Convoy 29 est équipé d’une motorisation électrique AC alimentée en 72 V, développant 6,3 kW. Il peut atteindre 40 km/h et offrir jusqu’à 90 km d’autonomie, pour assurer les différents déplacements au cours de la journée.\n\nL’ensemble affiche une capacité de charge annoncée de 1 120 kg et une capacité de franchissement de 10 %. La navette et sa remorque mesurent chacune environ 5 mètres de longueur, pour une largeur de 1,49 m.\n\nSon équipement de série comprend notamment un pare-brise en verre renforcé, des rétroviseurs latéraux droit et gauche, un éclairage complet avec phares, clignotants, feux arrière et feux stop, un compteur de vitesse et kilométrique, des freins hydrauliques avant et arrière ainsi qu’un frein de stationnement.\n\nLe Convoy 29 est également disponible dans plusieurs coloris de carrosserie et différentes configurations de sellerie, afin d’adapter l’ensemble à l’identité de votre établissement ou de votre flotte.\n\nEt parce qu’un véhicule destiné au transport régulier d’un grand nombre de passagers doit rester disponible, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "34 000 € HT",
+   "characteristics": {
+    "Batterie": "Lithium",
+    "Autonomie": "Jusqu'à 90 km",
+    "Places": "29 personnes",
+    "Moteur": "6,3 kW - Electrique",
+    "Vitesse maximale": "40 km/h"
+   },
+   "images": [
+    "/media/bus-electrique-convoy-29.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "bus"
+   ]
+  },
+  {
+   "legacyId": "cmtkaap5d0009mr09tehnj62v",
+   "slug": "urban-4-cargo",
+   "name": "Urban 4 Cargo",
+   "shortDescription": "L’Urban 4 Cargo est un véhicule électrique 4 places homologué route, conçu pour associer transport de personnes et utilisation utilitaire. Sa benne arrière, offrant une capacité de charge maximale de 250 kg, permet de transporter facilement matériel et équipements tout en conservant un véhicule compact et polyvalent.",
+   "description": "L’Urban 4 Cargo est un véhicule électrique homologué route conçu pour associer transport de personnes et capacité de chargement au sein d’un même véhicule. Avec ses 4 places et sa benne arrière, il répond particulièrement bien aux besoins des professionnels, collectivités, sites touristiques, domaines et établissements recherchant un véhicule polyvalent pour leurs déplacements quotidiens.\nSa benne de 1100 x 800 x 250 mm offre une capacité de charge maximale de 250 kg. Elle permet ainsi de transporter du matériel, de l’outillage, des fournitures ou différents équipements tout en conservant trois places passagers en plus du conducteur.\n\nL’Urban 4 Cargo associe un moteur électrique AC de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Il peut atteindre 40 km/h et offrir jusqu’à 100 km d’autonomie, pour accompagner les déplacements et les différentes missions tout au long de la journée.\n\nAvec 3,40 m de longueur pour seulement 1,20 m de largeur et un rayon de braquage de 4,5 mètres, son gabarit reste compact et maniable malgré sa capacité d’accueil et sa benne. Son homologation L7e lui permet également d’être utilisé sur route, apportant davantage de polyvalence dans les déplacements.\n\nL’Urban 4 Cargo est disponible dans plusieurs coloris de carrosserie. Plusieurs configurations de sellerie sont également proposées afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "11 600 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 100 km",
+    "Places": "4 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "40 km/h",
+    "Permis de conduire": "Permis B"
+   },
+   "images": [
+    "/media/golfette-electrique-urban-4-cargo.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "utilitaires",
+    "homologues-route"
+   ]
+  },
+  {
+   "legacyId": "cmtk7zudp0004mr09lbfyemi3",
+   "slug": "atlas-6-flex",
+   "name": "Atlas 6 Flex",
+   "shortDescription": "L’Atlas 6 Flex est une golfette électrique 6 places à banquette arrière réversible, capable de passer facilement du transport de passagers au transport de matériel. Son châssis en aluminium, sa motorisation électrique de 5 kW et son plateau arrière pouvant supporter jusqu’à 150 kg en font un véhicule particulièrement polyvalent pour les déplacements quotidiens sur site.",
+   "description": "L’Atlas 6 Flex est une golfette électrique 6 places pensée pour s’adapter aux différents besoins d’une même journée. Elle trouve naturellement sa place dans les hôtels, domaines, campings, sites touristiques et grands espaces privés où les besoins peuvent alterner entre transport de personnes et transport de matériel.\n\nSa conception repose sur un châssis en aluminium, l’une des caractéristiques distinctives de la gamme Atlas. Léger et résistant à la corrosion, il s’intègre parfaitement à la conception du véhicule et à son utilisation régulière sur site.\n\nLa particularité de l’Atlas 6 Flex réside dans sa banquette arrière réversible. En configuration passagers, elle permet d’accueillir jusqu’à 6 personnes. Une fois rabattue, elle se transforme en plateau arrière capable de supporter jusqu’à 150 kg, permettant de transporter du matériel, des bagages, des équipements ou différentes marchandises. Des ridelles amovibles sont également disponibles en option pour compléter cette configuration.\n\nElle associe un moteur électrique AC de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Elle peut atteindre 32 km/h et offrir jusqu’à 70 km d’autonomie, pour accompagner les différents déplacements et besoins au cours de la journée.\n\nAvec 3,67 m de longueur pour seulement 1,18 m de largeur et un rayon de braquage de 5 mètres, l’Atlas 6 Flex conserve un gabarit adapté aux déplacements sur site malgré sa capacité d’accueil de 6 personnes.\n\nPensée pour une utilisation quotidienne, elle dispose de nombreux équipements de série : feux LED avant et arrière, clignotants, klaxon, prise 12 V, tableau de bord avec volant finition carbone, jantes aluminium, écran LED, indicateur de vitesse et kilométrique, feux Warning, marche avant/arrière et rétroviseurs.\n\nL’Atlas 6 Flex est également disponible dans plusieurs coloris de carrosserie. La sellerie peut être personnalisée selon les configurations proposées, afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "10 600 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 70 km",
+    "Places": "6 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "32 km/h"
+   },
+   "images": [
+    "/media/golfette-electrique-atlas-6-flex.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "transport-de-personnes"
+   ]
+  },
+  {
+   "legacyId": "cmtk84ewr0005mr09wk1y2yz8",
+   "slug": "urban-2-cargo",
+   "name": "Urban 2 Cargo",
+   "shortDescription": "L’Urban 2 Cargo est un véhicule électrique 2 places avec benne arrière, homologué route L7e, conçu pour associer déplacements et transport de matériel. Compact et maniable, il dispose d’une benne pouvant recevoir jusqu’à 250 kg, d’un moteur électrique de 5 kW et peut atteindre 40 km/h, pour répondre aux besoins des professionnels aussi bien sur site que sur route.",
+   "description": "L’Urban 2 Cargo est un véhicule électrique 2 places avec benne arrière, homologué route L7e, pensé pour les professionnels qui recherchent une solution compacte pour leurs déplacements et le transport quotidien de matériel. Il trouve naturellement sa place auprès des collectivités, entreprises, hôtels, domaines, campings, sites industriels et autres établissements ayant besoin d’un véhicule utilitaire polyvalent.\n\nSon homologation route L7e lui permet d’aller au-delà d’une utilisation exclusivement sur site et d’emprunter les voies ouvertes à la circulation dans le respect des conditions liées à son homologation. Une vraie polyvalence pour les professionnels dont les déplacements peuvent alterner entre espaces privés et réseau routier.\n\nÀ l’arrière, l’Urban 2 Cargo dispose d’une benne de 1100 × 800 × 250 mm pouvant recevoir jusqu’à 250 kg. Elle permet de transporter facilement de l’outillage, du matériel d’entretien, des marchandises ou différents équipements tout en conservant un véhicule particulièrement compact.\n\nIl associe un moteur électrique AC de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Il peut atteindre 40 km/h et offrir jusqu’à 100 km d’autonomie, pour accompagner les différents déplacements et interventions au cours de la journée.\n\nAvec seulement 2,73 m de longueur et 1,20 m de largeur, associé à un rayon de braquage de 4 mètres, l’Urban 2 Cargo conserve un gabarit particulièrement compact. Il est ainsi adapté aux déplacements dans les allées, les zones techniques, les espaces urbains ou les environnements où les manœuvres sont fréquentes.\n\nPensé pour une utilisation quotidienne, il dispose de nombreux équipements de série : pare-brise en verre, rétroviseurs latéraux droit et gauche, éclairage complet, feux stop, compteur de vitesse et kilométrique, freinage hydraulique, frein de stationnement, jantes aluminium 10x6 et pneus 205/50-10 4PR.\n\nL’Urban 2 Cargo est également disponible dans plusieurs coloris de carrosserie. La sellerie peut être personnalisée selon les configurations proposées, afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "10 800 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 100 km",
+    "Places": "2 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Permis requis": "B",
+    "Vitesse maximale": "40 km/h"
+   },
+   "images": [
+    "/media/golfette-electrique-urban-2-cargo.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "utilitaires",
+    "homologues-route"
+   ]
+  },
+  {
+   "legacyId": "cmtl5n0ic0004qs08mwot8em7",
+   "slug": "roadland-2-cargo-xl",
+   "name": "Roadland 2 Cargo XL",
+   "shortDescription": "La Roadland 2 Cargo XL est une golfette électrique 2 places homologuée route, conçue pour associer mobilité sur site et transport de matériel. Sa grande benne arrière offre une capacité de charge maximale de 350 kg, tandis que son moteur AC de 5 kW et sa batterie Lithium 105 Ah en font une solution polyvalente pour les domaines, sites professionnels et grands espaces privés.",
+   "description": "La Roadland 2 Cargo XL est une golfette électrique 2 places homologuée route, pensée pour les professionnels ayant besoin d’un véhicule compact capable d’assurer à la fois les déplacements sur site et le transport de matériel.\n\nSa principale particularité réside dans sa grande benne arrière de 1 100 × 1 400 × 250 mm, offrant une capacité de charge maximale de 350 kg. Elle permet ainsi de transporter facilement du matériel, de l’outillage, des équipements ou différentes marchandises directement sur site.\n\nElle associe un moteur électrique AC de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Elle peut atteindre 40 km/h et offrir jusqu’à 100 km d’autonomie, pour accompagner les différentes missions réalisées au cours de la journée.\n\nAvec 3,42 m de longueur, 1,29 m de largeur et un rayon de braquage de 5 mètres, la Roadland 2 Cargo XL conserve un gabarit compact et maniable malgré sa capacité de chargement. Sa garde au sol de 250 mm contribue également à sa polyvalence sur différents types de sites.\n\nElle bénéficie de série d’un équipement complet comprenant notamment un pare-brise en verre, des rétroviseurs latéraux, un éclairage complet avec phares, clignotants et feux arrière, un compteur de vitesse et kilométrique, un freinage hydraulique, un frein de stationnement ainsi que des jantes aluminium.\n\nLa Roadland 2 Cargo XL est disponible dans plusieurs coloris de carrosserie. Plusieurs configurations de sellerie sont également proposées afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "12 100 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 100 km",
+    "Places": "2 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "40 km/h",
+    "Permis de conduire": "Permis B"
+   },
+   "images": [
+    "/media/golfette-electrique-roadland-2-cargo-xl.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "tout-terrain",
+    "utilitaires",
+    "homologues-route"
+   ]
+  },
+  {
+   "legacyId": "cmtl6847c0007qs08w6w08tyq",
+   "slug": "shuttle-11-pro",
+   "name": "Shuttle 11 Pro",
+   "shortDescription": "Le Shuttle 11 Pro est une navette électrique 11 places conçue pour le transport de passagers sur les grands sites. Sa configuration avec l’ensemble des sièges orientés dans le sens de la marche offre une disposition particulièrement adaptée au transport de visiteurs, clients ou équipes au sein des hôtels, domaines, sites touristiques, industriels et événementiels.",
+   "description": "Le Shuttle 11 Pro est une navette électrique 11 places pensée pour assurer le transport de passagers au sein des grands sites. Sa capacité d’accueil et sa configuration en font une solution particulièrement adaptée aux hôtels, domaines, sites touristiques, industriels, événementiels et aux établissements organisant régulièrement le déplacement de groupes.\n\nSa particularité réside dans la disposition de ses sièges, tous orientés dans le sens de la marche. Le Shuttle 11 Pro peut accueillir un conducteur et 10 passagers dans une configuration entièrement dédiée au transport collectif. Ses larges accès facilitent également la montée et la descente des passagers lors des différentes rotations.\n\nIl associe un moteur électrique AC de 7 kW à une batterie Lithium. Il peut atteindre 42 km/h et offrir jusqu’à 110 km d’autonomie, permettant d’assurer de nombreuses rotations et déplacements sur site au cours de la journée.\n\nAvec 5 mètres de longueur et 1,49 m de largeur, le Shuttle 11 Pro offre un espace important dédié au transport de passagers. Son rayon de braquage de 6 mètres et sa capacité à franchir des pentes jusqu’à 20 % lui permettent de s’adapter aux contraintes de nombreux sites.\n\nIl bénéficie de série d’un équipement complet comprenant notamment un éclairage LED avant et arrière, des clignotants et feux warning, un klaxon, un pare-brise en verre renforcé, des rétroviseurs, un tableau de bord avec écran LED, un indicateur de vitesse et kilométrique, un indicateur de charge batterie, un freinage hydraulique avant et arrière avec frein de stationnement ainsi que des jantes aluminium.\n\nLe Shuttle 11 Pro est disponible dans plusieurs coloris de carrosserie et différentes configurations de sellerie, afin d’adapter la navette à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "18 900 € HT",
+   "characteristics": {
+    "Batterie": "Lithium",
+    "Autonomie": "Jusqu'à 110 km",
+    "Places": "11 personnes",
+    "Moteur": "7 kW - Electrique",
+    "Vitesse maximale": "42 km/h"
+   },
+   "images": [
+    "/media/bus-electrique-shuttle-11-pro.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "bus"
+   ]
+  },
+  {
+   "legacyId": "cmtk8c9ep0007mr090heebq11",
+   "slug": "urban-6-flex",
+   "name": "Urban 6 Flex",
+   "shortDescription": "L’Urban 6 Flex est un véhicule électrique 6 places homologué route, conçu pour s’adapter facilement aux différents besoins du quotidien. Grâce à sa banquette arrière réversible, il peut privilégier le transport de passagers ou offrir un plateau arrière capable de supporter jusqu’à 150 kg de charge.",
+   "description": "L’Urban 6 Flex est un véhicule électrique homologué route pensé pour offrir une grande polyvalence d’utilisation. Avec ses 6 places et sa banquette arrière réversible, il s’adapte aussi bien au transport de personnes qu’aux besoins ponctuels de transport de matériel.\n\nSa banquette arrière peut être transformée en plateau de chargement, offrant une capacité de charge maximale de 150 kg. Cette configuration permet de passer facilement d’un véhicule destiné au transport de passagers à une solution plus utilitaire selon les besoins de la journée. Des ridelles amovibles sont également proposées en option pour compléter le plateau arrière.\n\nL’Urban 6 Flex associe un moteur électrique AC de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Il peut atteindre 40 km/h et offrir jusqu’à 100 km d’autonomie, pour accompagner les déplacements et les différentes missions tout au long de la journée.\n\nAvec 3,71 m de longueur pour seulement 1,20 m de largeur et un rayon de braquage de 4,5 mètres, l’Urban 6 Flex conserve un gabarit maniable malgré sa capacité d’accueil. Son homologation L7e lui permet également d’être utilisé sur route, apportant davantage de polyvalence dans les déplacements.\n\nL’Urban 6 Flex est disponible dans plusieurs coloris de carrosserie. Plusieurs configurations de sellerie sont également proposées afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "11 900 €",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 100 km",
+    "Places": "6 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "40 km/h",
+    "Permis de conduire": "Permis B"
+   },
+   "images": [
+    "/media/golfette-electrique-urban-6-flex.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "transport-de-personnes",
+    "homologues-route"
+   ]
+  },
+  {
+   "legacyId": "cmtl51pny0002qs0891o7ws6z",
+   "slug": "tracker-8-flex",
+   "name": "Tracker 8 Flex",
+   "shortDescription": "Le Tracker 8 Flex est une golfette électrique surélevée pouvant accueillir jusqu’à 8 personnes, pensée pour les déplacements de groupes sur les chemins et terrains irréguliers. Sa banquette arrière réversible permet également de créer un plateau arrière offrant une capacité de charge maximale de 150 kg, pour davantage de polyvalence au quotidien.",
+   "description": "Le Tracker 8 Flex est une golfette électrique surélevée conçue pour transporter jusqu’à 8 personnes tout en conservant la polyvalence propre à la gamme Flex. Sa garde au sol de 250 mm et sa configuration surélevée en font une solution particulièrement adaptée aux déplacements sur les chemins, terrains irréguliers, domaines, exploitations, sites de loisirs et grands espaces privés.\n\nSa banquette arrière réversible permet de transformer rapidement l’espace passagers en plateau de chargement, offrant une capacité de charge maximale de 150 kg. Cette configuration permet d’adapter le véhicule aux besoins du moment, qu’il s’agisse de transporter des personnes, du matériel ou différents équipements. Des ridelles amovibles sont également disponibles en option pour compléter le plateau arrière.\n\nLe Tracker 8 Flex associe un moteur électrique AC de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Il peut atteindre 32 km/h et offrir jusqu’à 65 km d’autonomie, pour accompagner les déplacements et les différentes missions au quotidien.\n\nAvec 4,37 m de longueur, 1,34 m de largeur et un rayon de braquage de 6 mètres, ses dimensions sont adaptées à sa capacité d’accueil de 8 personnes. Sa garde au sol de 250 mm, ses jantes aluminium et sa configuration surélevée lui permettent d’être à l’aise sur les chemins et les grands espaces.\n\nLe Tracker 8 Flex est disponible dans plusieurs coloris de carrosserie. Plusieurs configurations de sellerie sont également proposées afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "11 100 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 65 km",
+    "Places": "8 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "32 km/h"
+   },
+   "images": [
+    "/media/golfette-electrique-tracker-8-flex.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "transport-de-personnes",
+    "tout-terrain"
+   ]
+  },
+  {
+   "legacyId": "cmtl5ciam0003qs0868umolph",
+   "slug": "tracker-4-cross",
+   "name": "Tracker 4 Cross",
+   "shortDescription": "Le Tracker 4 Cross est un véhicule électrique 4x4 4 places conçu pour évoluer sur les chemins et terrains plus exigeants. Avec sa garde au sol de 300 mm, sa capacité à franchir des pentes jusqu’à 30 % et son plateau arrière offrant une capacité de charge maximale de 150 kg, il associe capacité de franchissement et polyvalence pour les déplacements et les missions sur site.",
+   "description": "Le Tracker 4 Cross est un véhicule électrique 4x4 conçu pour évoluer sur les chemins et terrains plus exigeants. Sa transmission 4x4, sa garde au sol de 300 mm et sa capacité à franchir des pentes jusqu’à 30 % en font une solution particulièrement adaptée aux domaines, exploitations, grands espaces privés et sites nécessitant davantage de capacités de franchissement.\n\nIl peut accueillir jusqu’à 4 personnes et dispose d’un plateau arrière offrant une capacité de charge maximale de 150 kg. Cette configuration permet d’associer transport de passagers et transport de matériel ou d’équipements au sein d’un même véhicule. Des ridelles amovibles sont également proposées en option pour compléter le plateau arrière.\n\nLe Tracker 4 Cross associe un moteur électrique AC de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Il peut atteindre 40 km/h et offrir jusqu’à 60 km d’autonomie, pour répondre aux différents besoins de déplacement et d’intervention au quotidien.\n\nAvec 2,95 m de longueur, 1,34 m de largeur et un rayon de braquage de 5 mètres, il conserve un format compact et maniable. Sa garde au sol de 300 mm et sa transmission 4x4 lui permettent d’évoluer avec davantage d’aisance sur les chemins et terrains difficiles.\n\nLe Tracker 4 Cross est disponible dans plusieurs coloris de carrosserie. Plusieurs configurations de sellerie sont également proposées afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "14 000 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 60 km",
+    "Places": "4 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "40 km/h"
+   },
+   "images": [
+    "/media/golfette-electrique-tracker-4-cross.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "tout-terrain"
+   ]
+  },
+  {
+   "legacyId": "cmtk87qt40006mr09vh7o7mxk",
+   "slug": "urban-4",
+   "name": "Urban 4",
+   "shortDescription": "L’Urban 4 est un véhicule électrique 4 places homologué route L7e, conçu pour transporter confortablement plusieurs passagers avec des sièges tous orientés dans le sens de la marche. Compact et silencieux, il associe un moteur électrique de 5 kW, une batterie Lithium 105 Ah et une vitesse maximale de 40 km/h, pour faciliter les déplacements aussi bien sur site que sur route.",
+   "description": "L’Urban 4 est un véhicule électrique 4 places homologué route L7e, pensé pour assurer le transport quotidien de passagers de manière confortable et silencieuse. Il trouve naturellement sa place dans les hôtels, domaines, campings, sites touristiques, entreprises ou grands espaces privés nécessitant également la possibilité d’emprunter la route.\n\nSa configuration accueille jusqu’à 4 personnes avec l’ensemble des sièges orientés dans le sens de la marche. Cette disposition permet de conserver une configuration simple et confortable pour le transport de clients, visiteurs ou collaborateurs.\n\nSon homologation route L7e lui permet d’aller au-delà d’une utilisation exclusivement sur site et d’emprunter les voies ouvertes à la circulation dans le respect des conditions liées à son homologation. L’Urban 4 peut ainsi assurer des déplacements entre différents sites ou bâtiments sans nécessairement rester cantonné à un espace privé.\n\nIl associe un moteur électrique AC de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Il peut atteindre 40 km/h et offrir jusqu’à 100 km d’autonomie, pour accompagner sereinement les différents déplacements au cours de la journée.\n\nAvec 3,15 m de longueur pour seulement 1,20 m de largeur et un rayon de braquage de 4,5 mètres, l’Urban 4 conserve un gabarit compact malgré ses quatre places. Il reste ainsi adapté aux allées, aux zones de circulation étroites et aux environnements où la maniabilité est importante.\n\nPensé pour une utilisation quotidienne, il dispose de nombreux équipements de série : pare-brise en verre, rétroviseurs latéraux droit et gauche, éclairage complet, feux stop, compteur de vitesse et kilométrique, freinage hydraulique, frein de stationnement, jantes aluminium 10x6 et pneus 205/50-10 4PR.\n\nL’Urban 4 est également disponible dans plusieurs coloris de carrosserie. La sellerie peut être personnalisée selon les configurations proposées, afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "11 300 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 100 km",
+    "Places": "4 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "40 km/h",
+    "Permis de conduire": "Permis B"
+   },
+   "images": [
+    "/media/golfette-electrique-urban-4.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "transport-de-personnes",
+    "homologues-route"
+   ]
+  },
+  {
+   "legacyId": "cmtk8gx450008mr091xs1bm5b",
+   "slug": "urban-2-cargo-xl",
+   "name": "Urban 2 Cargo XL",
+   "shortDescription": "L’Urban 2 Cargo XL est un véhicule utilitaire électrique 2 places homologué route L7e, équipé d’une grande benne de 1 400 mm de long capable de transporter jusqu’à 350 kg. Avec son moteur de 5 kW, sa batterie Lithium 105 Ah et une vitesse maximale de 40 km/h, il combine capacité de chargement, format compact et possibilité de circuler sur route.",
+   "description": "L’Urban 2 Cargo XL est un véhicule utilitaire électrique 2 places homologué route L7e, conçu pour les professionnels ayant besoin d’une capacité de transport importante tout en conservant un véhicule compact et maniable.\nSa principale caractéristique est sa grande benne arrière de 1 100 × 1 400 × 250 mm, offrant une capacité de charge allant jusqu’à 350 kg. Elle permet de transporter facilement de l’outillage, du matériel, des fournitures, des déchets verts ou différents équipements. Cette configuration en fait une solution particulièrement adaptée aux collectivités, services techniques, campings, domaines, sites industriels, espaces verts ou établissements touristiques.\n\nSon homologation route L7e apporte une véritable polyvalence d'utilisation. L’Urban 2 Cargo XL peut ainsi assurer les déplacements à l’intérieur d’un site tout en permettant les trajets nécessitant d’emprunter les voies ouvertes à la circulation, dans le respect des conditions liées à son homologation.\n\nIl est équipé d’un moteur électrique AC de 5 kW alimenté par une batterie Lithium 105 Ah garantie 5 ans. Sa vitesse maximale atteint 40 km/h et son autonomie annoncée dépasse 100 km*, permettant d’assurer de nombreuses missions au cours d’une même journée.\n\nMalgré sa grande benne, l’Urban 2 Cargo XL conserve des dimensions contenues avec 3,42 m de longueur et seulement 1,20 m de largeur. Son rayon de braquage de 4,5 mètres facilite les manœuvres dans les allées, cours, zones techniques ou espaces où un utilitaire traditionnel peut rapidement devenir encombrant.\n\nPensé pour une utilisation professionnelle quotidienne, il bénéficie de nombreux équipements de série : pare-brise en verre, rétroviseurs latéraux droit et gauche, éclairage complet, clignotants, feux arrière et feux stop, compteur de vitesse et kilométrique, freinage hydraulique, frein de stationnement, jantes aluminium 10x6 et pneus 205/50-10 4PR.\n\nL’Urban 2 Cargo XL est également proposé dans plusieurs coloris de carrosserie et différentes finitions de sellerie, permettant d’adapter le véhicule à l’image de votre établissement ou de votre flotte.\n\nEt parce qu’un véhicule professionnel doit pouvoir rester disponible au quotidien, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi du véhicule.",
+   "price": "11 300 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 100 km",
+    "Places": "2 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "40 km/h",
+    "Permis de conduire": "Permis B"
+   },
+   "images": [
+    "/media/golfette-electrique-urban-2-cargo-xl.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "utilitaires",
+    "homologues-route"
+   ]
+  },
+  {
+   "legacyId": "cmtlbbt6i0007rv08q26umjkn",
+   "slug": "urban-4-flex",
+   "name": "Urban 4 Flex",
+   "shortDescription": "L’Urban 4 Flex est un véhicule électrique homologué route L7e conçu pour transporter jusqu’à 4 personnes. Sa banquette arrière réversible permet de transformer rapidement l’espace arrière en plateau de chargement offrant une capacité de charge maximale de 150 kg, pour s’adapter facilement aux différents besoins sur site.",
+   "description": "L’Urban 4 Flex est un véhicule électrique homologué route L7e, pensé pour offrir une solution polyvalente aussi bien pour le transport de personnes que pour celui de matériel. Sa configuration compacte le rend particulièrement adapté aux hôtels, domaines, campings, sites touristiques, industriels, collectivités et grands espaces privés.\nSa principale particularité réside dans sa banquette arrière réversible. En configuration passagers, l’Urban 4 Flex peut accueillir un conducteur et trois passagers. Lorsque le transport de matériel devient prioritaire, la partie arrière peut être transformée en plateau offrant une capacité de charge maximale de 150 kg. Des ridelles amovibles sont également disponibles en option pour compléter cette configuration.\nL’Urban 4 Flex associe un moteur électrique AC 48 V de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Il peut atteindre 40 km/h et offrir jusqu’à 100 km d’autonomie, pour assurer les différents déplacements et besoins de transport au cours de la journée.\nAvec seulement 2,96 m de longueur et 1,20 m de largeur, son gabarit compact facilite les déplacements dans les espaces où la maniabilité est essentielle. Son rayon de braquage de 4 mètres et sa capacité à franchir des pentes jusqu’à 20 % renforcent sa polyvalence sur différents types de sites.\nSon équipement de série comprend notamment un pare-brise en verre, des rétroviseurs latéraux droit et gauche, un éclairage complet avec phares, clignotants, feux arrière, feux de recul et feux stop, un compteur de vitesse et kilométrique, un freinage hydraulique, un frein de stationnement ainsi que des jantes aluminium 10 pouces.\nL’Urban 4 Flex est disponible dans plusieurs coloris de carrosserie et différentes configurations de sellerie, afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "11 100 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 100 km",
+    "Places": "4 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "40 km/h",
+    "Permis de conduire": "Permis B"
+   },
+   "images": [
+    "/media/golfette-electrique-urban-4-flex.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "transport-de-personnes",
+    "homologues-route"
+   ]
+  },
+  {
+   "legacyId": "cmtl6fr5z0000rv088ip7vp8v",
+   "slug": "shuttle-11-pmr",
+   "name": "Shuttle 11 PMR",
+   "shortDescription": "Le Shuttle 11 PMR est une navette électrique 11 places spécialement conçue pour faciliter le transport de passagers sur les grands sites tout en intégrant l’accueil des personnes à mobilité réduite. Sa configuration accessible en fait une solution adaptée aux hôtels, domaines, sites touristiques, industriels et événementiels souhaitant proposer une mobilité adaptée à tous leurs visiteurs.",
+   "description": "Le Shuttle 11 PMR est une navette électrique 11 places pensée pour faciliter le transport de passagers au sein des grands sites tout en répondant aux besoins d’accessibilité des personnes à mobilité réduite.\n\nSa configuration spécifique intègre un espace permettant l’accueil d’une personne en fauteuil roulant ainsi qu’un dispositif d’accès latéral visible sur la fiche technique. Elle permet ainsi aux hôtels, domaines, sites touristiques, industriels ou événementiels de disposer d’une solution de transport collectif adaptée à différents profils de passagers.\n\nLe Shuttle 11 PMR associe un moteur électrique AC de 7 kW à une batterie Lithium. Il peut atteindre 42 km/h et offrir jusqu’à 110 km d’autonomie, permettant d’assurer de nombreuses rotations et déplacements sur site au cours de la journée.\n\nAvec 5 mètres de longueur et 1,49 m de largeur, il dispose d’un gabarit adapté au transport collectif et à son aménagement PMR. Son rayon de braquage de 6 mètres et sa capacité à franchir des pentes jusqu’à 20 % lui permettent de s’adapter aux contraintes de nombreux sites.\n\nIl bénéficie de série d’un équipement complet comprenant notamment un éclairage LED avant et arrière, des clignotants et feux warning, un klaxon, un pare-brise en verre renforcé, des rétroviseurs, un tableau de bord avec écran LED, un indicateur de vitesse et kilométrique, un indicateur de charge batterie, un freinage hydraulique avant et arrière avec frein de stationnement ainsi que des jantes aluminium.\n\nLe Shuttle 11 PMR est disponible dans plusieurs coloris de carrosserie et différentes configurations de sellerie, afin d’adapter la navette à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "20 800 € HT",
+   "characteristics": {
+    "Batterie": "Lithium",
+    "Autonomie": "Jusqu'à 110 km",
+    "Places": "11 personnes",
+    "Moteur": "7 kW - Electrique",
+    "Vitesse maximale": "42 km/h"
+   },
+   "images": [
+    "/media/bus-electrique-shuttle-11-pmr.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "bus",
+    "medical-pmr"
+   ]
+  },
+  {
+   "legacyId": "cmtl6jr2z0001rv08rl59unix",
+   "slug": "shuttle-14",
+   "name": "Shuttle 14",
+   "shortDescription": "Le Shuttle 14 est une navette électrique 14 places conçue pour assurer le transport de groupes sur les grands sites. Sa capacité d’accueil permet de déplacer efficacement visiteurs, clients ou équipes au sein des hôtels, domaines, sites touristiques, industriels et événementiels, tout en bénéficiant d’une motorisation entièrement électrique.",
+   "description": "Le Shuttle 14 est une navette électrique 14 places pensée pour faciliter le transport de groupes au sein des grands sites. Sa capacité d’accueil en fait une solution particulièrement adaptée aux hôtels, domaines, sites touristiques, industriels, événementiels et aux établissements nécessitant des rotations régulières de passagers.\n\nSa configuration permet d’accueillir un conducteur et 13 passagers dans un véhicule entièrement dédié au transport collectif. Ses différents rangs de sièges et ses larges accès permettent d’organiser efficacement la montée et la descente des passagers lors des différentes rotations.\n\nLe Shuttle 14 associe un moteur électrique AC de 7 kW à une batterie Lithium. Il peut atteindre 42 km/h et offrir jusqu’à 110 km d’autonomie, permettant d’assurer de nombreuses rotations et déplacements sur site au cours de la journée.\n\nAvec 5 mètres de longueur et 1,49 m de largeur, le Shuttle 14 offre une capacité d’accueil importante dans un gabarit adapté au transport collectif. Son rayon de braquage de 6 mètres et sa capacité à franchir des pentes jusqu’à 20 % lui permettent de s’adapter aux contraintes de nombreux sites.\n\nIl bénéficie de série d’un équipement complet comprenant notamment un éclairage LED avant et arrière, des clignotants et feux warning, un klaxon, un pare-brise en verre renforcé, des rétroviseurs, un tableau de bord avec écran LED, un indicateur de vitesse et kilométrique, un indicateur de charge batterie, un freinage hydraulique avant et arrière avec frein de stationnement ainsi que des jantes aluminium.\n\nLe Shuttle 14 est disponible dans plusieurs coloris de carrosserie et différentes configurations de sellerie, afin d’adapter la navette à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "21 000 € HT",
+   "characteristics": {
+    "Batterie": "Lithium",
+    "Autonomie": "Jusqu'à 110 km",
+    "Places": "14 personnes",
+    "Moteur": "7 kW - Electrique",
+    "Vitesse maximale": "42 km/h"
+   },
+   "images": [
+    "/media/bus-electrique-shuttle-14.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "bus"
+   ]
+  },
+  {
+   "legacyId": "cmtl6pq790002rv08fs3f0emz",
+   "slug": "link-2-medical",
+   "name": "Link 2 Medical",
+   "shortDescription": "Le Link 2 Medical est un véhicule électrique spécialement aménagé pour le transport médical et l’évacuation de personnes sur brancard. Compact et maniable, il permet d’accueillir un conducteur, un passager et un brancard, avec une capacité de charge maximale de 150 kg.",
+   "description": "Le Link 2 Medical est un véhicule électrique spécialement conçu pour faciliter le transport médical et l’évacuation de personnes sur brancard au sein de sites où l’accès aux véhicules conventionnels peut être difficile. Sa conception compacte le rend particulièrement adapté aux sites sportifs, complexes de loisirs, campings, domaines, sites industriels, événementiels ou grands espaces privés.\n\nSa configuration permet d’accueillir un conducteur, un passager ainsi qu’un brancard. L’aménagement arrière dédié permet de transporter une personne allongée tout en conservant un véhicule particulièrement compact et facile à utiliser. Sa capacité de charge maximale est de 150 kg.\n\nLe Link 2 Medical est équipé d’une motorisation électrique AC 48 V de 5 kW, associée à une batterie Lithium 105 Ah garantie 5 ans. Il atteint une vitesse maximale de 32 km/h et offre une autonomie annoncée supérieure à 80 km, permettant d’assurer de nombreuses interventions sur site au cours de la journée.\n\nAvec seulement 2,67 m de longueur et 1,18 m de largeur, il peut circuler dans des espaces relativement étroits et dispose d’un rayon de braquage de 4 mètres. Sa capacité à franchir des pentes jusqu’à 20 % lui permet également de s'adapter aux contraintes de nombreux environnements.\n\nSon équipement de série comprend notamment les feux avant et arrière, clignotants, feux warning, klaxon, prise 12 V, tableau de bord avec écran LED, indicateur de vitesse et kilométrique, marche avant/arrière, rétroviseurs ainsi que le dispositif de transport du brancard.\n\nDisponible dans plusieurs coloris de carrosserie et différentes configurations de sellerie, le Link 2 Medical peut être adapté à l’identité visuelle et aux besoins de chaque établissement.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "11 200 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 80 km",
+    "Places": "2 personnes + 1 brancard",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "32 km/h"
+   },
+   "images": [
+    "/media/golfette-electrique-link-2-medical.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "medical-pmr"
+   ]
+  },
+  {
+   "legacyId": "cmtl6tn2s0003rv08zy1ign0x",
+   "slug": "link-2-medical-pro",
+   "name": "Link 2 Medical Pro",
+   "shortDescription": "Le Link 2 Medical Pro est un véhicule électrique spécialement aménagé pour le transport médical et l’évacuation de personnes sur brancard. Sa configuration permet d’accueillir un conducteur, un passager et un brancard, avec deux places orientées dans le sens de la marche et une capacité de charge maximale de 150 kg.",
+   "description": "Le Link 2 Medical Pro est un véhicule électrique spécialement conçu pour faciliter le transport médical et l’évacuation de personnes sur brancard au sein de grands sites. Il constitue une solution adaptée aux sites sportifs, complexes de loisirs, campings, domaines, sites industriels, événementiels et grands espaces privés.\n\nSa configuration permet d’accueillir un conducteur, un passager ainsi qu’un brancard. Contrairement à une configuration dos-à-dos, ses deux places sont disposées dans le sens de la marche, tandis que l’espace dédié au brancard permet le transport d’une personne allongée. Sa capacité de charge maximale est de 150 kg.\n\nLe Link 2 Medical Pro associe un moteur électrique AC 48 V de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Il peut atteindre 32 km/h et offrir une autonomie supérieure à 80 km, permettant d’assurer de nombreuses interventions et rotations sur site au cours de la journée.\n\nAvec 3,31 m de longueur et seulement 1,18 m de largeur, il conserve un gabarit relativement compact malgré son aménagement médical. Son rayon de braquage de 5 mètres et sa capacité à franchir des pentes jusqu’à 20 % lui permettent de s’adapter aux contraintes de nombreux environnements.\n\nSon équipement de série comprend notamment les feux avant et arrière, clignotants, feux warning, klaxon, prise 12 V, tableau de bord avec écran LED, indicateur de vitesse et kilométrique, marche avant/arrière, rétroviseurs ainsi que le dispositif dédié au brancard.\nLe Link 2 Medical Pro est disponible dans plusieurs coloris de carrosserie et différentes configurations de sellerie, afin de l’adapter à l’identité et aux besoins de chaque établissement.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "12 200 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 80 km",
+    "Places": "2 personnes + 1 brancard",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "32 km/h"
+   },
+   "images": [
+    "/media/golfette-electrique-link-2-medical-pro.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "medical-pmr"
+   ]
+  },
+  {
+   "legacyId": "cmtl6xtl00004rv082ezlcd3s",
+   "slug": "access-4-pmr",
+   "name": "Access 4 PMR",
+   "shortDescription": "L’Access 4 PMR est un véhicule électrique spécialement aménagé pour faciliter le transport des personnes à mobilité réduite sur site. Sa large rampe d’accès permet l’accueil d’une personne en fauteuil roulant, tandis que sa configuration conserve des places assises pour accompagner confortablement les différents passagers.",
+   "description": "L’Access 4 PMR est un véhicule électrique spécialement conçu pour faciliter les déplacements des personnes à mobilité réduite au sein des grands sites. Il constitue une solution adaptée aux hôtels, campings, domaines, sites touristiques, établissements de loisirs, sites industriels, événementiels et grands espaces privés souhaitant proposer une solution de mobilité accessible à leurs visiteurs.\n\nSon aménagement spécifique intègre une large rampe d’accès latérale donnant directement sur un espace central permettant l’accueil d’une personne en fauteuil roulant. Sa configuration comprend également des places assises permettant de transporter simultanément d’autres passagers et d’accompagner la personne à mobilité réduite.\n\nL’Access 4 PMR associe un moteur électrique AC 48 V de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Il peut atteindre 32 km/h et offrir une autonomie supérieure à 80 km, permettant d’assurer de nombreux déplacements sur site au cours de la journée.\n\nAvec 3,86 m de longueur et seulement 1,18 m de largeur, il conserve un gabarit adapté à la circulation sur les voies internes et dans les espaces où la maniabilité reste importante. Son rayon de braquage de 6 mètres et sa capacité à franchir des pentes jusqu’à 20 % lui permettent de s’adapter aux contraintes de nombreux environnements.\n\nSon équipement de série comprend notamment les feux avant et arrière, clignotants, feux warning, klaxon, prise 12 V, tableau de bord avec écran LED, indicateur de vitesse et kilométrique, marche avant/arrière, rétroviseurs ainsi que des jantes aluminium.\n\nL’Access 4 PMR est disponible dans plusieurs coloris de carrosserie et différentes configurations de sellerie, afin de l’adapter à l’identité et aux besoins de chaque établissement.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "14 200 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 80 km",
+    "Places": "4 personnes + 1 fauteuil roulant",
+    "Moteur": "5kW - Electrique",
+    "Vitesse maximale": "32 km/h"
+   },
+   "images": [
+    "/media/golfette-electrique-access-4-pmr.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "medical-pmr"
+   ]
+  },
+  {
+   "legacyId": "cmthi6tj20000mq070fcq5qf4",
+   "slug": "link-2-cargo",
+   "name": "Link 2 Cargo",
+   "shortDescription": "Compacte, maniable et polyvalente, la Link 2 Cargo est une golfette électrique 2 places équipée d’une benne arrière, idéale pour associer déplacements et transport de matériel au quotidien.",
+   "description": "La Link 2 Cargo est une golfette électrique 2 places pensée pour associer mobilité et transport de matériel au quotidien. Compacte et maniable, elle trouve naturellement sa place dans les hôtels, domaines, campings, sites professionnels et grands espaces privés.\n\nSa benne arrière de 1 100 × 800 mm offre une capacité de charge pouvant atteindre 250 kg, permettant de transporter facilement du matériel, de l’outillage, des fournitures ou encore des équipements nécessaires aux différentes activités d’un site.\n\nElle associe un moteur électrique AC de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Elle peut atteindre 32 km/h et offrir jusqu’à 100 km d’autonomie, pour vous accompagner sereinement tout au long de la journée.\n\nAvec seulement 1,18 m de largeur et un rayon de braquage de 4 mètres, la Link 2 Cargo conserve un gabarit particulièrement compact malgré sa benne arrière. Elle peut ainsi circuler facilement dans les espaces où la maniabilité est essentielle.\nLa Link 2 Cargo est également disponible dans plusieurs coloris de carrosserie. Différentes configurations de sellerie sont proposées afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "9 300 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 100 km",
+    "Places": "2 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "32 km/h"
+   },
+   "images": [
+    "/media/golfette-electrique-link-2-cargo.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "utilitaires",
+    "golfette-utilitaire"
+   ]
+  },
+  {
+   "legacyId": "cmtk4nw9g0004nz08994cmzk3",
+   "slug": "link-4",
+   "name": "Link 4",
+   "shortDescription": "Confortable et polyvalente, la Link 4 est une golfette électrique 4 places conçue pour le transport de passagers. Son format compact, sa batterie lithium et ses quatre sièges orientés face à la route en font une solution idéale pour les hôtels, campings, domaines, golfs et sites professionnels.",
+   "description": "La Link 4 est une golfette électrique 4 places conçue avant tout pour assurer le transport confortable de passagers. Avec ses quatre sièges orientés face à la route, elle constitue une solution particulièrement adaptée aux hôtels, campings, domaines, golfs, sites touristiques et grands espaces privés.\n\nElle est équipée d'un moteur électrique AC de 5 kW alimenté par une batterie Lithium 105 Ah garantie 5 ans. Sa vitesse maximale atteint 32 km/h et son autonomie annoncée est supérieure à 100 km, permettant d'assurer de nombreux déplacements au cours d'une même journée.\n\nMalgré ses quatre places, la Link 4 conserve des dimensions compactes avec 3,11 m de longueur pour seulement 1,18 m de largeur. Son rayon de braquage de 5 mètres facilite les manœuvres dans les allées et les espaces restreints. Elle dispose également d'une capacité de franchissement annoncée de 25 %.\n\nPensée pour une utilisation quotidienne, elle bénéficie de nombreux équipements de série : feux LED avant et arrière, clignotants, klaxon, prise 12 V, tableau de bord avec volant finition carbone, écran LED, indicateur de vitesse et kilométrique, feux Warning, marche avant/arrière, rétroviseurs et jantes aluminium.\n\nLa Link 4 peut également être personnalisée grâce aux différents coloris de carrosserie et choix de sellerie proposés, permettant d'adapter le véhicule à l'image de votre établissement ou à votre flotte.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "9 600 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5kWh",
+    "Autonomie": "Jusqu'à 100 km",
+    "Places": "4 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "32 km/h"
+   },
+   "images": [
+    "/media/golfette-electrique-link-4.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "transport-de-personnes"
+   ]
+  },
+  {
+   "legacyId": "cmtk7ae7l0000mr09goaolk77",
+   "slug": "link-8-flex",
+   "name": "Link 8 Flex",
+   "shortDescription": "Spacieuse et modulable, la Link 8 Flex est une golfette électrique pouvant accueillir jusqu’à 8 personnes. Sa banquette arrière réversible se transforme en plateau de chargement, permettant d’alterner facilement entre transport de passagers et transport de matériel.",
+   "description": "La Link 8 Flex est une golfette électrique 8 places à banquette arrière réversible, conçue pour les établissements ayant besoin d’une capacité importante de transport tout en conservant la possibilité d’utiliser le véhicule pour du matériel.\n\nEn configuration passagers, elle peut accueillir jusqu’à 8 personnes. Lorsque davantage d’espace de chargement est nécessaire, la banquette arrière peut être rabattue pour former un plateau capable de recevoir jusqu’à 150 kg. Cette modularité permet d’adapter rapidement le véhicule au transport de clients, visiteurs, bagages ou équipements. Des ridelles amovibles sont également disponibles en option pour compléter le plateau arrière.\n\nElle associe un moteur électrique AC de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Elle peut atteindre 32 km/h et offrir jusqu’à 75 km d’autonomie, pour assurer les différents déplacements au cours de la journée.\n\nAvec 4,37 m de longueur pour seulement 1,18 m de largeur, la Link 8 Flex offre une importante capacité d’accueil tout en conservant une largeur contenue. Son rayon de braquage de 6 mètres lui permet de rester adaptée aux déplacements dans les allées et sur les différents espaces d’un établissement.\n\nPensée pour une utilisation quotidienne, elle dispose de nombreux équipements de série : feux LED avant et arrière, clignotants, klaxon, prise 12 V, tableau de bord avec volant finition carbone, écran LED, indicateur de vitesse et kilométrique, feux Warning, marche avant/arrière, rétroviseurs et jantes aluminium.\n\nLa Link 8 Flex est également disponible dans plusieurs coloris de carrosserie. La sellerie peut être personnalisée selon les configurations proposées, afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "10 300 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 75 km",
+    "Places": "8 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "32 km/h"
+   },
+   "images": [
+    "/media/golfette-electrique-link-8-flex.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "transport-de-personnes"
+   ]
+  },
+  {
+   "legacyId": "cmtd3u4700008qz08cgud5uik",
+   "slug": "link-2",
+   "name": "Link 2",
+   "shortDescription": "Compacte, élégante et agréable à conduire, la Link 2 est une golfette électrique 2 places pensée pour se déplacer facilement et confortablement sur tous types de sites privés.",
+   "description": "La Link 2 est une golfette électrique 2 places pensée pour offrir un déplacement simple, confortable et silencieux au quotidien. Son format compact lui permet de trouver naturellement sa place sur les parcours de golf, mais également dans les hôtels, domaines et grands espaces privés.\n\nManiable et agréable à conduire, elle accueille 2 personnes et dispose à l’arrière de supports dédiés au transport des sacs de golf.\n\nElle associe un moteur électrique AC de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. \n\nElle peut atteindre 32 km/h et offrir jusqu’à 100 km d’autonomie, pour vous accompagner sereinement tout au long de la journée.\n\nAvec seulement 1,18 m de largeur et un rayon de braquage de 4 mètres, son gabarit est particulièrement adapté aux déplacements sur les parcours et dans les espaces où la maniabilité est essentielle.\n\nLa Link 2 est également disponible dans plusieurs coloris de carrosserie. La sellerie peut être personnalisée selon les configurations proposées, afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "9 000 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 100 km",
+    "Places": "2 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "32 km/h"
+   },
+   "images": [
+    "/media/golfette-electrique-link-2.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "transport-de-personnes",
+    "golfette-utilitaire"
+   ]
+  },
+  {
+   "legacyId": "cmtk7cg180001mr09ispw9ys5",
+   "slug": "atlas-2-cargo-xl",
+   "name": "Atlas 2 Cargo XL",
+   "shortDescription": "Robuste et conçue pour les usages professionnels, l’Atlas 2 Cargo XL associe un châssis aluminium à une grande benne arrière capable de transporter jusqu’à 350 kg. Avec ses 2 places et son importante capacité de chargement, elle est particulièrement adaptée à l’entretien, la maintenance et la logistique sur site.",
+   "description": "L’Atlas 2 Cargo XL est une golfette électrique 2 places avec benne longue, conçue pour répondre aux besoins de transport de matériel et d’équipements sur les sites professionnels.\n\nSa conception repose sur un châssis en aluminium, l’une des caractéristiques distinctives de la gamme Atlas. Léger et résistant à la corrosion, il accompagne parfaitement la vocation professionnelle de l’Atlas 2 Cargo XL et les utilisations régulières sur site.\n\nÀ l’arrière, elle dispose d’une grande benne de 1100 × 1350 × 250 mm, capable de recevoir jusqu’à 350 kg de charge. Ses dimensions permettent de transporter de l’outillage, des équipements, des marchandises ou du matériel volumineux lors des différentes interventions sur site.\n\nElle associe un moteur électrique AC de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Elle peut atteindre 32 km/h et offrir jusqu’à 75 km d’autonomie, pour accompagner les équipes dans leurs déplacements et leurs interventions au cours de la journée.\n\nAvec 3,67 m de longueur pour seulement 1,18 m de largeur, l’Atlas 2 Cargo XL conserve un gabarit adapté aux déplacements sur site malgré sa grande capacité de chargement. Son rayon de braquage de 5 mètres lui permet de rester maniable dans les allées, les zones techniques et les espaces restreints.\n\nPensée pour une utilisation quotidienne, elle dispose de nombreux équipements de série : feux LED avant et arrière, clignotants, klaxon, prise 12 V, tableau de bord avec volant finition carbone, jantes aluminium, écran LED, indicateur de vitesse et kilométrique, feux Warning, marche avant/arrière et rétroviseurs.\n\nL’Atlas 2 Cargo XL est également disponible dans plusieurs coloris de carrosserie. La sellerie peut être personnalisée selon les configurations proposées, afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "10 500 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 75 km",
+    "Places": "2 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "32 km/h"
+   },
+   "images": [
+    "/media/golfette-electrique-atlas-2-cargo-xl.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "utilitaires"
+   ]
+  },
+  {
+   "legacyId": "cmtk7wtfn0003mr0973h1xr14",
+   "slug": "atlas-4",
+   "name": "Atlas 4",
+   "shortDescription": "L’Atlas 4 est une golfette électrique 4 places, pensée pour transporter confortablement plusieurs passagers tout en conservant un gabarit compact et maniable. Son châssis en aluminium, sa motorisation électrique de 5 kW et sa batterie Lithium 105 Ah en font une solution adaptée aux déplacements quotidiens dans les hôtels, domaines, campings et grands espaces privés.",
+   "description": "L’Atlas 4 est une golfette électrique 4 places conçue pour faciliter le transport de passagers au quotidien. Confortable et silencieuse, elle trouve naturellement sa place dans les hôtels, domaines, campings, sites touristiques et grands espaces privés.\n\nSa conception repose sur un châssis en aluminium, l’une des caractéristiques distinctives de la gamme Atlas. Léger et résistant à la corrosion, il s’intègre parfaitement à la conception du véhicule et à son utilisation régulière sur site.\n\nL’Atlas 4 accueille confortablement jusqu’à 4 personnes, avec deux places orientées vers l’avant et une banquette arrière permettant de transporter deux passagers supplémentaires. Cette configuration offre une solution simple et polyvalente pour assurer les déplacements des clients, visiteurs ou équipes au sein d’un établissement.\n\nElle associe un moteur électrique AC de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Elle peut atteindre 32 km/h et offrir jusqu’à 70 km d’autonomie, pour accompagner les différents déplacements au cours de la journée.\n\nAvec 3,16 m de longueur pour seulement 1,18 m de largeur et un rayon de braquage de 4 mètres, l’Atlas 4 conserve un gabarit compact et une bonne maniabilité, particulièrement appréciables pour circuler dans les allées, entre les bâtiments ou dans les espaces où les manœuvres sont fréquentes.\n\nPensée pour une utilisation quotidienne, elle dispose de nombreux équipements de série : feux LED avant et arrière, clignotants, klaxon, prise 12 V, tableau de bord avec volant finition carbone, jantes aluminium, écran LED, indicateur de vitesse et kilométrique, feux Warning, marche avant/arrière et rétroviseurs.\n\nL’Atlas 4 est également disponible dans plusieurs coloris de carrosserie. La sellerie peut être personnalisée selon les configurations proposées, afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "10 100 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 70 km",
+    "Places": "4 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "32 km/h"
+   },
+   "images": [
+    "/media/golfette-electrique-atlas-4.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "transport-de-personnes"
+   ]
+  },
+  {
+   "legacyId": "cmtl62gay0006qs080gmsvhfz",
+   "slug": "shuttle-11",
+   "name": "Shuttle 11",
+   "shortDescription": "Le Shuttle 11 est une navette électrique 11 places conçue pour assurer le transport de passagers sur les grands sites. Spacieux et confortable, il permet de déplacer efficacement visiteurs, clients ou équipes au sein des hôtels, domaines, sites touristiques, industriels et événementiels.",
+   "description": "Le Shuttle 11 est une navette électrique 11 places pensée pour faciliter le transport de passagers au sein des grands sites. Sa capacité d’accueil en fait une solution particulièrement adaptée aux hôtels, domaines, sites touristiques, industriels, événementiels et à tous les établissements devant organiser régulièrement le déplacement de groupes.\n\nSa configuration permet d’accueillir un conducteur et 10 passagers dans un véhicule spécialement conçu pour le transport collectif. Son habitacle ouvert et ses larges accès facilitent la montée et la descente des passagers, notamment lorsque les rotations sont fréquentes.\n\nLe Shuttle 11 associe un moteur électrique AC de 7 kW à une batterie Lithium. Il peut atteindre 42 km/h et offrir jusqu’à 110 km d’autonomie, permettant d’assurer de nombreuses rotations et déplacements sur site au cours de la journée.\n\nAvec 4,23 m de longueur et 1,49 m de largeur, il offre une capacité d’accueil importante tout en conservant un rayon de braquage de 5 mètres. Sa capacité à franchir des pentes jusqu’à 20 % lui permet également de s’adapter à des sites présentant du dénivelé.\n\nIl bénéficie de série d’un équipement complet comprenant notamment un éclairage LED avant et arrière, des clignotants et feux warning, un klaxon, un pare-brise en verre renforcé, des rétroviseurs, un tableau de bord avec écran LED, un indicateur de vitesse et kilométrique, un indicateur de charge batterie, un freinage hydraulique avant et arrière avec frein de stationnement ainsi que des jantes aluminium.\n\nLe Shuttle 11 est disponible dans plusieurs coloris de carrosserie et différentes configurations de sellerie, afin d’adapter la navette à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "18 400 € HT",
+   "characteristics": {
+    "Batterie": "Lithium",
+    "Autonomie": "Jusqu'à 110 km",
+    "Places": "11 personnes",
+    "Moteur": "7 kW - Electrique",
+    "Vitesse maximale": "42 km/h"
+   },
+   "images": [
+    "/media/bus-electrique-shuttle-11.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "bus"
+   ]
+  },
+  {
+   "legacyId": "cmtl5wu4b0005qs08h0v5c2lj",
+   "slug": "roadland-6-flex",
+   "name": "Roadland 6 Flex",
+   "shortDescription": "La Roadland 6 Flex est une golfette électrique homologuée route conçue pour s’adapter aux différents besoins d’un même site. Sa configuration modulable permet de passer d’un véhicule 6 places dédié au transport de personnes à une configuration utilitaire disposant d’un plateau arrière offrant une capacité de charge maximale de 150 kg. Une solution polyvalente pour les domaines, établissements touristiques, sites professionnels et grands espaces privés.",
+   "description": "La Roadland 6 Flex est une golfette électrique homologuée route pensée pour les professionnels recherchant un véhicule polyvalent, capable de s’adapter aux différentes missions réalisées sur leur site.\n\nSa particularité réside dans sa configuration modulable. Selon les besoins, la Roadland 6 Flex peut être utilisée en configuration 6 places pour le transport de personnes, ou en configuration utilitaire grâce à son plateau arrière offrant une capacité de charge maximale de 150 kg. Elle permet ainsi d’adapter facilement le véhicule aux différents usages d’un même établissement.\n\nDes ridelles amovibles sont également disponibles en option afin de compléter le plateau arrière et de faciliter le transport de matériel ou d’équipements.\n\nElle associe un moteur électrique AC de 5 kW à une batterie Lithium 105 Ah garantie 5 ans. Elle peut atteindre 40 km/h et offrir jusqu’à 100 km d’autonomie, pour accompagner les différentes missions réalisées au cours de la journée.\n\nAvec 3,765 m de longueur, 1,29 m de largeur et une garde au sol de 250 mm, la Roadland 6 Flex conserve un gabarit adapté aux déplacements sur site. Son rayon de braquage de 5 mètres facilite également les manœuvres et contribue à son agrément d’utilisation.\n\nElle bénéficie de série d’un équipement complet comprenant notamment un pare-brise en verre, des rétroviseurs latéraux, un éclairage complet avec phares, clignotants et feux arrière, un compteur de vitesse et kilométrique, un freinage hydraulique, un frein de stationnement ainsi que des jantes aluminium.\n\nLa Roadland 6 Flex est disponible dans plusieurs coloris de carrosserie. Plusieurs configurations de sellerie sont également proposées afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": "12 200 € HT",
+   "characteristics": {
+    "Batterie": "Lithium - 5 kWh",
+    "Autonomie": "Jusqu'à 100 km",
+    "Places": "6 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "40 km/h",
+    "Permis de conduire": "Permis B"
+   },
+   "images": [
+    "/media/golfette-electrique-roadland-6-flex.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "tout-terrain",
+    "transport-de-personnes",
+    "homologues-route"
+   ]
+  },
+  {
+   "legacyId": "cmtlk87vc0002pj08rmr89bvk",
+   "slug": "city-2-box",
+   "name": "City 2 Box",
+   "shortDescription": "La City 2 Box est un véhicule utilitaire électrique 2 places homologué route L7e, équipé d’une cabine entièrement fermée et d’un caisson arrière fermé pour le transport de matériel. Compacte et fonctionnelle, elle associe un moteur électrique de 5 kW à une batterie Lithium 150 Ah et offre plus de 100 km d’autonomie.",
+   "description": "La City 2 Box est un véhicule utilitaire électrique 2 places homologué route L7e, associant une cabine entièrement fermée à un caisson arrière fermé. Cette configuration en fait une solution particulièrement adaptée aux professionnels, collectivités, sites industriels, hôtels, domaines et sites touristiques ayant besoin de transporter du matériel ou des équipements au sein de leurs différents espaces et sur route.\n\nSa cabine fermée accueille un conducteur et un passager. À l’arrière, son caisson permet de disposer d’un espace dédié au transport de matériel, d’outillage, de fournitures ou d’équipements. La City 2 Box est ainsi particulièrement adaptée aux opérations logistiques, techniques et d’entretien.\n\nElle est équipée d’un moteur électrique AC 60 V de 5 kW, associé à une batterie Lithium 150 Ah garantie 5 ans. Elle peut atteindre une vitesse maximale de 40 km/h et offre une autonomie annoncée supérieure à 100 km. La recharge atteint 85 % en environ 4 heures et 100 % en 6 heures.\n\nAvec ses 3,30 m de longueur pour 1,38 m de largeur, la City 2 Box conserve un gabarit compact malgré son caisson arrière. Son rayon de braquage de 6 mètres facilite les manœuvres et elle peut franchir des pentes allant jusqu’à 20 %.\n\nSon équipement de série comprend notamment un pare-brise en verre avec essuie-glace, des rétroviseurs droit et gauche, un éclairage complet avec phares, clignotants, feux arrière et feux stop, des ceintures de sécurité 3 points, un compteur combiné, un freinage hydraulique ainsi qu’un frein de stationnement.\n\nPlusieurs coloris de carrosserie sont disponibles afin d’adapter la City 2 Box à l’identité de votre établissement ou à votre flotte de véhicules.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": null,
+   "characteristics": {
+    "Batterie": "Lithium",
+    "Autonomie": "Jusqu'à 100 km",
+    "Places": "2 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "40 km/h",
+    "Permis de conduire": "Permis B"
+   },
+   "images": [
+    "/media/golfette-electrique-city-2-box.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "utilitaires",
+    "homologues-route"
+   ]
+  },
+  {
+   "legacyId": "cmtlj2mxg0001pj08z8f1a0r1",
+   "slug": "city-2-cargo",
+   "name": "City 2 Cargo",
+   "shortDescription": "La City 2 Cargo est un véhicule utilitaire électrique 2 places homologué route L7e, doté d’une cabine entièrement fermée et d’une benne arrière pour le transport de matériel. Compacte et polyvalente, elle associe un moteur électrique de 5 kW à une batterie Lithium 150 Ah et répond aux besoins de transport et d’intervention sur site comme sur route.",
+   "description": "La City 2 Cargo est un véhicule utilitaire électrique 2 places homologué route L7e, associant une cabine entièrement fermée à une benne arrière. Elle constitue une solution particulièrement adaptée aux sites industriels, collectivités, domaines, hôtels, campings, sites touristiques et grands espaces privés ayant besoin de transporter du matériel tout en conservant un véhicule compact.\n\nSa cabine fermée accueille un conducteur et un passager. Avec son pare-brise en verre équipé d’un essuie-glace, ses portes et son habitacle fermé, la City 2 Cargo propose une configuration adaptée à une utilisation professionnelle tout au long de l’année. Sa benne arrière permet quant à elle d’emporter facilement outils, équipements, fournitures ou autres matériels nécessaires aux différentes interventions sur site.\n\nLa City 2 Cargo associe un moteur électrique AC 60 V de 5 kW à une batterie Lithium 150 Ah garantie 5 ans. Elle peut atteindre 40 km/h et offrir plus de 100 km d’autonomie, pour accompagner les différents besoins de transport au cours de la journée.\n\nAvec 3,30 m de longueur et 1,38 m de largeur, elle conserve un gabarit compact malgré son espace de chargement arrière. Son rayon de braquage de 6 mètres facilite les manœuvres, tandis que sa capacité à franchir des pentes jusqu’à 20 % lui permet de s'adapter à de nombreux environnements.\n\nSon équipement de série comprend notamment un pare-brise en verre avec essuie-glace, des rétroviseurs droit et gauche, un éclairage complet avec phares, clignotants, feux arrière et feux stop, des ceintures de sécurité 3 points, un compteur combiné, un freinage hydraulique ainsi qu’un frein de stationnement.\n\nLa City 2 Cargo est disponible dans plusieurs coloris de carrosserie afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": null,
+   "characteristics": {
+    "Batterie": "Lithium",
+    "Autonomie": "Jusqu'à 100 km",
+    "Places": "2 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "40 km/h",
+    "Permis de conduire": "Permis B"
+   },
+   "images": [
+    "/media/golfette-electrique-city-2-cargo.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "utilitaires",
+    "homologues-route"
+   ]
+  },
+  {
+   "legacyId": "cmtlijpfp0000pj08jtzeuprd",
+   "slug": "city-2",
+   "name": "City 2",
+   "shortDescription": "La City 2 est une voiture électrique 2 places homologuée route L7e, dotée d’une cabine entièrement fermée pour une utilisation confortable tout au long de l’année. Compacte et maniable, elle associe un moteur électrique de 5 kW à une batterie Lithium 150 Ah et s’adapte aussi bien aux déplacements sur site qu’aux besoins de circulation sur route.",
+   "description": "La City 2 est une voiture électrique compacte 2 places homologuée route L7e, dotée d’une cabine entièrement fermée. Elle constitue une solution particulièrement adaptée aux hôtels, domaines, sites touristiques, industriels, collectivités et grands espaces privés recherchant un véhicule carrossé pour leurs différents besoins de mobilité.\n\nSa cabine fermée accueille confortablement un conducteur et un passager. Avec son pare-brise en verre équipé d’un essuie-glace, ses portes et son habitacle fermé, la City 2 propose une configuration particulièrement adaptée à une utilisation tout au long de l’année.\n\nLa City 2 associe un moteur électrique AC 60 V de 5 kW à une batterie Lithium 150 Ah garantie 5 ans. Elle peut atteindre 40 km/h et offrir jusqu’à 110 km d’autonomie, pour accompagner les différents déplacements et besoins de mobilité au cours de la journée.\n\nAvec seulement 2,18 m de longueur et 1,38 m de largeur, la City 2 conserve un gabarit particulièrement compact et maniable. Son rayon de braquage de 5 mètres facilite les manœuvres, tandis que sa capacité à franchir des pentes jusqu’à 25 % lui permet de s’adapter aux contraintes de nombreux environnements.\n\nSon équipement de série comprend notamment un pare-brise en verre avec essuie-glace, des rétroviseurs droit et gauche, un éclairage complet avec phares, clignotants, feux arrière et feux stop, des ceintures de sécurité 3 points, un compteur combiné, un freinage hydraulique ainsi qu’un frein de stationnement.\n\nLa City 2 est disponible dans plusieurs coloris de carrosserie, afin d’adapter le véhicule à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": null,
+   "characteristics": {
+    "Batterie": "Lithium",
+    "Autonomie": "Jusqu'à 110 km",
+    "Places": "2 Personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "40 km/h",
+    "Permis de conduire": "Permis B"
+   },
+   "images": [
+    "/media/golfette-electrique-city-2.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "transport-de-personnes",
+    "homologues-route"
+   ]
+  },
+  {
+   "legacyId": "cmtlkeo3v0003pj08xiwoz0nb",
+   "slug": "city-4",
+   "name": "City 4",
+   "shortDescription": "La City 4 est un véhicule électrique 4 places doté d’une cabine entièrement fermée, pensé pour le transport de passagers sur site comme sur route. Spacieuse tout en restant compacte et maniable, elle associe un moteur électrique de 5 kW à une batterie Lithium 150 Ah et offre plus de 100 km d’autonomie.",
+   "description": "La City 4 est un véhicule électrique 4 places doté d’une cabine entièrement fermée. Avec sa capacité d’accueil d’un conducteur et de trois passagers, elle constitue une solution particulièrement adaptée aux hôtels, domaines, sites touristiques, collectivités, sites industriels et grands espaces privés ayant besoin d’assurer régulièrement le transport de personnes.\n\nSa cabine fermée offre un véritable espace dédié aux quatre occupants et permet une utilisation confortable tout au long de l’année. Son pare-brise en verre avec essuie-glace, ses portes et son habitacle entièrement carrossé complètent cette configuration particulièrement adaptée au transport de passagers.\n\nLa City 4 est équipée d’un moteur électrique AC 60 V de 5 kW, associé à une batterie Lithium 150 Ah garantie 5 ans. Elle peut atteindre une vitesse maximale de 40 km/h et offre une autonomie supérieure à 100 km. Sa batterie atteint 85 % de charge en environ 4 heures et 100 % en 6 heures.\n\nAvec 3,30 m de longueur et 1,38 m de largeur, la City 4 permet d'accueillir quatre personnes tout en conservant un gabarit compact. Son rayon de braquage de 5 mètres facilite les manœuvres dans les différents espaces, tandis que sa capacité à franchir des pentes jusqu’à 25 % lui permet de s’adapter à de nombreux environnements.\n\nSon équipement de série comprend notamment un pare-brise en verre avec essuie-glace, des rétroviseurs droit et gauche, un éclairage complet avec phares, clignotants, feux arrière et feux stop, des ceintures de sécurité 3 points, un compteur combiné, un freinage hydraulique ainsi qu’un frein de stationnement.\n\nLa City 4 est disponible dans plusieurs coloris de carrosserie, permettant de l’adapter à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": null,
+   "characteristics": {
+    "Batterie": "Lithium",
+    "Autonomie": "Jusqu'à 100 km",
+    "Places": "4 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "40 km/h",
+    "Permis de conduire": "Permis B"
+   },
+   "images": [
+    "/media/golfette-electrique-city-4.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "transport-de-personnes",
+    "homologues-route"
+   ]
+  },
+  {
+   "legacyId": "cmtll2qv20004pj08kqvqnpz1",
+   "slug": "city-6",
+   "name": "City 6",
+   "shortDescription": "La City 6 est un véhicule électrique 6 places homologué route L7e, doté d’une cabine entièrement fermée. Conçue pour le transport de passagers, elle associe un moteur électrique de 5 kW à une batterie Lithium 150 Ah, une vitesse maximale de 40 km/h et une autonomie supérieure à 100 km. Sa capacité d’accueil et son homologation lui permettent de répondre aux besoins de mobilité aussi bien sur site que sur route.",
+   "description": "La City 6 est un véhicule électrique 6 places homologué route L7e, conçu pour le transport de passagers. Sa cabine entièrement fermée et sa capacité d’accueil d’un conducteur et de cinq passagers en font une solution particulièrement adaptée aux hôtels, domaines, sites touristiques, collectivités, sites industriels et grands espaces privés.\n\nSon homologation route L7e permet à la City 6 de circuler sur la voie publique dans le respect des conditions liées à cette catégorie d’homologation. Elle offre ainsi une véritable polyvalence pour les établissements dont les besoins de transport s’étendent à la fois à leurs espaces privés et au réseau routier.\n\nSa cabine entièrement fermée accueille confortablement six personnes. Elle dispose notamment d’un pare-brise en verre avec essuie-glace, de portes, de rétroviseurs droit et gauche ainsi que de ceintures de sécurité 3 points, pour une configuration adaptée au transport régulier de passagers tout au long de l'année.\n\nLa City 6 est équipée d’un moteur électrique AC 60 V de 5 kW, associé à une batterie Lithium 150 Ah garantie 5 ans. Elle atteint une vitesse maximale de 40 km/h et offre une autonomie annoncée supérieure à 100 km. La recharge permet d’atteindre 85 % en environ 4 heures et 100 % en 6 heures.\n\nAvec 3,66 m de longueur pour 1,38 m de largeur, la City 6 conserve des dimensions adaptées aux déplacements et aux manœuvres sur site malgré ses six places. Son rayon de braquage de 6 mètres facilite son utilisation dans différents environnements et elle peut franchir des pentes allant jusqu’à 15 %.\n\nSon équipement de série comprend également un éclairage complet avec phares, clignotants, feux arrière et feux stop, un compteur combiné, un freinage hydraulique ainsi qu’un frein de stationnement.\n\nLa City 6 est disponible dans plusieurs coloris de carrosserie, permettant de l’adapter à l’identité de votre établissement, à votre flotte ou simplement à vos préférences.\n\nEt parce que l’accompagnement ne s’arrête pas à la livraison, le SAV Alsimat peut intervenir directement sur site pour l’entretien, le diagnostic et le suivi de votre véhicule.",
+   "price": null,
+   "characteristics": {
+    "Batterie": "Lithium",
+    "Autonomie": "Jusqu'à 100 km",
+    "Places": "6 personnes",
+    "Moteur": "5 kW - Electrique",
+    "Vitesse maximale": "40 km/h",
+    "Permis de conduire": "Permis B"
+   },
+   "images": [
+    "/media/golfette-electrique-city-6.webp"
+   ],
+   "featured": false,
+   "published": true,
+   "categories": [
+    "golfette-utilitaire",
+    "transport-de-personnes",
+    "homologues-route"
+   ]
+  }
+ ],
+ "projects": [
+  {
+   "slug": "flotte-electrique-pour-centre-hospitalier",
+   "title": "Flotte électrique pour centre hospitalier",
+   "description": "Livraison et mise en service d'une flotte de véhicules électriques pour le transport de personnel et de matériel au sein d'un grand centre hospitalier. Les véhicules silencieux et non polluants s'intègrent parfaitement dans l'environnement hospitalier.",
+   "image": "/media/realisation-flotte-electrique-pour-centre-hospitalier.webp",
+   "date": "2024",
+   "published": false
+  },
+  {
+   "slug": "entretien-des-espaces-verts-municipaux",
+   "title": "Entretien des espaces verts municipaux",
+   "description": "Fourniture de véhicules d'entretien électriques pour la municipalité. Ces véhicules permettent un entretien silencieux et écologique des parcs et jardins publics, respectant la tranquillité des promeneurs.",
+   "image": "/media/realisation-entretien-des-espaces-verts-municipaux.webp",
+   "date": "2023",
+   "published": false
+  },
+  {
+   "slug": "maintenance-de-batiments-industriels",
+   "title": "Maintenance de bâtiments industriels",
+   "description": "Installation de nacelles tractables pour la maintenance régulière de bâtiments industriels. La solution complète comprend formation du personnel et suivi technique.",
+   "image": "/media/realisation-maintenance-de-batiments-industriels.webp",
+   "date": "2023",
+   "published": false
+  }
+ ],
+ "articles": [
+  {
+   "slug": "golfette-electrique-comment-choisir-le-modele-adapte-a-son-utilisation",
+   "title": "Golfette électrique : comment choisir le modèle adapté à son utilisation ?",
+   "content": "Choisir une golfette électrique ne consiste pas forcément à rechercher celle qui offre le plus de places, la plus grande autonomie ou le plus d’équipements. Le bon choix commence plutôt par une question simple : qu’est-ce que le véhicule devra réellement faire au quotidien ?\n\nUne fois cette utilisation définie, les différences entre les modèles deviennent beaucoup plus faciles à comprendre. Capacité de transport, chargement, autonomie ou type de terrain ne sont alors plus de simples caractéristiques techniques : ce sont des réponses à un besoin précis.\n\n## Transporter des personnes ou du matériel ?\n\nLe nombre de places fait naturellement partie des premiers éléments à déterminer. Une golfette peut être destinée à transporter deux personnes comme un groupe plus important, mais la capacité choisie influence également les dimensions et la maniabilité du véhicule.\n\nLe besoin se complique légèrement lorsque la golfette doit aussi transporter du matériel. Il faut alors réfléchir à la place réellement nécessaire pour le chargement.\n\nUne banquette arrière réversible offre par exemple une certaine polyvalence : elle permet de transporter des passagers lorsque les sièges sont nécessaires, puis de disposer d’un plateau de chargement une fois la banquette rabattue. Une bennerépond davantage à un usage utilitaire régulier, notamment pour transporter des branches, des déchets verts ou d’autres matériaux adaptés à ce type de chargement.\n\nL’objectif n’est donc pas simplement de choisir un nombre de places, mais de déterminer ce que la golfette transportera réellement au cours de son utilisation.\n\n## De quelle autonomie avez-vous réellement besoin ?\n\nUne autonomie importante peut être rassurante, mais elle n’est pas nécessairement utile pour tous les usages. Avant de comparer les chiffres annoncés par les constructeurs, il est plus intéressant d’estimer la distance réellement parcourue pendant une journée.\n\nPour cela, on peut partir d’un trajet habituel, calculer sa distance aller-retour puis la multiplier par le nombre de rotations prévues. Une golfette qui effectue dix fois un parcours de 1,5 km parcourt déjà environ 15 km dans la journée.\n\nIl faut ensuite conserver une marge, car l’autonomie réelle peut varier selon les conditions d’utilisation. La possibilité de recharger le véhicule pendant une longue période d’arrêt peut également entrer dans la réflexion.\n\nCette estimation ne donne pas un chiffre au kilomètre près, mais elle permet surtout d’éviter deux erreurs : choisir une autonomie insuffisante ou, à l’inverse, surdimensionner inutilement le véhicule.\n\n## Où la golfette va-t-elle rouler ?\n\nDeux golfettes utilisées pour transporter le même nombre de personnes sur la même distance peuvent avoir des besoins très différents selon leur environnement.\n\nDes déplacements sur des allées goudronnées et relativement plates sollicitent peu le véhicule. Une utilisation régulière sur de l’herbe, des chemins irréguliers ou des parcours présentant du dénivelé demande davantage d’attention au choix du modèle.\n\nLe terrain doit donc être considéré dès le départ. Si les conditions deviennent plus difficiles, il faut s’orienter vers une golfette réellement adaptée à ce type de parcours plutôt que de choisir uniquement à partir du nombre de places ou de l’autonomie annoncée.\n\n## Et si le trajet emprunte la voie publique ?\n\nToutes les golfettes ne sont pas destinées à circuler sur la voie publique. Il existe cependant des golfettes homologuées route permettant de répondre aux usages qui nécessitent ce type de déplacement.\n\nSi une partie des trajets prévus doit s’effectuer sur route ouverte à la circulation, cette contrainte doit donc être identifiée avant de choisir le véhicule. Les conditions de circulation et les obligations associées à l’homologation méritent ensuite d’être étudiées séparément.\n\n## Définir son besoin avant de comparer les modèles\n\nÀ ce stade, il n’est pas encore nécessaire d’avoir choisi une golfette précise. En revanche, le besoin doit pouvoir être résumé assez simplement : par exemple, transporter quatre personnes, parcourir une vingtaine de kilomètres par jour, circuler principalement sur des chemins et disposer occasionnellement d’un espace pour du matériel.\n\nCette description est souvent beaucoup plus utile qu’une longue liste d’options. Elle permet de comparer les modèles sur ce qui compte réellement et de choisir une golfette adaptée à son activité plutôt que simplement la plus équipée.",
+   "image": "/media/golfette-electrique-comment-choisir-le-modele-adapte-a-son-utilisation.webp",
+   "publishedAt": "2026-09-14 15:38:10.842",
+   "excerpt": "Choisir une golfette électrique ne consiste pas forcément à rechercher celle qui offre le plus de places, la plus grande autonomie ou le plus d’équipements. Le bon choix commence plutôt par une question simple : qu’est-ce que le véhicule…"
+  }
+ ],
+ "settings": {
+  "home_content": {
+   "heroImage": "/media/golfette-electrique-alsimat-accueil.webp"
+  }
+ },
+ "redirects": [
+  {
+   "from": "/vehicules/tracker-2",
+   "to": "/vehicules/tracker-2-cargo"
+  },
+  {
+   "from": "/vehicules/urban-4-flex",
+   "to": "/vehicules/urban-6-flex"
+  },
+  {
+   "from": "/vehicules/urban-4-flex-1788427114361",
+   "to": "/vehicules/urban-4-flex"
+  }
+ ]
+}

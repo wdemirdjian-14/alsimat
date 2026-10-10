@@ -1,0 +1,50 @@
+# Alsimat — application Next.js + PostgreSQL, isolée des autres sites du serveur.
+# L'application n'écoute que sur 127.0.0.1 : c'est Nginx (déjà présent sur le VPS) qui l'expose en HTTPS.
+name: alsimat
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: alsimat
+      POSTGRES_USER: alsimat
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Définir POSTGRES_PASSWORD dans .env}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U alsimat -d alsimat"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://alsimat:${POSTGRES_PASSWORD}@db:5432/alsimat
+      UPLOAD_DIR: /app/uploads
+    ports:
+      - "127.0.0.1:${APP_PORT:-3010}:3000"
+    volumes:
+      - ./uploads:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # Outils ponctuels (schéma, import, création d'admin) : docker compose run --rm tools <commande>
+  tools:
+    build:
+      context: .
+      target: builder
+    profiles: ["tools"]
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://alsimat:${POSTGRES_PASSWORD}@db:5432/alsimat
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  db-data:

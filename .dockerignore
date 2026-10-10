@@ -1,0 +1,10 @@
+node_modules
+.next
+.git
+.env
+.env.*
+legacy
+uploads
+backups
+test-results
+*.log

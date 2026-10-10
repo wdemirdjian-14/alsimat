@@ -1,4 +1,12 @@
-.env
 node_modules/
 .next/
+.env
+.env.*
+!.env.example
 .DS_Store
+/legacy/
+/uploads/
+/backups/
+*.tsbuildinfo
+next-env.d.ts
+/test-results/
