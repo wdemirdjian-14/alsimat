@@ -26,13 +26,13 @@ async function main() {
         console.warn(`⚠ Véhicule introuvable (et pas de « name » pour le créer) : ${slug}`);
         continue;
       }
-      await db.vehicle.create({ data: { slug, ...(fields as { name: string }), published: true, ...(catIds ? { categories: { create: catIds } } : {}) } });
+      await db.vehicle.create({ data: { slug, published: true, ...(fields as { name: string }), ...(catIds ? { categories: { create: catIds } } : {}) } });
       console.log(`✓ Véhicule créé : ${fields.name}`);
       continue;
     }
     await db.vehicle.update({
       where: { slug },
-      data: { ...fields, published: true, ...(catIds ? { categories: { deleteMany: {}, create: catIds } } : {}) },
+      data: { published: true, ...fields, ...(catIds ? { categories: { deleteMany: {}, create: catIds } } : {}) },
     });
     console.log(`✓ Fiche vitrine appliquée : ${v.name.trim()}`);
   }

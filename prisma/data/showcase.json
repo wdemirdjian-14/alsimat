@@ -128,5 +128,11 @@
     ],
     "seoTitle": "Street 2 Cargo – Utilitaire électrique homologué route avec benne",
     "seoDescription": "Street 2 Cargo : utilitaire électrique homologué route L7e, cabine fermée, benne alu, 40 km/h, +100 km d'autonomie, Lithium garanti 5 ans. 14 900 € HT. Devis gratuit."
+  },
+  {
+    "slug": "city-2-cargo",
+    "published": false,
+    "spotlight": false,
+    "featured": false
   }
 ]

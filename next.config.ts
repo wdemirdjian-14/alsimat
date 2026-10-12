@@ -10,6 +10,8 @@ const legacyRedirects = [
   { source: "/gammes/tracteurs-electriques", destination: "/gammes/golfette-utilitaire", permanent: true },
   { source: "/gammes/nacelles-tractables", destination: "/gammes/golfette-utilitaire", permanent: true },
   { source: "/configurateur", destination: "/contact", permanent: true },
+  // City 2 Cargo = même véhicule que le Street 2 Cargo (fiche unique)
+  { source: "/vehicules/city-2-cargo", destination: "/vehicules/street-2-cargo", permanent: true },
 ];
 
 const securityHeaders = [
