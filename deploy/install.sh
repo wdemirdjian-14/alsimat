@@ -12,7 +12,8 @@ PORT=$(grep -E '^APP_PORT=' .env | cut -d= -f2); PORT=${PORT:-3010}
 if command -v ss >/dev/null && ss -ltn | grep -q ":$PORT "; then echo "Le port $PORT est déjà utilisé : choisissez un autre APP_PORT dans .env (et dans la conf Nginx)."; exit 1; fi
 
 mkdir -p uploads/public uploads/private backups
-chown -R 1001:1001 uploads
+# Le conteneur tourne avec l'utilisateur 1001 : il doit pouvoir écrire dans uploads/
+if [ "$(id -u)" -eq 0 ]; then chown -R 1001:1001 uploads; else sudo chown -R 1001:1001 uploads; fi
 
 echo "→ Construction des images…"
 docker compose build
