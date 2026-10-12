@@ -56,6 +56,8 @@ export default async function VehicleEdit({ params, searchParams }: Props) {
             <div className="grid gap-4 sm:grid-cols-2">
               <TextArea className="sm:col-span-2" label="Accroche" name="tagline" defaultValue={v?.tagline} rows={2} hint="Une phrase percutante affichée sous le titre." />
               <Field label="Référence constructeur" name="sku" defaultValue={v?.sku} placeholder="AL202EH" />
+              <Field label="Marque constructeur" name="brand" defaultValue={v?.brand} placeholder="Alsimat, Little…" />
+              <Field label="Type de véhicule affiché" name="vehicleType" defaultValue={v?.vehicleType} placeholder="Golfette électrique (par défaut)" hint="Ex. « Utilitaire électrique », « Navette électrique »." />
               <div />
               <FileInput name="video" label="Vidéo (MP4)" accept="video/mp4,video/webm" defaultValue={v?.video} hint="Courte (5 à 20 s), sans son, 25 Mo max. Jouée en boucle en fond." />
               <FileInput name="datasheet" label="Fiche technique (PDF)" accept="application/pdf" defaultValue={v?.datasheet} />

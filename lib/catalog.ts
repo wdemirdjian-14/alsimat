@@ -88,6 +88,11 @@ export async function getRelatedVehicles(v: VehicleWithCats, limit = 4): Promise
 /** Catégorie « principale » d'un véhicule pour le fil d'Ariane (la plus spécifique). */
 export function primaryCategory(v: VehicleWithCats) {
   const cats = v.categories.map((c) => c.category);
+  // Véhicule non golfette (ex. utilitaire homologué) : la gamme « route » est la plus parlante.
+  if (v.vehicleType) {
+    const road = cats.find((c) => c.slug === "homologues-route");
+    if (road) return road;
+  }
   return cats.find((c) => c.parentId) ?? cats.find((c) => c.slug !== "golfette-utilitaire") ?? cats[0] ?? null;
 }
 

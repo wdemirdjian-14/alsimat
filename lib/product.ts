@@ -22,7 +22,7 @@ export function groupedSpecs(v: { characteristics: unknown }) {
 }
 
 export const isBus = (v: { categories: { category: { slug: string } }[] }) => v.categories.some((c) => c.category.slug === "bus");
-export const vehicleKind = (v: VehicleWithCats) => (isBus(v) ? "Bus électrique" : "Golfette électrique");
+export const vehicleKind = (v: VehicleWithCats) => v.vehicleType || (isBus(v) ? "Bus électrique" : "Golfette électrique");
 
 /** FAQ produit générée à partir des données (sert aussi aux moteurs de réponse / LLM). */
 export function productFaq(v: VehicleWithCats): FaqItem[] {
@@ -40,7 +40,7 @@ export function productFaq(v: VehicleWithCats): FaqItem[] {
   faq.push({
     q: `Faut-il un permis pour conduire le ${name} ?`,
     a: s.roadLegal
-      ? `Le ${name} est homologué pour la route${s.licence ? ` et se conduit avec le ${s.licence.toLowerCase()}` : ""}.`
+      ? `Le ${name} est homologué pour la route${s.licence ? ` et se conduit avec le ${s.licence.charAt(0).toLowerCase() + s.licence.slice(1)}` : ""}.`
       : `Le ${name} est destiné aux voies et sites privés (hôtels, campings, golfs, sites industriels…), où il se conduit sans permis. Pour circuler sur la voie publique, choisissez un modèle homologué route.`,
   });
   if (v.colors.length) faq.push({ q: `Le ${name} est-il personnalisable ?`, a: `Oui : carrosserie ${v.colors.join(", ").toLowerCase()}${v.upholstery.length ? `, et plusieurs selleries (${v.upholstery.join(", ").toLowerCase()})` : ""}.` });
@@ -68,7 +68,7 @@ export function productJsonLd(v: VehicleWithCats, categoryName?: string) {
     sku: v.sku || v.slug,
     ...(v.sku ? { mpn: v.sku } : {}),
     category: categoryName,
-    brand: { "@type": "Brand", name: "Alsimat" },
+    brand: { "@type": "Brand", name: v.brand || "Alsimat" },
     vehicleConfiguration: v.name.trim(),
     fuelType: "Électrique",
     ...(s.seats ? { seatingCapacity: s.seats } : {}),

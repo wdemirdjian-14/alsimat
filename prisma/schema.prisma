@@ -43,6 +43,9 @@ model Vehicle {
   seoDescription   String?
   /// Mise en avant « vitrine » : page produit enrichie + bloc sur l'accueil
   spotlight        Boolean           @default(false)
+  /// Marque constructeur (ex. « Little ») et type affiché (ex. « Utilitaire électrique »)
+  brand            String?
+  vehicleType      String?
   tagline          String?
   sku              String?
   video            String?

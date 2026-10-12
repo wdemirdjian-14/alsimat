@@ -17,7 +17,7 @@ export function VehicleCard({ vehicle, priority = false, delay = 0 }: { vehicle:
         {image && (
           <Image
             src={image}
-            alt={`${vehicle.name} – golfette électrique Alsimat`}
+            alt={`${vehicle.name} – ${vehicle.vehicleType || "golfette électrique"} Alsimat`}
             fill
             priority={priority}
             sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"

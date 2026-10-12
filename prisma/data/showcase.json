@@ -32,8 +32,24 @@
       "Pneumatiques": "22×11-10"
     },
     "equipment": "Feux avant et arrière LED\nClignotants\nKlaxon\nPrise 12 V\nTableau de bord avec volant finition carbone\nÉcran LED\nCompteur de vitesse et kilométrique\nFeux warning\nMarche avant / arrière\nRétroviseurs droit et gauche\nJantes aluminium",
-    "colors": ["Blanc", "Noir", "Bleu", "Sable", "Vert", "Jaune", "Rouge", "Camouflage", "Personnalisée"],
-    "upholstery": ["Caramel", "Blanc", "Kaki & beige", "Beige & blanc", "Noir & gris"],
+    "colors": [
+      "Blanc",
+      "Noir",
+      "Bleu",
+      "Sable",
+      "Vert",
+      "Jaune",
+      "Rouge",
+      "Camouflage",
+      "Personnalisée"
+    ],
+    "upholstery": [
+      "Caramel",
+      "Blanc",
+      "Kaki & beige",
+      "Beige & blanc",
+      "Noir & gris"
+    ],
     "video": "/media/video/link-2-cargo.mp4",
     "datasheet": "/media/fiches/fiche-technique-link-2-cargo-AL202EH.pdf",
     "images": [
@@ -44,5 +60,73 @@
     ],
     "seoTitle": "Link 2 Cargo – Golfette électrique utilitaire 2 places avec benne",
     "seoDescription": "Golfette électrique utilitaire Link 2 Cargo : 2 places, benne 250 kg, 32 km/h, +100 km d'autonomie, Lithium garanti 5 ans. 9 300 € HT. Devis gratuit, SAV sur site."
+  },
+  {
+    "slug": "street-2-cargo",
+    "name": "Street 2 Cargo",
+    "categories": [
+      "golfette-utilitaire",
+      "utilitaires",
+      "homologues-route"
+    ],
+    "order": 60,
+    "spotlight": true,
+    "featured": true,
+    "brand": "Little",
+    "vehicleType": "Utilitaire électrique",
+    "sku": "LIS2DCH",
+    "tagline": "L'utilitaire électrique homologué route qui va partout : cabine fermée, grande benne aluminium, 40 km/h et plus de 100 km d'autonomie. Se conduit avec le permis B.",
+    "price": "14 900 € HT",
+    "shortDescription": "Le Street 2 Cargo est un utilitaire électrique 2 places homologué route (catégorie L7e) avec cabine entièrement fermée et benne arrière en aluminium. Moteur AC 5 kW, batterie Lithium 150 Ah garantie 5 ans, 40 km/h et plus de 100 km d'autonomie : la solution zéro émission pour les collectivités, artisans et sites qui doivent aussi circuler sur la voie publique.",
+    "description": "Le Street 2 Cargo est un véritable petit utilitaire électrique : homologué route en catégorie L7e, il circule sur la voie publique comme sur vos sites privés et se conduit avec le permis B. Collectivités, services techniques, espaces verts, artisans, campings, domaines ou zones industrielles : il relie vos différents sites sans changer de véhicule.\n\nSa cabine entièrement fermée protège le conducteur et son passager par tous les temps : portes, pare-brise en verre avec essuie-glace, sièges confortables avec ceintures de sécurité 3 points. À l'arrière, une benne plateau en aluminium à ridelles rabattables accueille outillage, matériaux, déchets verts ou marchandises.\n\nSous le capot, une motorisation électrique AC 60 V de 5 kW associée à une batterie Lithium 150 Ah garantie 5 ans. Le Street 2 Cargo atteint 40 km/h, franchit des pentes jusqu'à 20 % et offre plus de 100 km d'autonomie. La recharge atteint 85 % en 4 heures et 100 % en 6 heures.\n\nAvec 3,30 m de long et 1,38 m de large, il reste compact et se gare partout ; son rayon de braquage de 6 mètres facilite les manœuvres en ville comme sur site. Freinage hydraulique, frein de stationnement, éclairage complet (phares, clignotants, feux arrière et feux stop), rétroviseurs et compteur combiné sont fournis de série.\n\nCarrosserie (blanc, noir, bleu, sable, vert, jaune, rouge, camouflage ou couleur personnalisée) et sellerie se configurent selon votre identité. Le SAV Alsimat intervient sur site, partout en France, pour l'entretien et le diagnostic.",
+    "characteristics": {
+      "Code produit": "LIS2DCH",
+      "Homologation": "Route – catégorie L7e",
+      "Permis de conduire": "Permis B",
+      "Places": "2 personnes (conducteur + 1 passager), cabine fermée",
+      "Alimentation": "Électrique 60 V – moteur AC",
+      "Moteur": "5 kW",
+      "Batterie": "Lithium 150 Ah – garantie 5 ans",
+      "Vitesse maximale": "40 km/h",
+      "Autonomie": "Plus de 100 km (route plate, 20 km/h de moyenne)",
+      "Recharge à 85 %": "4 h",
+      "Recharge à 100 %": "6 h",
+      "Pente franchissable": "20 %",
+      "Rayon de braquage": "6 m",
+      "Poids à vide": "790 kg",
+      "Longueur": "3 300 mm",
+      "Largeur": "1 380 mm",
+      "Hauteur": "1 750 mm",
+      "Empattement": "2 110 mm",
+      "Garde au sol": "145 mm"
+    },
+    "equipment": "Cabine entièrement fermée avec portes\nPare-brise en verre et essuie-glace\nRétroviseurs droit et gauche\nPhares, clignotants, feux arrière et feux stop\nCeintures de sécurité 3 points\nCompteur combiné\nFreinage hydraulique\nFrein de stationnement\nBenne plateau aluminium à ridelles rabattables\nJantes alliage",
+    "colors": [
+      "Blanc",
+      "Noir",
+      "Bleu",
+      "Sable",
+      "Vert",
+      "Jaune",
+      "Rouge",
+      "Camouflage",
+      "Personnalisée"
+    ],
+    "upholstery": [
+      "Caramel",
+      "Blanc",
+      "Kaki & beige",
+      "Beige & blanc",
+      "Noir & gris"
+    ],
+    "datasheet": "/media/fiches/fiche-technique-street-2-cargo-LIS2DCH.pdf",
+    "images": [
+      "/media/utilitaire-electrique-street-2-cargo-homologue-route-avant.webp",
+      "/media/utilitaire-electrique-street-2-cargo-homologue-route-profil.webp",
+      "/media/utilitaire-electrique-street-2-cargo-homologue-route-benne.webp",
+      "/media/utilitaire-electrique-street-2-cargo-homologue-route-cabine.webp"
+    ],
+    "seoTitle": "Street 2 Cargo – Utilitaire électrique homologué route avec benne",
+    "seoDescription": "Street 2 Cargo : utilitaire électrique homologué route L7e, cabine fermée, benne alu, 40 km/h, +100 km d'autonomie, Lithium garanti 5 ans. 14 900 € HT. Devis gratuit."
   }
 ]

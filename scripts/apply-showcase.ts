@@ -18,12 +18,22 @@ async function main() {
   );
   for (const { slug, ...data } of entries) {
     if (only && slug !== only) continue;
+    const { categories, ...fields } = data as { categories?: string[] } & Record<string, unknown>;
+    const catIds = categories?.length ? (await db.category.findMany({ where: { slug: { in: categories } } })).map((c) => ({ categoryId: c.id })) : null;
     const v = await db.vehicle.findUnique({ where: { slug } });
     if (!v) {
-      console.warn(`⚠ Véhicule introuvable : ${slug}`);
+      if (!fields.name) {
+        console.warn(`⚠ Véhicule introuvable (et pas de « name » pour le créer) : ${slug}`);
+        continue;
+      }
+      await db.vehicle.create({ data: { slug, ...(fields as { name: string }), published: true, ...(catIds ? { categories: { create: catIds } } : {}) } });
+      console.log(`✓ Véhicule créé : ${fields.name}`);
       continue;
     }
-    await db.vehicle.update({ where: { slug }, data: { ...data, published: true } });
+    await db.vehicle.update({
+      where: { slug },
+      data: { ...fields, published: true, ...(catIds ? { categories: { deleteMany: {}, create: catIds } } : {}) },
+    });
     console.log(`✓ Fiche vitrine appliquée : ${v.name.trim()}`);
   }
 }

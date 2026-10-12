@@ -26,6 +26,8 @@ export async function saveVehicle(id: string | null, fd: FormData) {
     seoDescription: str(fd, "seoDescription"),
     spotlight: bool(fd, "spotlight"),
     tagline: str(fd, "tagline"),
+    brand: str(fd, "brand"),
+    vehicleType: str(fd, "vehicleType"),
     sku: str(fd, "sku"),
     video: str(fd, "video"),
     datasheet: str(fd, "datasheet"),

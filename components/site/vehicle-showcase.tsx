@@ -66,12 +66,13 @@ export function VehicleShowcase({ v, crumbs, related, phone }: { v: VehicleWithC
           <Breadcrumbs items={crumbs} light />
           <p className="mt-8 flex animate-fade-up flex-wrap items-center gap-2">
             <span className="rounded-full bg-brand-500 px-3 py-1 text-xs font-bold tracking-wide uppercase">À la une</span>
+            {s.roadLegal && <span className="rounded-full bg-amber-400 px-3 py-1 text-xs font-bold text-ink uppercase">Homologué route</span>}
             {v.sku && <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold backdrop-blur">Réf. {v.sku}</span>}
           </p>
           <h1 className="mt-4 animate-fade-up text-5xl leading-none font-extrabold [animation-delay:80ms] sm:text-7xl lg:text-8xl">
             {name}
             <span className="mt-3 block text-xl font-semibold text-brand-300 sm:text-2xl">
-              {vehicleKind(v)}{s.cargo ? " utilitaire" : ""}{s.seats ? ` ${s.seats} places` : ""}
+              {vehicleKind(v)}{s.cargo && !v.vehicleType ? " utilitaire" : ""}{s.seats ? ` ${s.seats} places` : ""}{v.brand ? ` · ${v.brand}` : ""}
             </span>
           </h1>
           {v.tagline && <p className="mt-6 max-w-2xl animate-fade-up text-lg text-white/85 [animation-delay:160ms] sm:text-xl">{v.tagline}</p>}
@@ -117,7 +118,7 @@ export function VehicleShowcase({ v, crumbs, related, phone }: { v: VehicleWithC
         </div>
         <div data-reveal style={delay(120)} className="lg:col-span-5">
           <p className="eyebrow">Présentation</p>
-          <h2 className="section-title mt-3 !text-4xl">Pensée pour travailler, taillée pour durer.</h2>
+          <h2 className="section-title mt-3 !text-4xl">Pour travailler dur, et longtemps.</h2>
           {v.shortDescription && <p className="mt-6 text-lg leading-relaxed text-ink-soft">{v.shortDescription}</p>}
           <ul className="mt-8 space-y-3">
             {[

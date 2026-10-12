@@ -13,7 +13,7 @@ export async function feedItems() {
       const s = keySpecs(v);
       const cat = primaryCategory(v);
       const ht = s.price!;
-      const kind = v.categories.some((c) => c.category.slug === "bus") ? "Bus électrique" : "Golfette électrique";
+      const kind = v.vehicleType || (v.categories.some((c) => c.category.slug === "bus") ? "Bus électrique" : "Golfette électrique");
       return {
         id: v.sku || v.slug,
         title: truncate(`${kind} ${v.name.trim()}${s.seats ? ` ${s.seats} places` : ""}${s.rangeKm ? ` – ${s.rangeKm} km d'autonomie` : ""}`, 150),
@@ -26,6 +26,7 @@ export async function feedItems() {
         productType: ["Véhicules électriques", cat?.name].filter(Boolean).join(" > "),
         mpn: v.sku,
         color: v.colors[0],
+        brand: v.brand || "Alsimat",
         highlights: [s.seats && `${s.seats} places`, s.range, s.speed && `Vitesse max ${s.speed}`, s.battery && `Batterie ${s.battery}`].filter(Boolean) as string[],
       };
     });

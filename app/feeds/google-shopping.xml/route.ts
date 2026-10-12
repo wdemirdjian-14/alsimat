@@ -28,7 +28,7 @@ ${i.extraImages.map((u) => `<g:additional_image_link>${x(u)}</g:additional_image
 <g:availability>in_stock</g:availability>
 <g:condition>new</g:condition>
 <g:price>${i.priceTtc.toFixed(2)} EUR</g:price>
-<g:brand>Alsimat</g:brand>
+<g:brand>${x(i.brand)}</g:brand>
 ${i.mpn ? `<g:mpn>${x(i.mpn)}</g:mpn>` : "<g:identifier_exists>no</g:identifier_exists>"}
 <g:product_type>${x(i.productType)}</g:product_type>
 ${i.color ? `<g:color>${x(i.color)}</g:color>` : ""}

@@ -8,7 +8,7 @@ export async function GET() {
   const cell = (v: string | number | undefined) => `"${String(v ?? "").replace(/"/g, '""')}"`;
   const head = ["reference", "titre", "description", "prix_ht", "prix_ttc", "lien", "image", "images_supplementaires", "categorie", "marque"];
   const rows = items.map((i) =>
-    [i.id, i.title, i.description, i.priceHt, i.priceTtc, i.link, i.image, i.extraImages.join(" "), i.productType, "Alsimat"].map(cell).join(";"),
+    [i.id, i.title, i.description, i.priceHt, i.priceTtc, i.link, i.image, i.extraImages.join(" "), i.productType, i.brand].map(cell).join(";"),
   );
   return new Response("﻿" + [head.join(";"), ...rows].join("\r\n"), {
     headers: { "Content-Type": "text/csv; charset=utf-8", "Content-Disposition": 'inline; filename="alsimat-catalogue.csv"' },

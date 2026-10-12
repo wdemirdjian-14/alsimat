@@ -19,7 +19,7 @@ import { formatPrice, paragraphs } from "@/lib/utils";
 type Props = { params: Promise<{ slug: string }> };
 
 const isBus = (v: { categories: { category: { slug: string } }[] }) => v.categories.some((c) => c.category.slug === "bus");
-const kind = (v: Parameters<typeof isBus>[0]) => (isBus(v) ? "Bus électrique" : "Golfette électrique");
+const kind = (v: Parameters<typeof isBus>[0] & { vehicleType?: string | null }) => v.vehicleType || (isBus(v) ? "Bus électrique" : "Golfette électrique");
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
