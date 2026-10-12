@@ -30,5 +30,5 @@ curl -fsS -o /dev/null "http://127.0.0.1:$PORT/" && echo "✓ Site démarré sur
 echo
 echo "Étapes suivantes :"
 echo "  1. Créer votre compte admin :"
-echo "     docker compose run --rm -e ADMIN_EMAIL=vous@alsimat.fr -e ADMIN_PASSWORD='MotDePasseLong!' tools npx tsx scripts/create-admin.ts"
+echo "     docker compose run --rm -e ADMIN_EMAIL=vous@alsimat.com -e ADMIN_PASSWORD='MotDePasseLong!' tools npx tsx scripts/create-admin.ts"
 echo "  2. Configurer Nginx : cp deploy/nginx-alsimat.conf /etc/nginx/sites-available/alsimat.conf (voir README)"
