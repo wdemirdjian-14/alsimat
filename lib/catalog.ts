@@ -90,3 +90,9 @@ export function primaryCategory(v: VehicleWithCats) {
   const cats = v.categories.map((c) => c.category);
   return cats.find((c) => c.parentId) ?? cats.find((c) => c.slug !== "golfette-utilitaire") ?? cats[0] ?? null;
 }
+
+/** Véhicules « vitrine » mis en avant sur l'accueil (2 maximum). */
+export const getSpotlightVehicles = cache(
+  async (): Promise<VehicleWithCats[]> =>
+    db.vehicle.findMany({ where: { published: true, spotlight: true }, include: vehicleInclude, orderBy: [{ order: "asc" }, { updatedAt: "desc" }], take: 2 }),
+);

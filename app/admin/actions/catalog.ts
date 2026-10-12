@@ -24,6 +24,14 @@ export async function saveVehicle(id: string | null, fd: FormData) {
     order: int(fd, "order"),
     seoTitle: str(fd, "seoTitle"),
     seoDescription: str(fd, "seoDescription"),
+    spotlight: bool(fd, "spotlight"),
+    tagline: str(fd, "tagline"),
+    sku: str(fd, "sku"),
+    video: str(fd, "video"),
+    datasheet: str(fd, "datasheet"),
+    equipment: str(fd, "equipment"),
+    colors: (str(fd, "colors") ?? "").split(",").map((c) => c.trim()).filter(Boolean),
+    upholstery: (str(fd, "upholstery") ?? "").split(",").map((c) => c.trim()).filter(Boolean),
   };
   const saved = id
     ? await db.vehicle.update({ where: { id }, data: { ...data, categories: { deleteMany: {}, create: categoryIds.map((categoryId) => ({ categoryId })) } } })

@@ -1,7 +1,7 @@
 "use server";
 
 import { requireAdmin } from "@/lib/auth";
-import { savePublicImage } from "@/lib/uploads";
+import { savePublicFile, savePublicImage } from "@/lib/uploads";
 
 export async function uploadImages(fd: FormData): Promise<{ urls: string[]; error?: string }> {
   await requireAdmin();
@@ -16,4 +16,15 @@ export async function uploadImages(fd: FormData): Promise<{ urls: string[]; erro
     }
   }
   return { urls };
+}
+
+export async function uploadFile(fd: FormData): Promise<{ url?: string; error?: string }> {
+  await requireAdmin();
+  const f = fd.get("file");
+  if (!(f instanceof File) || !f.size) return { error: "Aucun fichier." };
+  try {
+    return { url: await savePublicFile(f, String(fd.get("hint") || "") || f.name) };
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Échec de l'envoi" };
+  }
 }

@@ -30,6 +30,19 @@ export async function savePublicImage(file: File, hint?: string) {
   return `/uploads/${path.relative(path.join(UPLOAD_DIR, "public"), path.join(dir, name)).split(path.sep).join("/")}`;
 }
 
+/** Fichier public sans conversion (vidéo MP4, fiche technique PDF). */
+export async function savePublicFile(file: File, hint?: string) {
+  const allowed: Record<string, string> = { "video/mp4": ".mp4", "video/webm": ".webm", "application/pdf": ".pdf" };
+  const ext = allowed[file.type];
+  if (!ext) throw new Error("Formats acceptés : MP4, WebM ou PDF.");
+  if (file.size > 25 * 1024 * 1024) throw new Error("Fichier trop lourd (25 Mo maximum).");
+  const dir = path.join(UPLOAD_DIR, "public", new Date().toISOString().slice(0, 7));
+  await mkdir(dir, { recursive: true });
+  const name = safeName(hint || file.name) + ext;
+  await writeFile(path.join(dir, name), Buffer.from(await file.arrayBuffer()));
+  return `/uploads/${path.relative(path.join(UPLOAD_DIR, "public"), path.join(dir, name)).split(path.sep).join("/")}`;
+}
+
 /** Pièce jointe privée (SAV) : stockée hors du dossier public, lisible uniquement depuis l'admin. */
 export async function savePrivateFile(file: File, folder: string) {
   const allowed = [...IMAGE_TYPES, "application/pdf", "video/mp4", "video/quicktime"];
@@ -50,5 +63,5 @@ export function resolveInside(root: string, parts: string[]) {
 
 export const MIME: Record<string, string> = {
   ".webp": "image/webp", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".gif": "image/gif",
-  ".avif": "image/avif", ".heic": "image/heic", ".pdf": "application/pdf", ".mp4": "video/mp4", ".mov": "video/quicktime",
+  ".avif": "image/avif", ".heic": "image/heic", ".pdf": "application/pdf", ".mp4": "video/mp4", ".webm": "video/webm", ".mov": "video/quicktime",
 };

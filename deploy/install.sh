@@ -22,6 +22,7 @@ echo "→ Création des tables…"
 docker compose run --rm tools npx prisma db push --skip-generate
 echo "→ Import du catalogue d'origine (54 fiches, 7 gammes)…"
 docker compose run --rm tools npx tsx scripts/import-legacy.ts
+docker compose run --rm tools npx tsx scripts/apply-showcase.ts
 echo "→ Démarrage du site…"
 docker compose up -d app
 sleep 5

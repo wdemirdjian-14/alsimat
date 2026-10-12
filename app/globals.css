@@ -84,3 +84,11 @@
 
 .scrollbar-none { scrollbar-width: none; }
 .scrollbar-none::-webkit-scrollbar { display: none; }
+
+/* Vitrine produit : barre de charge et tracé de la benne animés à l'apparition */
+.charge-bar { width: 0; transition: width 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s; }
+.is-visible .charge-bar { width: var(--w); }
+.benne-draw path { stroke-dasharray: 900; stroke-dashoffset: 900; transition: stroke-dashoffset 2.2s ease-out; }
+.is-visible .benne-draw path { stroke-dashoffset: 0; }
+.benne-draw g[stroke] path { stroke-dasharray: 5 4; stroke-dashoffset: 0; }
+@media (prefers-reduced-motion: reduce) { .charge-bar { width: var(--w); } .benne-draw path { stroke-dashoffset: 0; } }

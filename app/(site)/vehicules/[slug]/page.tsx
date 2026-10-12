@@ -5,12 +5,15 @@ import { BatteryCharging, Check, Gauge, IdCard, Phone, ShieldCheck, Users, Wrenc
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Gallery } from "@/components/site/gallery";
 import { InquiryForm } from "@/components/site/inquiry-form";
+import { Faq } from "@/components/site/faq";
 import { JsonLd } from "@/components/site/json-ld";
+import { VehicleShowcase } from "@/components/site/vehicle-showcase";
+import { productFaq, productJsonLd } from "@/lib/product";
 import { VehicleCard } from "@/components/site/vehicle-card";
 import { getRelatedVehicles, getVehicle, keySpecs, primaryCategory, specsOf } from "@/lib/catalog";
 import { pageMetadata } from "@/lib/seo";
 import { getCompany } from "@/lib/settings";
-import { SITE_URL, telHref } from "@/lib/site";
+import { telHref } from "@/lib/site";
 import { formatPrice, paragraphs } from "@/lib/utils";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -41,6 +44,15 @@ export default async function VehiclePage({ params }: Props) {
   const specs = specsOf(v);
   const cat = primaryCategory(v);
   const name = v.name.trim();
+  const crumbs = [...(cat ? [{ name: cat.name, href: `/gammes/${cat.slug}` }] : []), { name, href: `/vehicules/${v.slug}` }];
+
+  if (v.spotlight)
+    return (
+      <>
+        <VehicleShowcase v={v} crumbs={crumbs} related={related} phone={company.phone} />
+        <JsonLd data={productJsonLd(v, cat?.name)} />
+      </>
+    );
 
   const highlights = [
     s.seats && { icon: Users, label: "Places", value: `${s.seats}` },
@@ -54,12 +66,7 @@ export default async function VehiclePage({ params }: Props) {
     <>
       <div className="bg-sand pt-28 lg:pt-36">
         <div className="container-x">
-          <Breadcrumbs
-            items={[
-              ...(cat ? [{ name: cat.name, href: `/gammes/${cat.slug}` }] : []),
-              { name, href: `/vehicules/${v.slug}` },
-            ]}
-          />
+          <Breadcrumbs items={crumbs} />
         </div>
         <section className="container-x grid gap-10 pt-6 pb-14 lg:grid-cols-12 lg:gap-14 lg:pb-20">
           <div className="animate-fade-up lg:col-span-7">
@@ -140,6 +147,11 @@ export default async function VehiclePage({ params }: Props) {
         </aside>
       </section>
 
+      <section className="container-x grid gap-12 pb-16 lg:grid-cols-12 lg:pb-24">
+        <h2 className="section-title !text-3xl lg:col-span-4">Questions fréquentes</h2>
+        <div className="lg:col-span-8"><Faq items={productFaq(v)} /></div>
+      </section>
+
       <section id="devis" className="scroll-mt-28 bg-sand py-16 lg:py-24">
         <div className="container-x grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-4">
@@ -162,33 +174,7 @@ export default async function VehiclePage({ params }: Props) {
         </section>
       )}
 
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "Product",
-          name,
-          description: v.shortDescription ?? undefined,
-          image: v.images.map((i) => SITE_URL + i),
-          url: `${SITE_URL}/vehicules/${v.slug}`,
-          sku: v.slug,
-          category: cat?.name,
-          brand: { "@type": "Brand", name: "Alsimat" },
-          additionalProperty: Object.entries(specs).map(([k, val]) => ({ "@type": "PropertyValue", name: k, value: val })),
-          ...(s.price
-            ? {
-                offers: {
-                  "@type": "Offer",
-                  url: `${SITE_URL}/vehicules/${v.slug}`,
-                  priceCurrency: "EUR",
-                  price: s.price,
-                  priceSpecification: { "@type": "UnitPriceSpecification", price: s.price, priceCurrency: "EUR", valueAddedTaxIncluded: false },
-                  availability: "https://schema.org/InStock",
-                  seller: { "@id": `${SITE_URL}/#organization` },
-                },
-              }
-            : {}),
-        }}
-      />
+      <JsonLd data={productJsonLd(v, cat?.name)} />
     </>
   );
 }

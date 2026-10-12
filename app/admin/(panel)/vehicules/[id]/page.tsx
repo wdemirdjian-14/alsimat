@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Copy, ExternalLink } from "lucide-react";
 import { DeleteButton, SubmitButton } from "@/components/admin/form-parts";
+import { FileInput } from "@/components/admin/file-input";
 import { ImageInput } from "@/components/admin/image-input";
 import { Card, Field, Notice, PageTitle, TextArea, Toggle } from "@/components/admin/ui";
 import { db } from "@/lib/db";
@@ -48,6 +49,21 @@ export default async function VehicleEdit({ params, searchParams }: Props) {
           <Card title="Photos">
             <ImageInput name="images" multiple defaultValue={v?.images ?? []} hint="La première photo est l'image principale. Les images sont automatiquement converties et compressées." />
           </Card>
+          <Card title="Page vitrine (mise en avant)">
+            <p className="mb-4 text-sm text-ink/55">
+              Cochez « À la une » dans Publication pour afficher la page vitrine animée (vidéo, chiffres clés, benne, batterie, personnalisation) et le bloc sur l'accueil (2 modèles maximum).
+            </p>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <TextArea className="sm:col-span-2" label="Accroche" name="tagline" defaultValue={v?.tagline} rows={2} hint="Une phrase percutante affichée sous le titre." />
+              <Field label="Référence constructeur" name="sku" defaultValue={v?.sku} placeholder="AL202EH" />
+              <div />
+              <FileInput name="video" label="Vidéo (MP4)" accept="video/mp4,video/webm" defaultValue={v?.video} hint="Courte (5 à 20 s), sans son, 25 Mo max. Jouée en boucle en fond." />
+              <FileInput name="datasheet" label="Fiche technique (PDF)" accept="application/pdf" defaultValue={v?.datasheet} />
+              <TextArea className="sm:col-span-2" label="Équipement de série (un par ligne)" name="equipment" defaultValue={v?.equipment} rows={6} />
+              <Field label="Coloris carrosserie (séparés par des virgules)" name="colors" defaultValue={v?.colors.join(", ")} placeholder="Blanc, Noir, Bleu, Personnalisée" />
+              <Field label="Selleries (séparées par des virgules)" name="upholstery" defaultValue={v?.upholstery.join(", ")} placeholder="Caramel, Noir & gris" />
+            </div>
+          </Card>
           <Card title="Référencement (facultatif)">
             <div className="grid gap-4">
               <Field label="Titre Google" name="seoTitle" defaultValue={v?.seoTitle} hint="60 caractères max. Par défaut : nom + type + places + prix." />
@@ -60,6 +76,7 @@ export default async function VehicleEdit({ params, searchParams }: Props) {
           <Card title="Publication">
             <div className="space-y-3">
               <Toggle label="En ligne" name="published" defaultChecked={v?.published ?? true} />
+              <Toggle label="À la une (page vitrine)" name="spotlight" defaultChecked={v?.spotlight} hint="Bloc vedette sur l'accueil + page produit animée." />
               <Toggle label="Mis en avant" name="featured" defaultChecked={v?.featured} hint="Affiché dans « Nos modèles phares »." />
               <Field label="Ordre d'affichage" name="order" type="number" defaultValue={v?.order ?? 0} />
             </div>

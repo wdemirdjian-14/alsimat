@@ -33,7 +33,10 @@ export function Header({ categories, links, phone, phoneHref }: { categories: Na
   }, [open]);
 
   // Pages sans bandeau sombre en haut : l'en-tête est toujours opaque.
-  const lightTop = /^\/(vehicules|occasion|conseils|realisations)\/.+/.test(pathname) || /^\/(mentions-legales|confidentialite|plan-du-site)$/.test(pathname);
+  // (sauf si la page déclare un bandeau sombre, ex. la vitrine produit avec vidéo)
+  const [darkHero, setDarkHero] = useState(false);
+  useEffect(() => setDarkHero(!!document.querySelector("[data-dark-hero]")), [pathname]);
+  const lightTop = !darkHero && (/^\/(vehicules|occasion|conseils|realisations)\/.+/.test(pathname) || /^\/(mentions-legales|confidentialite|plan-du-site)$/.test(pathname));
   const solid = scrolled || open || lightTop;
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 

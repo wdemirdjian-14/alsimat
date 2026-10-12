@@ -1,0 +1,48 @@
+[
+  {
+    "slug": "link-2-cargo",
+    "spotlight": true,
+    "featured": true,
+    "sku": "AL202EH",
+    "tagline": "La golfette utilitaire compacte qui en fait plus : 2 places, une vraie benne de 250 kg et plus de 100 km d'autonomie.",
+    "price": "9 300 € HT",
+    "shortDescription": "Compacte, maniable et robuste, la Link 2 Cargo est une golfette électrique 2 places équipée d'une benne arrière de 1 100 × 800 mm (250 kg). Moteur AC 5 kW, batterie Lithium 105 Ah garantie 5 ans, plus de 100 km d'autonomie : l'outil idéal pour transporter matériel et personnel sur site.",
+    "description": "La Link 2 Cargo est la golfette électrique utilitaire pensée pour celles et ceux qui doivent à la fois se déplacer et transporter du matériel toute la journée. Hôtels, campings, domaines, golfs, collectivités, sites industriels ou logistiques : elle trouve sa place partout où la maniabilité compte autant que la capacité de charge.\n\nSa benne arrière en acier de 1 100 × 800 × 250 mm accepte jusqu'à 250 kg de chargement : outillage, déchets verts, linge, fournitures, colis… Avec une charge totale admissible de 420 kg, elle transporte le conducteur, un passager et tout le nécessaire en un seul trajet.\n\nSous la carrosserie, un moteur électrique AC 48 V de 5 kW associé à une batterie Lithium 105 Ah garantie 5 ans. La Link 2 Cargo atteint 32 km/h, franchit des pentes jusqu'à 25 % et offre plus de 100 km d'autonomie. La batterie se recharge à 85 % en 4 heures et à 100 % en 6 heures : une nuit suffit pour repartir le lendemain.\n\nAvec 2,67 m de long, 1,18 m de large et un rayon de braquage de 4 mètres seulement, elle se faufile dans les allées étroites, les parkings et les zones piétonnes. Silencieuse et sans émission, elle circule sans gêner clients, résidents ou patients.\n\nL'équipement de série est complet : feux LED avant et arrière, clignotants, klaxon, prise 12 V, tableau de bord avec volant finition carbone, écran LED avec compteur de vitesse et kilométrique, feux warning, marche avant/arrière, rétroviseurs et jantes aluminium.\n\nCarrosserie (blanc, noir, bleu, sable, vert, jaune, rouge, camouflage ou couleur personnalisée) et sellerie se configurent selon votre identité visuelle. Et parce que l'accompagnement ne s'arrête pas à la livraison, le SAV Alsimat intervient directement sur site, partout en France, pour l'entretien et le diagnostic de votre véhicule.",
+    "characteristics": {
+      "Code produit": "AL202EH",
+      "Places": "2 personnes (conducteur + 1 passager)",
+      "Alimentation": "Électrique 48 V – moteur AC",
+      "Moteur": "5 kW",
+      "Batterie": "Lithium 105 Ah – garantie 5 ans",
+      "Vitesse maximale": "32 km/h",
+      "Autonomie": "Plus de 100 km (route plate, 20 km/h de moyenne)",
+      "Recharge à 85 %": "4 h",
+      "Recharge à 100 %": "6 h",
+      "Charge maximale": "420 kg",
+      "Pente franchissable": "25 % (pont 12,76:1)",
+      "Rayon de braquage": "4 m",
+      "Capacité de la benne": "250 kg",
+      "Dimensions de la benne": "1 100 × 800 × 250 mm",
+      "Poids à vide": "367 kg",
+      "Longueur": "2 670 mm",
+      "Largeur": "1 180 mm",
+      "Hauteur": "1 890 mm",
+      "Empattement": "1 700 mm",
+      "Garde au sol": "120 mm",
+      "Pneumatiques": "22×11-10"
+    },
+    "equipment": "Feux avant et arrière LED\nClignotants\nKlaxon\nPrise 12 V\nTableau de bord avec volant finition carbone\nÉcran LED\nCompteur de vitesse et kilométrique\nFeux warning\nMarche avant / arrière\nRétroviseurs droit et gauche\nJantes aluminium",
+    "colors": ["Blanc", "Noir", "Bleu", "Sable", "Vert", "Jaune", "Rouge", "Camouflage", "Personnalisée"],
+    "upholstery": ["Caramel", "Blanc", "Kaki & beige", "Beige & blanc", "Noir & gris"],
+    "video": "/media/video/link-2-cargo.mp4",
+    "datasheet": "/media/fiches/fiche-technique-link-2-cargo-AL202EH.pdf",
+    "images": [
+      "/media/golfette-electrique-link-2-cargo-benne-photo-1.webp",
+      "/media/golfette-electrique-link-2-cargo-benne-photo-2.webp",
+      "/media/golfette-electrique-link-2-cargo-benne-photo-3.webp",
+      "/media/golfette-electrique-link-2-cargo.webp"
+    ],
+    "seoTitle": "Link 2 Cargo – Golfette électrique utilitaire 2 places avec benne",
+    "seoDescription": "Golfette électrique utilitaire Link 2 Cargo : 2 places, benne 250 kg, 32 km/h, +100 km d'autonomie, Lithium garanti 5 ans. 9 300 € HT. Devis gratuit, SAV sur site."
+  }
+]

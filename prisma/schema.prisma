@@ -41,6 +41,15 @@ model Vehicle {
   order            Int               @default(0)
   seoTitle         String?
   seoDescription   String?
+  /// Mise en avant « vitrine » : page produit enrichie + bloc sur l'accueil
+  spotlight        Boolean           @default(false)
+  tagline          String?
+  sku              String?
+  video            String?
+  datasheet        String?
+  equipment        String?           @db.Text
+  colors           String[]          @default([])
+  upholstery       String[]          @default([])
   categories       VehicleCategory[]
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt

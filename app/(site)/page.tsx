@@ -5,8 +5,9 @@ import {
 } from "lucide-react";
 import { CtaBand } from "@/components/site/cta-band";
 import { Faq, type FaqItem } from "@/components/site/faq";
+import { Spotlight } from "@/components/site/spotlight";
 import { VehicleCard } from "@/components/site/vehicle-card";
-import { getAllVehicles, getCategoryTree, getFeaturedVehicles, keySpecs } from "@/lib/catalog";
+import { getAllVehicles, getCategoryTree, getFeaturedVehicles, getSpotlightVehicles, keySpecs } from "@/lib/catalog";
 import { db } from "@/lib/db";
 import { getNav } from "@/lib/nav";
 import { pageMetadata } from "@/lib/seo";
@@ -46,13 +47,14 @@ const FAQ: FaqItem[] = [
 ];
 
 export default async function HomePage() {
-  const [home, company, tree, featured, all, { sections }] = await Promise.all([
+  const [home, company, tree, featured, all, { sections }, spotlight] = await Promise.all([
     getSetting("home_content"),
     getCompany(),
     getCategoryTree(),
     getFeaturedVehicles(8),
     getAllVehicles(),
     getNav(),
+    getSpotlightVehicles(),
   ]);
   const article = sections.conseils
     ? await db.article.findFirst({ where: { published: true, publishedAt: { lte: new Date() } }, orderBy: { publishedAt: "desc" } })
@@ -119,6 +121,8 @@ export default async function HomePage() {
           ))}
         </div>
       </section>
+
+      <Spotlight vehicles={spotlight} />
 
       {/* GAMMES */}
       <section id="gammes" className="container-x scroll-mt-24 py-20 lg:py-28">
