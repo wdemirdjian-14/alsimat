@@ -25,7 +25,7 @@ export const DEFAULT_COMPANY: CompanyInfo = {
   legalName: "Alsimat",
   tagline: "Spécialiste de la golfette électrique, du conseil au service après-vente",
   phone: "06 20 37 61 33",
-  email: "contact@alsimat.fr",
+  email: "contact@alsimat.com",
   street: "",
   postalCode: "",
   city: "",

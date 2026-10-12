@@ -48,7 +48,7 @@ nano .env                    # POSTGRES_PASSWORD, AUTH_SECRET, SMTP… (voir les
 Créer votre compte administrateur :
 
 ```bash
-docker compose run --rm -e ADMIN_EMAIL=vous@alsimat.fr -e ADMIN_PASSWORD='UnMotDePasseLong!' tools npx tsx scripts/create-admin.ts
+docker compose run --rm -e ADMIN_EMAIL=vous@alsimat.com -e ADMIN_PASSWORD='UnMotDePasseLong!' tools npx tsx scripts/create-admin.ts
 ```
 
 > Les anciens comptes admin ne sont pas repris : chaque administrateur est recréé avec un mot de passe neuf.
