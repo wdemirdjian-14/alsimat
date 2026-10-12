@@ -16,7 +16,7 @@ mkdir -p uploads/public uploads/private backups
 if [ "$(id -u)" -eq 0 ]; then chown -R 1001:1001 uploads; else sudo chown -R 1001:1001 uploads; fi
 
 echo "→ Construction des images…"
-docker compose build
+docker compose --profile tools build
 docker compose up -d db
 echo "→ Création des tables…"
 docker compose run --rm tools npx prisma db push --skip-generate
