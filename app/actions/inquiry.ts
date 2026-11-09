@@ -3,15 +3,14 @@
 import { z } from "zod";
 import { syncInquiryToContact } from "@/lib/crm";
 import { db } from "@/lib/db";
-import { sendMail } from "@/lib/mail";
+import { acknowledgementEmail, teamNotificationEmail, teamRecipients } from "@/lib/inquiry-emails";
+import { sendRichMail } from "@/lib/mail";
 import { rateLimit } from "@/lib/rate-limit";
 import { getCompany } from "@/lib/settings";
-import { SITE_URL } from "@/lib/site";
 import { savePrivateFile } from "@/lib/uploads";
 
 export type InquiryState = { ok: boolean; message: string; errors?: Record<string, string> } | null;
 
-const TYPES = { devis: "Demande de devis", contact: "Message de contact", sav: "Demande SAV" } as const;
 
 const schema = z
   .object({
@@ -72,46 +71,20 @@ export async function submitInquiry(_prev: InquiryState, form: FormData): Promis
   }
 
   const company = await getCompany();
-  const label = TYPES[data.type];
-  const lines = [
-    `${label} reçue sur ${SITE_URL}`,
-    "",
-    `Nom : ${data.firstName} ${data.lastName}${data.company ? ` (${data.company})` : ""}`,
-    `E-mail : ${data.email}`,
-    data.phone && `Téléphone : ${data.phone}`,
-    data.postalCode && `Code postal : ${data.postalCode}`,
-    data.vehicleRef && `Véhicule : ${data.vehicleRef}`,
-    data.serialNumber && `N° de série : ${data.serialNumber}`,
-    data.subject && `Objet : ${data.subject}`,
-    data.source && `Provenance : ${data.source}`,
-    "",
-    data.message ?? "",
-    saved.length ? `\n${saved.length} pièce(s) jointe(s) à consulter dans l'admin.` : "",
-    "",
-    `Voir la demande : ${SITE_URL}/admin/demandes/${inquiry.id}`,
-  ].filter((l): l is string => typeof l === "string");
-
-  await Promise.all([
-    sendMail({
-      // Notification : e-mail de contact + destinataires réglés dans l'admin + NOTIFY_EMAIL du serveur (sans doublon).
-      to: [...new Set([company.email, ...(company.notifyEmails ?? "").split(/[,;\s]+/), ...(process.env.NOTIFY_EMAIL ?? "").split(/[,;\s]+/)]
-        .map((e) => e.trim().toLowerCase()).filter((e) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)))],
-      replyTo: data.email,
-      subject: `[Alsimat] ${label} – ${data.firstName} ${data.lastName}${data.vehicleRef ? ` – ${data.vehicleRef}` : ""}`,
-      text: lines.join("\n"),
-    }),
-    sendMail({
-      to: data.email,
-      subject: `Alsimat – nous avons bien reçu votre ${label.toLowerCase()}`,
-      text: `Bonjour ${data.firstName},\n\nMerci pour votre ${label.toLowerCase()}${data.vehicleRef ? ` concernant « ${data.vehicleRef} »` : ""}. Notre équipe revient vers vous très rapidement.\n\nPour toute urgence : ${company.phone}.\n\nL'équipe Alsimat\n${SITE_URL}`,
-    }),
-  ]);
+  const fresh = (await db.inquiry.findUnique({ where: { id: inquiry.id } })) ?? inquiry;
+  const team = teamNotificationEmail(fresh, company);
+  const ack = acknowledgementEmail(fresh, company);
+  // Les deux envois sont indépendants : un échec ne bloque ni l'autre, ni la demande (déjà enregistrée).
+  await Promise.allSettled([
+    sendRichMail({ to: teamRecipients(company).join(", "), replyTo: data.email, fromName: "Site Alsimat", ...team }),
+    sendRichMail({ to: data.email, replyTo: company.email, fromName: "Alsimat", ...ack }),
+  ]).then((r) => r.forEach((x) => x.status === "rejected" && console.error("[mail] envoi impossible", x.reason)));
 
   return {
     ok: true,
     message:
       data.type === "sav"
-        ? "Votre demande SAV a bien été enregistrée. Notre technicien vous recontacte rapidement."
-        : "Merci ! Votre demande a bien été envoyée. Nous revenons vers vous très rapidement.",
+        ? "Votre demande SAV a bien été enregistrée. Notre technicien vous recontacte dans les 48 h."
+        : "Merci ! Votre demande a bien été envoyée. Un conseiller vous recontacte dans les 48 h.",
   };
 }

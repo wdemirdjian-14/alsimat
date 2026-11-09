@@ -66,7 +66,7 @@ export function renderEmail(o: {
 <span style="display:none;max-height:0;overflow:hidden;opacity:0">${esc(o.preheader ?? "")}</span>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f5f3ee"><tr><td align="center" style="padding:24px 12px">
 <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:18px;overflow:hidden">
-<tr><td style="background:#0d2420;padding:22px 28px"><a href="${esc(link(SITE_URL))}"><img src="${SITE_URL}/logo-alsimat.png" alt="Alsimat" height="40" style="height:40px;filter:brightness(0) invert(1)"></a></td></tr>
+<tr><td style="background:#0d2420;padding:22px 28px"><a href="${esc(link(SITE_URL))}"><img src="${SITE_URL}/logo-alsimat-blanc.png" alt="Alsimat" height="40" style="height:40px;width:auto;border:0"></a></td></tr>
 ${img ? `<tr><td><a href="${esc(link(cta ?? SITE_URL))}"><img src="${esc(img)}" alt="" width="600" style="display:block;width:100%;height:auto"></a></td></tr>` : ""}
 <tr><td style="padding:30px 28px 10px">${bodyToHtml(body, link)}</td></tr>
 ${cta && o.ctaLabel ? `<tr><td style="padding:4px 28px 30px"><a href="${esc(link(cta))}" style="display:inline-block;background:#46a584;color:#ffffff;text-decoration:none;font-weight:bold;padding:14px 26px;border-radius:999px">${esc(o.ctaLabel)}</a></td></tr>` : ""}
