@@ -85,3 +85,20 @@ Dans **Admin → Véhicules → (un véhicule)** :
 - **À la une** : place le véhicule en tête du carrousel « Véhicules du moment ».
 
 L'accueil met automatiquement en avant, dans l'ordre : vitrines « À la une », promotions en cours, véhicules en stock, coups de cœur.
+
+## 8. Cibles de prospection
+
+| Cible | Pourquoi Alsimat | Modèle d'e-mail | Contacts |
+|---|---|---|---|
+| **Campings** (5 675 classés) | Navettes clients, bagages, entretien, logistique ; silence = confort des vacanciers | Campings | Fichier fourni (Atout France + site officiel de chaque camping) |
+| **Villages vacances, résidences de tourisme, parcs résidentiels de loisirs** | Mêmes usages, grands domaines | Campings / Hôtellerie | Fichier fourni |
+| **Mairies & intercommunalités** (35 000) | Espaces verts, propreté, centres-villes piétons ; modèles homologués route | Collectivités | Fichier fourni (annuaire service-public.gouv.fr) — commencer par les communes touristiques et de plus de 2 000 habitants |
+| **Golfs** (~700) | Flotte de golfettes, utilitaires d'entretien des parcours | Grands sites | Annuaire ffgolf.org |
+| **Hôtels 4-5★ avec parc, châteaux, domaines viticoles** | Navette clients premium, image de marque, personnalisation | Hôtellerie | Atout France (13 000 hôtels) — recherche d'adresses possible comme pour les campings |
+| **Parcs de loisirs, zoos, parcs animaliers** | Logistique interne, navettes visiteurs (bus Shuttle) | Grands sites | Annuaire SNELAC |
+| **Ports de plaisance** | Déplacements sur les quais, transport de matériel | Grands sites | Annuaire FFPP |
+| **EHPAD, hôpitaux, centres de rééducation** | Golfettes PMR et médicalisées, navettes visiteurs | Santé & PMR | Base FINESS (sites web, pas d'e-mails) |
+| **Industrie, logistique, aéroports, campus** | Golfettes utilitaires à benne pour les grands sites | Grands sites | SIRENE + LinkedIn (rechercher le responsable services généraux / maintenance) |
+| **Exploitations agricoles, viticulteurs, paysagistes** | Street 2 Cargo homologué route : du champ à la route | Collectivités (adapter) | Chambres d'agriculture, annuaires professionnels |
+
+**Règles d'or** : écrire uniquement à des adresses professionnelles, garder la provenance du fichier (colonne « Origine »), ne jamais réimporter un désinscrit (l'outil l'empêche), commencer par 50-100 envois/jour et monter progressivement.
