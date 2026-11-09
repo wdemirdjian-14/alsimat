@@ -6,7 +6,7 @@ import { DeleteButton, SubmitButton } from "@/components/admin/form-parts";
 import { Badge, Card, Field, Notice, PageTitle, Select, TextArea, Toggle } from "@/components/admin/ui";
 import { CONSENTS, SEGMENTS, STATUS, STATUSES } from "@/lib/crm";
 import { db } from "@/lib/db";
-import { addActivity, deleteContact, saveContact, sendContactEmail } from "../../../actions/crm";
+import { addActivity, deleteContact, saveContact, sendContactEmail, setContactLists } from "../../../actions/crm";
 
 type Props = { params: Promise<{ id: string }>; searchParams: Promise<{ ok?: string }> };
 
@@ -21,11 +21,13 @@ export default async function ContactPage({ params, searchParams }: Props) {
         where: { id },
         include: {
           activities: { orderBy: { createdAt: "desc" }, take: 100 },
+          lists: true,
           inquiries: { orderBy: { createdAt: "desc" } },
           recipients: { include: { campaign: true }, orderBy: { sentAt: "desc" }, take: 20 },
         },
       });
   if (!isNew && !c) notFound();
+  const allLists = await db.contactList.findMany({ orderBy: { name: "asc" }, select: { id: true, name: true } });
   const name = c ? [c.firstName, c.lastName].filter(Boolean).join(" ") || c.email : "Nouveau contact";
 
   return (
@@ -56,6 +58,7 @@ export default async function ContactPage({ params, searchParams }: Props) {
               <Field label="Fonction" name="jobTitle" defaultValue={c?.jobTitle} />
               <Field label="Code postal" name="postalCode" defaultValue={c?.postalCode} />
               <Field label="Ville" name="city" defaultValue={c?.city} />
+              <Field className="sm:col-span-2" label="Site web" name="website" defaultValue={c?.website} />
             </div>
           </Card>
           <Card title="Suivi commercial">
@@ -81,6 +84,14 @@ export default async function ContactPage({ params, searchParams }: Props) {
         <div className="space-y-6 lg:col-span-2">
           {c && (
             <>
+              <Card title="Listes de diffusion">
+                <form action={setContactLists.bind(null, c.id)} className="space-y-2">
+                  {allLists.length ? allLists.map((l) => (
+                    <label key={l.id} className="flex items-center gap-2 text-sm"><input type="checkbox" name="listIds" value={l.id} defaultChecked={c.lists.some((m) => m.listId === l.id)} className="accent-brand-500" /> {l.name}</label>
+                  )) : <p className="text-sm text-ink/55">Aucune liste. <Link href="/admin/listes" className="text-brand-600 underline">Créer une liste</Link></p>}
+                  {allLists.length > 0 && <SubmitButton label="Mettre à jour" />}
+                </form>
+              </Card>
               <Card title="Ajouter à l'historique">
                 <form action={addActivity.bind(null, c.id)} className="space-y-3">
                   <select name="type" className="field !py-2.5" defaultValue="note">

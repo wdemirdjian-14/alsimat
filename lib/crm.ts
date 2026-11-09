@@ -65,13 +65,14 @@ export async function syncInquiryToContact(inquiryId: string) {
   });
 }
 
-export type Audience = { segments?: string[]; statuses?: string[]; tags?: string[]; excludeTags?: string[] };
+export type Audience = { lists?: string[]; segments?: string[]; statuses?: string[]; tags?: string[]; excludeTags?: string[] };
 
 /** Filtre Prisma des destinataires d'une campagne (toujours sans désinscrits ni adresses invalides). */
 export function audienceWhere(a: Audience): Prisma.ContactWhereInput {
   return {
     unsubscribed: false,
     bounced: false,
+    ...(a.lists?.length ? { lists: { some: { listId: { in: a.lists } } } } : {}),
     ...(a.segments?.length ? { segment: { in: a.segments } } : {}),
     ...(a.statuses?.length ? { status: { in: a.statuses } } : {}),
     ...(a.tags?.length ? { tags: { hasSome: a.tags } } : {}),
@@ -105,7 +106,7 @@ export function parseCsv(text: string): string[][] {
 
 /** Reconnaissance automatique des colonnes d'un fichier de prospects. */
 const COLUMN_ALIASES: Record<string, RegExp> = {
-  email: /^(e-?mail|courriel|mail|adresse e-?mail)$/i,
+  email: /^(e-?mail|courriel|mail|adresse e-?mail|adresse mail)$/i,
   firstName: /^(pr[ée]nom|first ?name)$/i,
   lastName: /^(nom|last ?name|nom de famille)$/i,
   company: /^(soci[ée]t[ée]|entreprise|raison sociale|company|organisation|établissement|etablissement)$/i,
@@ -113,7 +114,14 @@ const COLUMN_ALIASES: Record<string, RegExp> = {
   phone: /^(t[ée]l[ée]phone|tel|mobile|portable|phone)$/i,
   city: /^(ville|commune|city)$/i,
   postalCode: /^(code postal|cp|postal ?code|zip)$/i,
-  tags: /^(tags?|[ée]tiquettes?|cat[ée]gorie|secteur)$/i,
+  tags: /^(tags?|[ée]tiquettes?|cat[ée]gories?|secteur|type|activit[ée])$/i,
+  lists: /^(listes?|listes? de diffusion|fichier)$/i,
+  segment: /^(segment)$/i,
+  website: /^(site|site web|site internet|website|url)$/i,
+  department: /^(d[ée]partement|dept|dep)$/i,
+  region: /^(r[ée]gion)$/i,
+  source: /^(source|provenance)$/i,
+  originNote: /^(origine|origine des donn[ée]es)$/i,
   notes: /^(notes?|commentaires?|remarques?)$/i,
 };
 export function mapColumns(header: string[]) {
@@ -121,3 +129,34 @@ export function mapColumns(header: string[]) {
 }
 
 export const csvCell = (v: unknown) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+
+/** Lit un fichier CSV ou Excel (.xlsx, 1re feuille) en tableau de lignes. */
+export async function readSpreadsheet(file: File): Promise<string[][]> {
+  const name = file.name.toLowerCase();
+  if (name.endsWith(".xlsx") || file.type.includes("spreadsheetml")) {
+    const ExcelJS = (await import("exceljs")).default;
+    const wb = new ExcelJS.Workbook();
+    await wb.xlsx.load(Buffer.from(await file.arrayBuffer()) as unknown as ArrayBuffer);
+    const ws = wb.worksheets[0];
+    const rows: string[][] = [];
+    ws.eachRow({ includeEmpty: false }, (row) => {
+      const vals = (row.values as unknown[]).slice(1).map((v) => {
+        if (v == null) return "";
+        if (typeof v === "object") {
+          const o = v as { text?: string; hyperlink?: string; result?: unknown; richText?: { text: string }[] };
+          if (o.richText) return o.richText.map((t) => t.text).join("");
+          if (o.text) return String(o.text).replace(/^mailto:/i, "");
+          if (o.result != null) return String(o.result);
+          if (o.hyperlink) return o.hyperlink.replace(/^mailto:/i, "");
+        }
+        return String(v);
+      });
+      rows.push(vals);
+    });
+    return rows.filter((r) => r.some((x) => x.trim()));
+  }
+  return parseCsv(await file.text());
+}
+
+export const slugTag = (s: string) =>
+  s.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");

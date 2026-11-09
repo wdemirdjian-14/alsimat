@@ -10,7 +10,7 @@ import { bulkAction } from "../../actions/crm";
 
 export const metadata = { title: "Contacts" };
 
-type SP = { q?: string; status?: string; segment?: string; tag?: string; view?: string; ok?: string; page?: string };
+type SP = { q?: string; status?: string; segment?: string; tag?: string; list?: string; view?: string; ok?: string; page?: string };
 
 export default async function ContactsPage({ searchParams }: { searchParams: Promise<SP> }) {
   const sp = await searchParams;
@@ -20,13 +20,15 @@ export default async function ContactsPage({ searchParams }: { searchParams: Pro
     ...(sp.status ? { status: sp.status } : {}),
     ...(sp.segment ? { segment: sp.segment } : {}),
     ...(sp.tag ? { tags: { has: sp.tag } } : {}),
+    ...(sp.list ? { lists: { some: { listId: sp.list } } } : {}),
   };
   const pipeline = sp.view === "pipeline";
-  const [contacts, total, byStatus, tagRows] = await Promise.all([
+  const [contacts, total, byStatus, tagRows, lists] = await Promise.all([
     db.contact.findMany({ where, orderBy: [{ lastContactAt: { sort: "desc", nulls: "last" } }, { createdAt: "desc" }], take: pipeline ? 500 : 100, skip: pipeline ? 0 : (page - 1) * 100 }),
     db.contact.count({ where }),
     db.contact.groupBy({ by: ["status"], _count: true, _sum: { estimatedValue: true } }),
     db.$queryRaw<{ tag: string; n: bigint }[]>`SELECT unnest(tags) AS tag, count(*) AS n FROM "Contact" GROUP BY 1 ORDER BY 2 DESC LIMIT 30`,
+    db.contactList.findMany({ orderBy: { name: "asc" }, include: { _count: { select: { members: true } } } }),
   ]);
   const qs = (patch: Partial<SP>) => {
     const p = new URLSearchParams(Object.entries({ ...sp, ok: undefined, page: undefined, ...patch }).filter(([, v]) => v) as [string, string][]);
@@ -62,6 +64,7 @@ export default async function ContactsPage({ searchParams }: { searchParams: Pro
       <form className="mb-4 flex flex-wrap gap-2">
         <input name="q" defaultValue={sp.q} placeholder="Nom, e-mail, société, ville…" className="field max-w-xs !py-2.5" />
         <select name="segment" defaultValue={sp.segment ?? ""} className="field max-w-[10rem] !py-2.5"><option value="">Tous segments</option>{SEGMENTS.map((s) => <option key={s.key} value={s.key}>{s.label}</option>)}</select>
+        <select name="list" defaultValue={sp.list ?? ""} className="field max-w-[14rem] !py-2.5"><option value="">Toutes les listes</option>{lists.map((l) => <option key={l.id} value={l.id}>{l.name} ({l._count.members})</option>)}</select>
         <select name="tag" defaultValue={sp.tag ?? ""} className="field max-w-[12rem] !py-2.5"><option value="">Toutes étiquettes</option>{tagRows.map((t) => <option key={t.tag} value={t.tag}>{t.tag} ({Number(t.n)})</option>)}</select>
         {sp.status && <input type="hidden" name="status" value={sp.status} />}
         {pipeline && <input type="hidden" name="view" value="pipeline" />}
@@ -99,13 +102,15 @@ export default async function ContactsPage({ searchParams }: { searchParams: Pro
             <span className="text-sm text-ink/60">Sélection :</span>
             <select name="action" className="field max-w-[13rem] !py-2" defaultValue="">
               <option value="" disabled>Action…</option>
+              <option value="list">Ajouter à la liste (nom)</option>
+              <option value="unlist">Retirer de la liste (nom)</option>
               <option value="tag">Ajouter l'étiquette</option>
               <option value="untag">Retirer l'étiquette</option>
               <option value="status">Changer le statut (clé)</option>
               <option value="segment">Changer le segment (clé)</option>
               <option value="delete">Supprimer</option>
             </select>
-            <input name="value" placeholder="étiquette / statut (ex. a_contacter) / segment" className="field max-w-xs !py-2" />
+            <input name="value" placeholder="liste / étiquette / statut (ex. a_contacter) / segment" className="field max-w-xs !py-2" />
             <button className="btn-dark !py-2">Appliquer</button>
           </div>
           <div className="overflow-x-auto rounded-2xl border border-ink/10 bg-white">

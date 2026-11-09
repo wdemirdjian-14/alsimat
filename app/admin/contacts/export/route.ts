@@ -13,6 +13,7 @@ export async function GET(req: Request) {
     ...(sp.get("status") ? { status: sp.get("status")! } : {}),
     ...(sp.get("segment") ? { segment: sp.get("segment")! } : {}),
     ...(sp.get("tag") ? { tags: { has: sp.get("tag")! } } : {}),
+    ...(sp.get("list") ? { lists: { some: { listId: sp.get("list")! } } } : {}),
   };
   const rows = await db.contact.findMany({ where, orderBy: { createdAt: "desc" } });
   const head = ["E-mail", "Prénom", "Nom", "Société", "Fonction", "Téléphone", "Code postal", "Ville", "Segment", "Statut", "Étiquettes", "Montant estimé", "Provenance", "Base légale", "Désinscrit", "Dernier contact", "Créé le"];

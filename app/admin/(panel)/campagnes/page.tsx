@@ -2,6 +2,8 @@ import Link from "next/link";
 import { Badge, Empty, NewButton, Notice, PageTitle } from "@/components/admin/ui";
 import { db } from "@/lib/db";
 import { CAMPAIGN_STATUS } from "@/lib/campaign-labels";
+import { CAMPAIGN_TEMPLATES } from "@/lib/campaign-templates";
+import { Card } from "@/components/admin/ui";
 import { marketingConfigured } from "@/lib/mail";
 
 export const metadata = { title: "Campagnes e-mail" };
@@ -19,6 +21,17 @@ export default async function CampaignsPage({ searchParams }: { searchParams: Pr
       {!marketingConfigured() && (
         <p className="mb-6 rounded-xl bg-amber-50 p-4 text-sm text-amber-800">Aucun serveur d'envoi n'est configuré : les campagnes peuvent être préparées mais pas envoyées. Voir <strong>Marketing & SEA → Envoi des e-mails</strong>.</p>
       )}
+      <Card title="Partir d'un modèle prêt à envoyer" className="mb-8">
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {CAMPAIGN_TEMPLATES.map((t) => (
+            <Link key={t.key} href={`/admin/campagnes/nouveau?modele=${t.key}`} className="rounded-2xl border border-ink/10 p-4 transition hover:border-brand-500 hover:bg-brand-50">
+              <p className="font-semibold">{t.label}</p>
+              <p className="mt-1 text-xs text-ink/55">{t.audience}</p>
+              <p className="mt-2 text-xs text-brand-700">« {t.subject} »</p>
+            </Link>
+          ))}
+        </div>
+      </Card>
       {!campaigns.length ? <Empty>Aucune campagne. Créez-en une : objet, message, audience, puis envoi test avant lancement.</Empty> : (
         <div className="overflow-x-auto rounded-2xl border border-ink/10 bg-white">
           <table className="w-full text-sm">

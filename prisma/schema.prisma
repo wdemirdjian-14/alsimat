@@ -192,6 +192,7 @@ model Contact {
   phone          String?
   city           String?
   postalCode     String?
+  website        String?
   segment        String              @default("prospect") // prospect | client | partenaire
   status         String              @default("nouveau") // voir lib/crm.ts
   tags           String[]            @default([])
@@ -208,11 +209,33 @@ model Contact {
   activities     Activity[]
   inquiries      Inquiry[]
   recipients     CampaignRecipient[]
+  lists          ListMember[]
   createdAt      DateTime            @default(now())
   updatedAt      DateTime            @updatedAt
 
   @@index([status])
   @@index([segment])
+}
+
+/// Liste de diffusion (ex. « Campings France », « Mairies Loiret », « Salon 2026 »).
+model ContactList {
+  id          String       @id @default(cuid())
+  name        String       @unique
+  description String?
+  color       String       @default("#46a584")
+  members     ListMember[]
+  createdAt   DateTime     @default(now())
+}
+
+model ListMember {
+  listId    String
+  contactId String
+  list      ContactList @relation(fields: [listId], references: [id], onDelete: Cascade)
+  contact   Contact     @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  addedAt   DateTime    @default(now())
+
+  @@id([listId, contactId])
+  @@index([contactId])
 }
 
 /// Historique d'un contact : notes, appels, e-mails, demandes, campagnes.

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import {
-  BookOpen, Car, ExternalLink, FolderTree, Gauge, Images, Inbox, LayoutTemplate, LogOut, Mail, Megaphone, Menu, Recycle, Search, Settings, Tag, User, Users, X,
+  BookOpen, Car, ExternalLink, FolderTree, Gauge, Images, Inbox, LayoutTemplate, ListChecks, LogOut, Mail, Megaphone, Menu, Recycle, Search, Settings, Tag, User, Users, X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -13,6 +13,7 @@ const NAV = [
   { href: "/admin", label: "Tableau de bord", icon: Gauge },
   { href: "/admin/demandes", label: "Demandes", icon: Inbox, badge: "inbox" },
   { href: "/admin/contacts", label: "Contacts (CRM)", icon: Users },
+  { href: "/admin/listes", label: "Listes de diffusion", icon: ListChecks },
   { href: "/admin/campagnes", label: "Campagnes e-mail", icon: Mail },
   { href: "/admin/seo", label: "SEO", icon: Search },
   { href: "/admin/marketing", label: "Marketing & SEA", icon: Megaphone },

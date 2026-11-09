@@ -18,7 +18,7 @@ export async function saveCampaign(id: string | null, fd: FormData) {
   if (!name || !subject || !body) throw new Error("Nom, objet et message sont obligatoires.");
   const data = {
     name, subject, body, preheader: str(fd, "preheader"), ctaLabel: str(fd, "ctaLabel"), ctaUrl: str(fd, "ctaUrl"), image: str(fd, "image"),
-    audience: { segments: list(fd, "segments"), statuses: list(fd, "statuses"), tags: tagList(str(fd, "tags")), excludeTags: tagList(str(fd, "excludeTags")) },
+    audience: { lists: list(fd, "lists"), segments: list(fd, "segments"), statuses: list(fd, "statuses"), tags: tagList(str(fd, "tags")), excludeTags: tagList(str(fd, "excludeTags")) },
   };
   if (id) {
     const c = await db.campaign.findUniqueOrThrow({ where: { id } });
@@ -49,6 +49,9 @@ export async function launchCampaign(id: string, fd: FormData) {
   await requireAdmin();
   const c = await db.campaign.findUniqueOrThrow({ where: { id } });
   if (!["brouillon", "pause", "programmee"].includes(c.status)) redirect(`/admin/campagnes/${id}`);
+  // Garde-fou : jamais d'envoi à « tous les contacts » par erreur.
+  const a = (c.audience ?? {}) as { lists?: string[]; segments?: string[]; statuses?: string[]; tags?: string[] };
+  if (!a.lists?.length && !a.segments?.length && !a.statuses?.length && !a.tags?.length) redirect(`/admin/campagnes/${id}?err=audience`);
   const when = str(fd, "scheduledAt");
   if (when) {
     await db.campaign.update({ where: { id }, data: { status: "programmee", scheduledAt: new Date(when) } });
