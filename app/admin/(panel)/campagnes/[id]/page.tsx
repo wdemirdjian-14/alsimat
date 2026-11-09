@@ -62,7 +62,7 @@ export default async function CampaignPage({ params, searchParams }: Props) {
       <Notice ok={sp.ok} />
       {sp.err === "audience" && <p className="mb-6 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">Choisissez au moins une liste de diffusion (ou un segment, statut, étiquette) puis enregistrez avant de lancer : par sécurité, une campagne ne part jamais vers « tous les contacts ».</p>}
       {c && (
-        <div className="mb-6 grid gap-3 sm:grid-cols-3 lg:grid-cols-6">
+        <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
           {[
             ["Statut", <Badge key="s" tone={CAMPAIGN_STATUS[c.status]?.tone}>{CAMPAIGN_STATUS[c.status]?.label}</Badge>],
             ["Envoyés", `${sentCount}${pending ? ` (+${pending} en attente)` : ""}`],
@@ -123,12 +123,9 @@ export default async function CampaignPage({ params, searchParams }: Props) {
           </fieldset>
         </form>
 
-        <div className="space-y-6 lg:col-span-2">
+        <div className="order-first space-y-6 lg:order-none lg:col-span-2">
           {c && (
             <>
-              <Card title="Aperçu">
-                <iframe src={`/admin/campagnes/${c.id}/apercu`} title="Aperçu de l'e-mail" className="h-[34rem] w-full rounded-xl border border-ink/10 bg-white" />
-              </Card>
               <Card title="1. Envoi test"><TestSend action={sendTest.bind(null, c.id)} /></Card>
               {editable && (
                 <Card title="2. Lancement">
@@ -140,11 +137,14 @@ export default async function CampaignPage({ params, searchParams }: Props) {
                   </form>
                 </Card>
               )}
-              {c.status === "envoi" && <form action={pauseCampaign.bind(null, c.id)}><button className="btn-ghost !py-2.5 text-ink"><Pause className="h-4 w-4" /> Mettre en pause</button></form>}
+              {c.status === "envoi" && <form action={pauseCampaign.bind(null, c.id)}><button className="btn-ghost w-full justify-center !py-3 text-ink sm:w-auto"><Pause className="h-4 w-4" /> Mettre en pause</button></form>}
               <div className="flex flex-wrap gap-3">
                 <form action={duplicateCampaign.bind(null, c.id)}><button className="btn-ghost !py-2.5 text-ink"><Copy className="h-4 w-4" /> Dupliquer</button></form>
                 <DeleteButton action={deleteCampaign.bind(null, c.id)} />
               </div>
+              <Card title="Aperçu">
+                <iframe src={`/admin/campagnes/${c.id}/apercu`} title="Aperçu de l'e-mail" className="h-[26rem] w-full rounded-xl border border-ink/10 bg-white lg:h-[34rem]" />
+              </Card>
             </>
           )}
         </div>

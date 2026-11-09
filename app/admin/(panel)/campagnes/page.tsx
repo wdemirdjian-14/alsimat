@@ -32,8 +32,31 @@ export default async function CampaignsPage({ searchParams }: { searchParams: Pr
           ))}
         </div>
       </Card>
+      {campaigns.length > 0 && (
+        <ul className="mb-8 space-y-2 md:hidden">
+          {campaigns.map((c) => {
+            const s = stats.find((x) => x.campaignId === c.id)?._count;
+            const n = sent.find((x) => x.campaignId === c.id)?._count ?? 0;
+            const total = s?._all ?? 0;
+            return (
+              <li key={c.id}>
+                <Link href={`/admin/campagnes/${c.id}`} className="block rounded-2xl border border-ink/10 bg-white p-4 active:bg-sand">
+                  <span className="flex items-center gap-2"><span className="flex-1 truncate font-semibold">{c.name}</span><Badge tone={CAMPAIGN_STATUS[c.status]?.tone}>{CAMPAIGN_STATUS[c.status]?.label}</Badge></span>
+                  <span className="mt-0.5 block truncate text-xs text-ink/50">{c.subject}</span>
+                  {total > 0 && <span className="mt-2 block h-1.5 overflow-hidden rounded-full bg-ink/5"><span className="block h-full bg-brand-500" style={{ width: `${Math.round((n / total) * 100)}%` }} /></span>}
+                  <span className="mt-2 grid grid-cols-3 text-center text-xs text-ink/55">
+                    <span><strong className="block text-sm text-ink">{n}{total ? `/${total}` : ""}</strong>envoyés</span>
+                    <span><strong className="block text-sm text-ink">{pct(s?.openedAt ?? 0, n)}</strong>ouverture</span>
+                    <span><strong className="block text-sm text-ink">{pct(s?.clickedAt ?? 0, n)}</strong>clics</span>
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      )}
       {!campaigns.length ? <Empty>Aucune campagne. Créez-en une : objet, message, audience, puis envoi test avant lancement.</Empty> : (
-        <div className="overflow-x-auto rounded-2xl border border-ink/10 bg-white">
+        <div className="hidden overflow-x-auto md:block rounded-2xl border border-ink/10 bg-white">
           <table className="w-full text-sm">
             <thead className="bg-sand text-left text-xs text-ink/55 uppercase"><tr><th className="p-3">Campagne</th><th className="p-3">Statut</th><th className="p-3">Envoyés</th><th className="p-3">Ouverture</th><th className="p-3">Clics</th></tr></thead>
             <tbody className="divide-y divide-ink/5">

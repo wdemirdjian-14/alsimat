@@ -1,0 +1,23 @@
+{
+  "name": "Alsimat Admin",
+  "short_name": "Alsimat",
+  "description": "Demandes, CRM et campagnes Alsimat",
+  "id": "/admin",
+  "start_url": "/admin?source=pwa",
+  "scope": "/admin",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0d2420",
+  "theme_color": "#0d2420",
+  "lang": "fr",
+  "icons": [
+    { "src": "/admin-icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/admin-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/admin-icon-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Demandes", "url": "/admin/demandes", "icons": [{ "src": "/admin-icon-192.png", "sizes": "192x192" }] },
+    { "name": "Contacts", "url": "/admin/contacts", "icons": [{ "src": "/admin-icon-192.png", "sizes": "192x192" }] },
+    { "name": "Campagnes", "url": "/admin/campagnes", "icons": [{ "src": "/admin-icon-192.png", "sizes": "192x192" }] }
+  ]
+}

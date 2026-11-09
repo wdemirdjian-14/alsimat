@@ -5,6 +5,7 @@ import { syncInquiryToContact } from "@/lib/crm";
 import { db } from "@/lib/db";
 import { acknowledgementEmail, teamNotificationEmail, teamRecipients } from "@/lib/inquiry-emails";
 import { sendRichMail } from "@/lib/mail";
+import { notifyAdmins } from "@/lib/push";
 import { rateLimit } from "@/lib/rate-limit";
 import { getCompany } from "@/lib/settings";
 import { savePrivateFile } from "@/lib/uploads";
@@ -78,7 +79,13 @@ export async function submitInquiry(_prev: InquiryState, form: FormData): Promis
   await Promise.allSettled([
     sendRichMail({ to: teamRecipients(company).join(", "), replyTo: data.email, fromName: "Site Alsimat", ...team }),
     sendRichMail({ to: data.email, replyTo: company.email, fromName: "Alsimat", ...ack }),
-  ]).then((r) => r.forEach((x) => x.status === "rejected" && console.error("[mail] envoi impossible", x.reason)));
+    notifyAdmins("demandes", {
+      title: `${data.type === "sav" ? "🔧 SAV" : data.type === "devis" ? "📋 Devis" : "✉️ Message"} · ${data.firstName} ${data.lastName}`,
+      body: [data.company, data.vehicleRef, data.message?.slice(0, 90)].filter(Boolean).join(" · ") || data.email,
+      url: `/admin/demandes/${inquiry.id}`,
+      tag: `demande-${inquiry.id}`,
+    }),
+  ]).then((r) => r.forEach((x) => x.status === "rejected" && console.error("[mail/push] envoi impossible", x.reason)));
 
   return {
     ok: true,

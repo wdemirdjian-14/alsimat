@@ -125,7 +125,8 @@ export async function saveSettings(fd: FormData) {
 // ---- Demandes ----
 export async function updateInquiry(id: string, fd: FormData) {
   await requireAdmin();
-  await db.inquiry.update({ where: { id }, data: { status: str(fd, "status") ?? "nouveau", notes: str(fd, "notes") } });
+  const status = str(fd, "status");
+  await db.inquiry.update({ where: { id }, data: { ...(status ? { status } : {}), notes: str(fd, "notes") } });
   redirect(`/admin/demandes/${id}?ok=1`);
 }
 export async function deleteInquiry(id: string) {

@@ -299,3 +299,17 @@ model Redirect {
   hits      Int      @default(0)
   createdAt DateTime @default(now())
 }
+
+/// Appareils (téléphone, ordinateur) abonnés aux notifications de l'admin.
+model PushSubscription {
+  id        String   @id @default(cuid())
+  userId    String
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  device    String?
+  /// Types de notifications reçus : demandes, campagnes
+  topics    String[] @default(["demandes", "campagnes"])
+  createdAt DateTime @default(now())
+  lastUsed  DateTime?
+}

@@ -48,11 +48,11 @@ export default async function ContactsPage({ searchParams }: { searchParams: Pro
       <Notice ok={sp.ok} />
 
       {/* Pipeline résumé */}
-      <div className="mb-6 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
+      <div className="-mx-4 mb-6 flex snap-x scroll-px-4 gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:grid sm:grid-cols-3 sm:px-0 lg:grid-cols-6">
         {STATUSES.map((s) => {
           const row = byStatus.find((b) => b.status === s.key);
           return (
-            <Link key={s.key} href={qs({ status: sp.status === s.key ? undefined : s.key })} className={cn("rounded-2xl border bg-white p-3 transition hover:border-brand-500", sp.status === s.key ? "border-brand-500" : "border-ink/10")}>
+            <Link key={s.key} href={qs({ status: sp.status === s.key ? undefined : s.key })} className={cn("min-w-32 shrink-0 snap-start rounded-2xl border bg-white p-3 transition hover:border-brand-500 sm:min-w-0", sp.status === s.key ? "border-brand-500" : "border-ink/10")}>
               <p className="text-xs text-ink/55">{s.label}</p>
               <p className="font-display text-2xl font-extrabold">{row?._count ?? 0}</p>
               {!!row?._sum.estimatedValue && <p className="text-xs text-ink/50">{new Intl.NumberFormat("fr-FR").format(row._sum.estimatedValue)} € HT</p>}
@@ -62,10 +62,10 @@ export default async function ContactsPage({ searchParams }: { searchParams: Pro
       </div>
 
       <form className="mb-4 flex flex-wrap gap-2">
-        <input name="q" defaultValue={sp.q} placeholder="Nom, e-mail, société, ville…" className="field max-w-xs !py-2.5" />
-        <select name="segment" defaultValue={sp.segment ?? ""} className="field max-w-[10rem] !py-2.5"><option value="">Tous segments</option>{SEGMENTS.map((s) => <option key={s.key} value={s.key}>{s.label}</option>)}</select>
-        <select name="list" defaultValue={sp.list ?? ""} className="field max-w-[14rem] !py-2.5"><option value="">Toutes les listes</option>{lists.map((l) => <option key={l.id} value={l.id}>{l.name} ({l._count.members})</option>)}</select>
-        <select name="tag" defaultValue={sp.tag ?? ""} className="field max-w-[12rem] !py-2.5"><option value="">Toutes étiquettes</option>{tagRows.map((t) => <option key={t.tag} value={t.tag}>{t.tag} ({Number(t.n)})</option>)}</select>
+        <input name="q" type="search" defaultValue={sp.q} placeholder="Nom, e-mail, société, ville…" className="field w-full !py-2.5 sm:max-w-xs" />
+        <select name="segment" defaultValue={sp.segment ?? ""} className="field min-w-0 flex-1 !py-2.5 sm:flex-none sm:max-w-[10rem]"><option value="">Tous segments</option>{SEGMENTS.map((s) => <option key={s.key} value={s.key}>{s.label}</option>)}</select>
+        <select name="list" defaultValue={sp.list ?? ""} className="field min-w-0 flex-1 !py-2.5 sm:flex-none sm:max-w-[14rem]"><option value="">Toutes les listes</option>{lists.map((l) => <option key={l.id} value={l.id}>{l.name} ({l._count.members})</option>)}</select>
+        <select name="tag" defaultValue={sp.tag ?? ""} className="field min-w-0 flex-1 !py-2.5 sm:flex-none sm:max-w-[12rem]"><option value="">Toutes étiquettes</option>{tagRows.map((t) => <option key={t.tag} value={t.tag}>{t.tag} ({Number(t.n)})</option>)}</select>
         {sp.status && <input type="hidden" name="status" value={sp.status} />}
         {pipeline && <input type="hidden" name="view" value="pipeline" />}
         <button className="btn-dark !py-2.5">Filtrer</button>
@@ -78,9 +78,9 @@ export default async function ContactsPage({ searchParams }: { searchParams: Pro
       {!contacts.length ? (
         <Empty>Aucun contact. Les demandes du site créent automatiquement des contacts ; vous pouvez aussi importer un fichier.</Empty>
       ) : pipeline ? (
-        <div className="grid gap-3 overflow-x-auto pb-4 lg:grid-cols-6">
+        <div className="-mx-4 flex snap-x scroll-px-4 gap-3 overflow-x-auto px-4 pb-4 lg:mx-0 lg:grid lg:grid-cols-6 lg:px-0">
           {STATUSES.map((s) => (
-            <div key={s.key} className="min-w-56 rounded-2xl bg-white/60 p-2 ring-1 ring-ink/5">
+            <div key={s.key} className="w-[78vw] max-w-72 shrink-0 snap-start rounded-2xl lg:w-auto lg:max-w-none lg:min-w-0 bg-white/60 p-2 ring-1 ring-ink/5">
               <p className="px-2 py-1 text-sm font-bold">{s.label} <span className="text-ink/40">{contacts.filter((c) => c.status === s.key).length}</span></p>
               <div className="space-y-2">
                 {contacts.filter((c) => c.status === s.key).map((c) => (
@@ -116,7 +116,7 @@ export default async function ContactsPage({ searchParams }: { searchParams: Pro
           <div className="overflow-x-auto rounded-2xl border border-ink/10 bg-white">
             <table className="w-full text-sm">
               <thead className="bg-sand text-left text-xs text-ink/55 uppercase">
-                <tr><th className="p-3"><SelectAll /></th><th className="p-3">Contact</th><th className="p-3">Société</th><th className="p-3">Statut</th><th className="p-3">Étiquettes</th><th className="p-3">Dernier contact</th></tr>
+                <tr><th className="p-3"><SelectAll /></th><th className="p-3">Contact</th><th className="hidden p-3 md:table-cell">Société</th><th className="p-3">Statut</th><th className="hidden p-3 lg:table-cell">Étiquettes</th><th className="hidden p-3 md:table-cell">Dernier contact</th></tr>
               </thead>
               <tbody className="divide-y divide-ink/5">
                 {contacts.map((c) => (
@@ -124,12 +124,13 @@ export default async function ContactsPage({ searchParams }: { searchParams: Pro
                     <td className="p-3"><input type="checkbox" name="ids" value={c.id} className="h-4 w-4 accent-brand-500" /></td>
                     <td className="p-3">
                       <Link href={`/admin/contacts/${c.id}`} className="font-semibold hover:text-brand-600">{[c.firstName, c.lastName].filter(Boolean).join(" ") || "—"}</Link>
-                      <span className="block text-xs text-ink/50">{c.email}{c.unsubscribed && " · désinscrit"}{c.bounced && " · adresse invalide"}</span>
+                      <span className="block max-w-[52vw] truncate text-xs text-ink/50 md:max-w-none">{c.email}{c.unsubscribed && " · désinscrit"}{c.bounced && " · adresse invalide"}</span>
+                      {c.company && <span className="block max-w-[52vw] truncate text-xs text-ink/45 md:hidden">{c.company}{c.city && ` · ${c.city}`}</span>}
                     </td>
-                    <td className="p-3 text-ink/70">{c.company ?? "—"}{c.city && <span className="block text-xs text-ink/45">{c.city}</span>}</td>
+                    <td className="hidden p-3 text-ink/70 md:table-cell">{c.company ?? "—"}{c.city && <span className="block text-xs text-ink/45">{c.city}</span>}</td>
                     <td className="p-3"><Badge tone={STATUS[c.status]?.tone}>{STATUS[c.status]?.label ?? c.status}</Badge></td>
-                    <td className="p-3"><div className="flex flex-wrap gap-1">{c.tags.slice(0, 4).map((t) => <Link key={t} href={qs({ tag: t })} className="rounded-full bg-ink/5 px-2 py-0.5 text-xs">{t}</Link>)}</div></td>
-                    <td className="p-3 text-xs whitespace-nowrap text-ink/55">{c.lastContactAt?.toLocaleDateString("fr-FR") ?? "—"}</td>
+                    <td className="hidden p-3 lg:table-cell"><div className="flex flex-wrap gap-1">{c.tags.slice(0, 4).map((t) => <Link key={t} href={qs({ tag: t })} className="rounded-full bg-ink/5 px-2 py-0.5 text-xs">{t}</Link>)}</div></td>
+                    <td className="hidden p-3 text-xs whitespace-nowrap text-ink/55 md:table-cell">{c.lastContactAt?.toLocaleDateString("fr-FR") ?? "—"}</td>
                   </tr>
                 ))}
               </tbody>

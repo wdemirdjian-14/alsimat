@@ -2,6 +2,7 @@ import { audienceWhere, type Audience } from "./crm";
 import { db } from "./db";
 import { merge, renderEmail, unsubscribeUrl, oneClickUnsubscribeUrl } from "./email-template";
 import { sendRichMail } from "./mail";
+import { notifyAdmins } from "./push";
 import { getSetting } from "./settings";
 
 /** Prépare la liste des destinataires d'une campagne (à l'instant du lancement). */
@@ -35,6 +36,8 @@ export async function processCampaigns() {
     const batch = await db.campaignRecipient.findMany({ where: { campaignId: c.id, status: "attente" }, include: { contact: true }, take: budget });
     if (!batch.length) {
       await db.campaign.update({ where: { id: c.id }, data: { status: "envoyee", finishedAt: now } });
+      const n = await db.campaignRecipient.count({ where: { campaignId: c.id, status: "envoye" } });
+      await notifyAdmins("campagnes", { title: `📨 Campagne envoyée · ${c.name}`, body: `${n} e-mail(s) envoyés. Suivez les ouvertures et les clics.`, url: `/admin/campagnes/${c.id}`, tag: `campagne-${c.id}` }).catch(() => {});
       continue;
     }
     for (const r of batch) {
