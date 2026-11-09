@@ -18,9 +18,10 @@ export default async function ImportPage() {
             <li><strong>E-mail</strong> (obligatoire)</li><li>Prénom, Nom</li><li>Société / Entreprise / Établissement</li><li>Fonction / Poste</li>
             <li>Téléphone / Mobile</li><li>Ville, Code postal, <strong>Département</strong>, <strong>Région</strong> (→ étiquettes dep-xx, region-xx)</li>
             <li><strong>Liste</strong> : liste(s) de diffusion, plusieurs séparées par <code>|</code> (créées automatiquement)</li>
-            <li><strong>Catégorie</strong> / Type / Secteur / Étiquettes (→ étiquettes)</li><li>Site web, Source, Origine, Notes, Segment</li>
+            <li><strong>Catégorie</strong> / Type / Secteur (→ catégorie : camping, collectivite… ; valeurs séparées par des virgules → étiquettes) et <strong>Classement</strong> (→ étoiles)</li><li>Étiquettes / Tags</li><li>Site web, Source, Origine, Notes, Segment</li>
           </ul>
-          <p className="mt-4 text-ink-soft">Les doublons (même e-mail) sont fusionnés. Un contact désinscrit le reste, même s'il figure dans le fichier.</p>
+          <p className="mt-4 text-ink-soft">Fichier Excel à plusieurs onglets : l'onglet contenant les e-mails est choisi automatiquement.</p>
+          <p className="mt-2 text-ink-soft">Les doublons (même e-mail) sont fusionnés. Un contact désinscrit le reste, même s'il figure dans le fichier.</p>
           <p className="mt-4 rounded-xl bg-amber-50 p-3 text-amber-800">RGPD : la prospection par e-mail sans accord préalable n'est autorisée que vers des <strong>professionnels</strong>, pour une offre en rapport avec leur activité. Conservez la preuve de l'origine de vos fichiers.</p>
         </Card>
       </div>

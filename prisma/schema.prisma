@@ -201,6 +201,14 @@ model Contact {
   city           String?
   postalCode     String?
   website        String?
+  /// Type d'établissement (camping, residence-tourisme, collectivite…) : sert aux filtres et au ciblage
+  category       String?
+  department     String?
+  region         String?
+  /// Classement en étoiles (hébergements touristiques)
+  stars          Int?
+  /// Taille : petit | moyen | grand
+  size           String?
   segment        String              @default("prospect") // prospect | client | partenaire
   status         String              @default("nouveau") // voir lib/crm.ts
   tags           String[]            @default([])
@@ -223,6 +231,9 @@ model Contact {
 
   @@index([status])
   @@index([segment])
+  @@index([category])
+  @@index([region])
+  @@index([department])
 }
 
 /// Liste de diffusion (ex. « Campings France », « Mairies Loiret », « Salon 2026 »).

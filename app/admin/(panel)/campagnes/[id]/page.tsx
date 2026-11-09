@@ -4,7 +4,8 @@ import { Copy, Pause, Rocket } from "lucide-react";
 import { DeleteButton, SubmitButton } from "@/components/admin/form-parts";
 import { ImageInput } from "@/components/admin/image-input";
 import { Badge, Card, Field, Notice, PageTitle, TextArea } from "@/components/admin/ui";
-import { audienceWhere, SEGMENTS, STATUSES, type Audience } from "@/lib/crm";
+import { audienceWhere, hasAudience, SEGMENTS, STATUSES, type Audience } from "@/lib/crm";
+import { categoryLabel } from "@/lib/categories";
 import { db } from "@/lib/db";
 import { deleteCampaign, duplicateCampaign, launchCampaign, pauseCampaign, saveCampaign, sendTest } from "../../../actions/campaigns";
 import { CAMPAIGN_STATUS } from "@/lib/campaign-labels";
@@ -36,8 +37,12 @@ export default async function CampaignPage({ params, searchParams }: Props) {
   const sp = await searchParams;
   const tpl = !c ? CAMPAIGN_TEMPLATES.find((t) => t.key === sp.modele) : undefined;
   const audience = (c?.audience ?? {}) as Audience;
-  const hasFilter = !!(audience.lists?.length || audience.segments?.length || audience.statuses?.length || audience.tags?.length);
+  const hasFilter = hasAudience(audience);
   const editable = !c || ["brouillon", "pause", "programmee"].includes(c.status);
+  const [cats, regions] = await Promise.all([
+    db.contact.groupBy({ by: ["category"], where: { category: { not: null }, unsubscribed: false, bounced: false }, _count: true, orderBy: { _count: { category: "desc" } } }),
+    db.contact.groupBy({ by: ["region"], where: { region: { not: null }, unsubscribed: false, bounced: false }, _count: true, orderBy: { region: "asc" } }),
+  ]);
   const [reach, tags, stats, lists] = await Promise.all([
     db.contact.count({ where: audienceWhere(audience) }),
     db.$queryRaw<{ tag: string }[]>`SELECT DISTINCT unnest(tags) AS tag FROM "Contact" ORDER BY 1 LIMIT 60`,
@@ -60,7 +65,7 @@ export default async function CampaignPage({ params, searchParams }: Props) {
     <>
       <PageTitle title={c ? c.name : "Nouvelle campagne"} action={<Link href="/admin/campagnes" className="text-sm font-semibold text-brand-600">← Campagnes</Link>} />
       <Notice ok={sp.ok} />
-      {sp.err === "audience" && <p className="mb-6 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">Choisissez au moins une liste de diffusion (ou un segment, statut, étiquette) puis enregistrez avant de lancer : par sécurité, une campagne ne part jamais vers « tous les contacts ».</p>}
+      {sp.err === "audience" && <p className="mb-6 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">Choisissez au moins une liste de diffusion (ou une catégorie, une région, un segment…) puis enregistrez avant de lancer : par sécurité, une campagne ne part jamais vers « tous les contacts ».</p>}
       {c && (
         <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
           {[
@@ -92,7 +97,7 @@ export default async function CampaignPage({ params, searchParams }: Props) {
               </div>
             </Card>
             <Card title={`Destinataires · ${hasFilter ? `${reach} contact(s) ciblé(s)` : "aucune liste choisie"}`}>
-              <p className="mb-4 text-sm text-ink/55">Cochez une ou plusieurs listes (obligatoire pour lancer). Les désinscrits et adresses invalides sont toujours exclus. Enregistrez pour recalculer le nombre.</p>
+              <p className="mb-4 text-sm text-ink/55">Cochez une ou plusieurs listes ou catégories (obligatoire pour lancer). Les désinscrits et adresses invalides sont toujours exclus. Enregistrez pour recalculer le nombre.</p>
               <div className="mb-5">
                 <span className="label">Listes de diffusion</span>
                 {lists.length ? (
@@ -106,6 +111,40 @@ export default async function CampaignPage({ params, searchParams }: Props) {
                   </div>
                 ) : <p className="text-sm text-ink/55">Aucune liste. <Link href="/admin/contacts/import" className="text-brand-600 underline">Importer un fichier</Link></p>}
               </div>
+              {cats.length > 0 && (
+                <div className="mb-5">
+                  <span className="label">Catégories d'établissements</span>
+                  <div className="grid gap-1 sm:grid-cols-2">
+                    {cats.map((c) => (
+                      <label key={c.category} className="flex items-center gap-2 rounded-xl border border-ink/10 px-3 py-2 text-sm">
+                        <input type="checkbox" name="categories" value={c.category!} defaultChecked={audience.categories?.includes(c.category!)} className="accent-brand-500" />
+                        <span className="flex-1">{categoryLabel(c.category)}</span> <span className="text-xs text-ink/50">{c._count}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {regions.length > 0 && (
+                <details className="mb-5" open={!!audience.regions?.length || !!audience.departments?.length || !!audience.stars?.length}>
+                  <summary className="label cursor-pointer">Zone géographique et classement {audience.regions?.length ? `(${audience.regions.length} région·s)` : ""}</summary>
+                  <div className="mt-2 grid gap-1 sm:grid-cols-2">
+                    {regions.map((r) => (
+                      <label key={r.region} className="flex items-center gap-2 text-sm">
+                        <input type="checkbox" name="regions" value={r.region!} defaultChecked={audience.regions?.includes(r.region!)} className="accent-brand-500" />
+                        <span className="flex-1">{r.region}</span> <span className="text-xs text-ink/50">{r._count}</span>
+                      </label>
+                    ))}
+                  </div>
+                  <div className="mt-3 grid gap-4 sm:grid-cols-2">
+                    <Field label="Départements (ex. 29, 56, 2A)" name="departments" defaultValue={audience.departments?.join(", ")} />
+                    <div>
+                      <span className="label">Classement</span>
+                      <div className="flex flex-wrap gap-3">{[1, 2, 3, 4, 5].map((n) => <label key={n} className="flex items-center gap-1 text-sm"><input type="checkbox" name="stars" value={n} defaultChecked={audience.stars?.includes(n)} className="accent-brand-500" /> {n}★</label>)}</div>
+                    </div>
+                  </div>
+                </details>
+              )}
+              <p className="mb-4 text-xs text-ink/50">Les critères se cumulent : par exemple « Campings » + « Bretagne » + « 4★ et 5★ ».</p>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <span className="label">Segments</span>

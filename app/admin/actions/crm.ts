@@ -3,7 +3,9 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireAdmin } from "@/lib/auth";
-import { mapColumns, normEmail, readSpreadsheet, slugTag, STATUS } from "@/lib/crm";
+import { mapColumns, normEmail, readSpreadsheetInfo, slugTag, STATUS } from "@/lib/crm";
+import { classify, normalizeCategory } from "@/lib/categories";
+import { contactWhere, pickFilters, type ContactFilters } from "@/lib/contact-filters";
 import { db } from "@/lib/db";
 import { addInternalNote, sendDirectEmail } from "@/lib/direct-mail";
 import { int, str } from "./helpers";
@@ -61,28 +63,40 @@ export async function sendContactEmail(contactId: string, _prev: string | null, 
 
 export async function bulkAction(fd: FormData) {
   await requireAdmin();
-  const ids = fd.getAll("ids").map(String);
   const action = str(fd, "action");
   const value = str(fd, "value");
   const back = str(fd, "back") || "/admin/contacts";
+  let ids = fd.getAll("ids").map(String);
+  // « Tous les résultats du filtre » (jamais pour une suppression, par sécurité).
+  if (str(fd, "scope") === "filter" && action !== "delete") {
+    let filters: ContactFilters = {};
+    try { filters = pickFilters(JSON.parse(str(fd, "filters") ?? "{}")); } catch {}
+    ids = (await db.contact.findMany({ where: contactWhere(filters), select: { id: true } })).map((c) => c.id);
+  }
   if (!ids.length || !action) redirect(back);
-  if (action === "delete") await db.contact.deleteMany({ where: { id: { in: ids } } });
-  if (action === "list" && value) {
-    const list = await db.contactList.upsert({ where: { name: value }, update: {}, create: { name: value } });
-    await db.listMember.createMany({ data: ids.map((contactId) => ({ listId: list.id, contactId })), skipDuplicates: true });
+  for (const part of chunk(ids, 5000)) {
+    if (action === "delete") await db.contact.deleteMany({ where: { id: { in: part } } });
+    if ((action === "list" || action === "unlist") && value) {
+      const list = action === "list"
+        ? await db.contactList.upsert({ where: { name: value }, update: {}, create: { name: value } })
+        : await db.contactList.findUnique({ where: { name: value } });
+      if (list && action === "list") await db.listMember.createMany({ data: part.map((contactId) => ({ listId: list.id, contactId })), skipDuplicates: true });
+      if (list && action === "unlist") await db.listMember.deleteMany({ where: { listId: list.id, contactId: { in: part } } });
+    }
+    if (action === "status" && value) await db.contact.updateMany({ where: { id: { in: part } }, data: { status: value } });
+    if (action === "segment" && value) await db.contact.updateMany({ where: { id: { in: part } }, data: { segment: value } });
+    if (action === "category" && value) await db.contact.updateMany({ where: { id: { in: part } }, data: { category: normalizeCategory(value) } });
+    if (action === "tag" && value) {
+      const tag = slugTag(value);
+      await db.contact.updateMany({ where: { id: { in: part }, NOT: { tags: { has: tag } } }, data: { tags: { push: tag } } });
+    }
+    if (action === "untag" && value) {
+      const tag = slugTag(value);
+      await db.$executeRaw`UPDATE "Contact" SET tags = array_remove(tags, ${tag}) WHERE id = ANY(${part}) AND ${tag} = ANY(tags)`;
+    }
   }
-  if (action === "unlist" && value) {
-    const list = await db.contactList.findUnique({ where: { name: value } });
-    if (list) await db.listMember.deleteMany({ where: { listId: list.id, contactId: { in: ids } } });
-  }
-  if (action === "status" && value) await db.contact.updateMany({ where: { id: { in: ids } }, data: { status: value } });
-  if (action === "segment" && value) await db.contact.updateMany({ where: { id: { in: ids } }, data: { segment: value } });
-  if ((action === "tag" || action === "untag") && value) {
-    const tag = value.trim().toLowerCase();
-    for (const c of await db.contact.findMany({ where: { id: { in: ids } }, select: { id: true, tags: true } }))
-      await db.contact.update({ where: { id: c.id }, data: { tags: action === "tag" ? [...new Set([...c.tags, tag])] : c.tags.filter((t) => t !== tag) } });
-  }
-  redirect(back + (back.includes("?") ? "&" : "?") + "ok=1");
+  revalidatePath("/admin/contacts");
+  redirect(back.includes("?") ? `${back}&ok=1` : `${back}?ok=1`);
 }
 
 export type ImportReport = { ok: boolean; message: string; created?: number; updated?: number; skipped?: number; invalid?: string[]; lists?: string[] } | null;
@@ -101,14 +115,17 @@ export async function importContacts(_prev: ImportReport, fd: FormData): Promise
   if (!(file instanceof File) || !file.size) return { ok: false, message: "Aucun fichier." };
   if (file.size > 20 * 1024 * 1024) return { ok: false, message: "Fichier trop lourd (20 Mo max). Découpez-le en plusieurs fichiers." };
   let rows: string[][];
+  let sheet: string | undefined;
   try {
-    rows = await readSpreadsheet(file);
+    ({ rows, sheet } = await readSpreadsheetInfo(file));
   } catch {
     return { ok: false, message: "Fichier illisible. Formats acceptés : CSV (UTF-8) ou Excel .xlsx." };
   }
   if (rows.length < 2) return { ok: false, message: "Le fichier est vide ou n'a pas de ligne d'en-tête." };
   const cols = mapColumns(rows[0]);
-  if (!cols.includes("email")) return { ok: false, message: `Colonne « e-mail » introuvable. En-têtes lus : ${rows[0].join(" | ")}` };
+  if (!cols.includes("email"))
+    return { ok: false, message: `Aucune colonne d'e-mail reconnue${sheet ? ` (onglet « ${sheet} »)` : ""}. Renommez la colonne des adresses en « E-mail ». En-têtes lus : ${rows[0].join(" | ")}` };
+  const formCategory = normalizeCategory(str(fd, "category"));
 
   const extraTags = tagsOf(str(fd, "tags"));
   const segment = str(fd, "segment") ?? "prospect";
@@ -134,7 +151,7 @@ export async function importContacts(_prev: ImportReport, fd: FormData): Promise
   const newList = str(fd, "newList");
   if (newList) formLists.push((await listId(newList))!);
 
-  type Rec = { data: Record<string, string | undefined>; tags: Set<string>; lists: Set<string> };
+  type Rec = { data: Record<string, string | undefined>; tags: Set<string>; lists: Set<string>; stars?: number; size?: string };
   const byEmail = new Map<string, Rec>();
   const invalid: string[] = [];
   let skipped = 0;
@@ -144,9 +161,16 @@ export async function importContacts(_prev: ImportReport, fd: FormData): Promise
     const email = normEmail((rec.email ?? "").split(/[;,\s]+/)[0] ?? "");
     if (!isEmail(email)) { if (rec.email) invalid.push(rec.email); skipped++; continue; }
     const cur = byEmail.get(email) ?? { data: {}, tags: new Set(extraTags), lists: new Set(formLists) };
-    for (const k of ["firstName", "lastName", "company", "jobTitle", "phone", "city", "postalCode", "website", "notes", "source", "originNote", "segment"])
+    for (const k of ["firstName", "lastName", "company", "jobTitle", "phone", "city", "postalCode", "website", "notes", "source", "originNote", "segment", "region"])
       if (rec[k] && !cur.data[k]) cur.data[k] = rec[k];
     tagsOf(rec.tags ?? "").forEach((t) => cur.tags.add(slugTag(t)));
+    const cl = classify(rec.category, rec.classement);
+    cl.tags.forEach((t) => cur.tags.add(t));
+    if (!cur.data.category) cur.data.category = cl.category ?? formCategory ?? undefined;
+    if (cl.stars && !cur.stars) cur.stars = cl.stars;
+    if (cl.size && !cur.size) cur.size = cl.size;
+    const dep = (rec.department ?? (rec.postalCode ? (rec.postalCode.startsWith("97") ? rec.postalCode.slice(0, 3) : rec.postalCode.slice(0, 2)) : "")).trim().toUpperCase();
+    if (dep && !cur.data.department) cur.data.department = /^\d$/.test(dep) ? `0${dep}` : dep;
     if (rec.department) cur.tags.add(`dep-${slugTag(rec.department)}`);
     if (rec.region) cur.tags.add(`region-${slugTag(rec.region)}`);
     for (const ln of (rec.lists ?? "").split(/[|;,]/)) { const id = await listId(ln); if (id) cur.lists.add(id); }
@@ -160,28 +184,37 @@ export async function importContacts(_prev: ImportReport, fd: FormData): Promise
 
   const SEGMENTS_OK = ["prospect", "client", "partenaire"];
   const toCreate = emails.filter((e) => !existing.has(e)).map((email) => {
-    const { data, tags } = byEmail.get(email)!;
+    const { data, tags, stars, size } = byEmail.get(email)!;
     return {
       email, firstName: data.firstName, lastName: data.lastName, company: data.company, jobTitle: data.jobTitle, phone: data.phone,
       city: data.city, postalCode: data.postalCode, website: data.website, notes: data.notes,
+      category: data.category, department: data.department, region: data.region, stars, size,
       segment: SEGMENTS_OK.includes((data.segment ?? "").toLowerCase()) ? data.segment!.toLowerCase() : segment,
       consent, source: data.source ?? source, originNote: data.originNote ?? originNote, tags: [...tags],
     };
   });
   for (const part of chunk(toCreate, 1000)) await db.contact.createMany({ data: part, skipDuplicates: true });
 
-  let updated = 0;
-  for (const [email, c] of existing) {
-    const { data, tags } = byEmail.get(email)!;
+  let updated: number;
+  const updates = [...existing].map(([email, c]) => {
+    const { data, tags, stars, size } = byEmail.get(email)!;
     // Jamais de réabonnement automatique d'un contact désinscrit.
-    const patch = Object.fromEntries(
-      ["firstName", "lastName", "company", "jobTitle", "phone", "city", "postalCode", "website", "notes"]
+    const patch: Record<string, unknown> = Object.fromEntries(
+      ["firstName", "lastName", "company", "jobTitle", "phone", "city", "postalCode", "website", "notes", "category", "department", "region"]
         .filter((k) => data[k] && (overwrite || !c[k]))
         .map((k) => [k, data[k]]),
     );
-    await db.contact.update({ where: { id: c.id }, data: { ...patch, tags: [...new Set([...c.tags, ...tags])] } });
-    updated++;
+    if (stars && (overwrite || !c.stars)) patch.stars = stars;
+    if (size && (overwrite || !c.size)) patch.size = size;
+    const merged = [...new Set([...c.tags, ...tags])];
+    if (merged.length !== c.tags.length) patch.tags = merged;
+    return { id: c.id, patch };
+  });
+  // Mises à jour par lots dans des transactions (plusieurs dizaines de milliers de lignes en quelques secondes).
+  for (const part of chunk(updates.filter((u) => Object.keys(u.patch).length), 500)) {
+    await db.$transaction(part.map((u) => db.contact.update({ where: { id: u.id }, data: u.patch })));
   }
+  updated = existing.size;
 
   const ids = new Map<string, string>();
   for (const part of chunk(emails, 1000))
@@ -191,7 +224,7 @@ export async function importContacts(_prev: ImportReport, fd: FormData): Promise
 
   const listNames = (await db.contactList.findMany({ where: { id: { in: [...new Set(members.map((m) => m.listId))] } }, select: { name: true } })).map((l) => l.name);
   revalidatePath("/admin/contacts");
-  return { ok: true, message: "Import terminé.", created: toCreate.length, updated, skipped, invalid: invalid.slice(0, 20), lists: listNames };
+  return { ok: true, message: `Import terminé${sheet ? ` (onglet « ${sheet} »)` : ""}.`, created: toCreate.length, updated, skipped, invalid: invalid.slice(0, 20), lists: listNames };
 }
 
 // ---------- Listes de diffusion ----------

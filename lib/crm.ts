@@ -65,7 +65,14 @@ export async function syncInquiryToContact(inquiryId: string) {
   });
 }
 
-export type Audience = { lists?: string[]; segments?: string[]; statuses?: string[]; tags?: string[]; excludeTags?: string[] };
+export type Audience = {
+  lists?: string[]; segments?: string[]; statuses?: string[]; tags?: string[]; excludeTags?: string[];
+  categories?: string[]; regions?: string[]; departments?: string[]; stars?: number[];
+};
+
+/** Une audience doit cibler explicitement quelque chose : jamais « tous les contacts » par défaut. */
+export const hasAudience = (a: Audience) =>
+  !!(a.lists?.length || a.segments?.length || a.statuses?.length || a.tags?.length || a.categories?.length || a.regions?.length || a.departments?.length);
 
 /** Filtre Prisma des destinataires d'une campagne (toujours sans désinscrits ni adresses invalides). */
 export function audienceWhere(a: Audience): Prisma.ContactWhereInput {
@@ -77,6 +84,10 @@ export function audienceWhere(a: Audience): Prisma.ContactWhereInput {
     ...(a.statuses?.length ? { status: { in: a.statuses } } : {}),
     ...(a.tags?.length ? { tags: { hasSome: a.tags } } : {}),
     ...(a.excludeTags?.length ? { NOT: { tags: { hasSome: a.excludeTags } } } : {}),
+    ...(a.categories?.length ? { category: { in: a.categories } } : {}),
+    ...(a.regions?.length ? { region: { in: a.regions } } : {}),
+    ...(a.departments?.length ? { department: { in: a.departments } } : {}),
+    ...(a.stars?.length ? { stars: { in: a.stars } } : {}),
   };
 }
 
@@ -104,58 +115,83 @@ export function parseCsv(text: string): string[][] {
   return rows.filter((r) => r.some((x) => x.trim()));
 }
 
-/** Reconnaissance automatique des colonnes d'un fichier de prospects. */
+/** Reconnaissance automatique des colonnes d'un fichier de prospects (insensible aux accents et à la casse). */
 const COLUMN_ALIASES: Record<string, RegExp> = {
-  email: /^(e-?mail|courriel|mail|adresse e-?mail|adresse mail)$/i,
-  firstName: /^(pr[ée]nom|first ?name)$/i,
-  lastName: /^(nom|last ?name|nom de famille)$/i,
-  company: /^(soci[ée]t[ée]|entreprise|raison sociale|company|organisation|établissement|etablissement)$/i,
-  jobTitle: /^(fonction|poste|titre|job ?title)$/i,
-  phone: /^(t[ée]l[ée]phone|tel|mobile|portable|phone)$/i,
-  city: /^(ville|commune|city)$/i,
-  postalCode: /^(code postal|cp|postal ?code|zip)$/i,
-  tags: /^(tags?|[ée]tiquettes?|cat[ée]gories?|secteur|type|activit[ée])$/i,
-  lists: /^(listes?|listes? de diffusion|fichier)$/i,
-  segment: /^(segment)$/i,
-  website: /^(site|site web|site internet|website|url)$/i,
-  department: /^(d[ée]partement|dept|dep)$/i,
-  region: /^(r[ée]gion)$/i,
-  source: /^(source|provenance)$/i,
-  originNote: /^(origine|origine des donn[ée]es)$/i,
-  notes: /^(notes?|commentaires?|remarques?)$/i,
+  email: /^(e-?mail|courriel|mail|adresse e-?mail|adresse mail|e-?mail trouve|e-?mail (pro|professionnel|de contact|contact)|email address)$/,
+  firstName: /^(prenom|first ?name)$/,
+  lastName: /^(nom|last ?name|nom de famille)$/,
+  company: /^(societe|entreprise|raison sociale|company|organisation|etablissement|nom de l'etablissement|nom etablissement)$/,
+  jobTitle: /^(fonction|poste|titre|job ?title)$/,
+  phone: /^(telephone|tel|mobile|portable|phone)$/,
+  city: /^(ville|commune|city)$/,
+  postalCode: /^(code postal|cp|postal ?code|zip)$/,
+  category: /^(categories?|type|type d'etablissement|secteur|activite)$/,
+  classement: /^(classement|etoiles|nombre d'etoiles)$/,
+  tags: /^(tags?|etiquettes?)$/,
+  lists: /^(listes?|listes? de diffusion|fichier)$/,
+  segment: /^(segment)$/,
+  website: /^(site|site web|site internet|website|url)$/,
+  department: /^(departement|dept|dep)$/,
+  region: /^(region)$/,
+  source: /^(source|provenance)$/,
+  originNote: /^(origine|origine des donnees|page source)$/,
+  notes: /^(notes?|commentaires?|remarques?)$/,
 };
+const normHeader = (h: string) => h.replace(/[’`]/g, "'").normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/\s+/g, " ").trim();
+
 export function mapColumns(header: string[]) {
-  return header.map((h) => Object.entries(COLUMN_ALIASES).find(([, re]) => re.test(h.trim()))?.[0] ?? null);
+  const cols = header.map((h) => Object.entries(COLUMN_ALIASES).find(([, re]) => re.test(normHeader(String(h ?? ""))))?.[0] ?? null);
+  // Fichier d'établissements : une colonne « Nom » sans « Prénom » ni « Société » désigne l'établissement.
+  if (!cols.includes("firstName") && !cols.includes("company")) {
+    const i = cols.indexOf("lastName");
+    if (i >= 0) cols[i] = "company";
+  }
+  return cols;
 }
 
 export const csvCell = (v: unknown) => `"${String(v ?? "").replace(/"/g, '""')}"`;
 
 /** Lit un fichier CSV ou Excel (.xlsx, 1re feuille) en tableau de lignes. */
 export async function readSpreadsheet(file: File): Promise<string[][]> {
+  return (await readSpreadsheetInfo(file)).rows;
+}
+
+/** Comme readSpreadsheet, en indiquant l'onglet retenu : le premier qui contient une colonne e-mail. */
+export async function readSpreadsheetInfo(file: File): Promise<{ rows: string[][]; sheet?: string }> {
   const name = file.name.toLowerCase();
   if (name.endsWith(".xlsx") || file.type.includes("spreadsheetml")) {
     const ExcelJS = (await import("exceljs")).default;
     const wb = new ExcelJS.Workbook();
     await wb.xlsx.load(Buffer.from(await file.arrayBuffer()) as unknown as ArrayBuffer);
-    const ws = wb.worksheets[0];
-    const rows: string[][] = [];
-    ws.eachRow({ includeEmpty: false }, (row) => {
-      const vals = (row.values as unknown[]).slice(1).map((v) => {
-        if (v == null) return "";
-        if (typeof v === "object") {
-          const o = v as { text?: string; hyperlink?: string; result?: unknown; richText?: { text: string }[] };
-          if (o.richText) return o.richText.map((t) => t.text).join("");
-          if (o.text) return String(o.text).replace(/^mailto:/i, "");
-          if (o.result != null) return String(o.result);
-          if (o.hyperlink) return o.hyperlink.replace(/^mailto:/i, "");
-        }
-        return String(v);
+    const read = (ws: (typeof wb.worksheets)[number]) => {
+      const rows: string[][] = [];
+      ws.eachRow({ includeEmpty: false }, (row) => {
+        const vals = (row.values as unknown[]).slice(1).map((v) => {
+          if (v == null) return "";
+          if (typeof v === "object") {
+            const o = v as { text?: string; hyperlink?: string; result?: unknown; richText?: { text: string }[] };
+            if (o.richText) return o.richText.map((t) => t.text).join("");
+            if (o.text) return String(o.text).replace(/^mailto:/i, "");
+            if (o.result != null) return String(o.result);
+            if (o.hyperlink) return o.hyperlink.replace(/^mailto:/i, "");
+          }
+          return String(v);
+        });
+        rows.push(vals);
       });
-      rows.push(vals);
-    });
-    return rows.filter((r) => r.some((x) => x.trim()));
+      return rows.filter((r) => r.some((x) => x.trim()));
+    };
+    const sheets = wb.worksheets.map((ws) => ({ name: ws.name, rows: read(ws) }));
+    // Priorité à un onglet dont toutes les lignes ont un e-mail (onglet « Import CRM »), sinon le premier avec une colonne e-mail.
+    const withEmail = sheets.filter((s) => s.rows.length > 1 && mapColumns(s.rows[0]).includes("email"));
+    const filled = (s: (typeof sheets)[number]) => {
+      const i = mapColumns(s.rows[0]).indexOf("email");
+      return s.rows.slice(1).filter((r) => r[i]?.includes("@")).length / Math.max(1, s.rows.length - 1);
+    };
+    const best = withEmail.sort((a, b) => filled(b) - filled(a))[0] ?? sheets[0];
+    return { rows: best?.rows ?? [], sheet: best?.name };
   }
-  return parseCsv(await file.text());
+  return { rows: parseCsv(await file.text()) };
 }
 
 export const slugTag = (s: string) =>

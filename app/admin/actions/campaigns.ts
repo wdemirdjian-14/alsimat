@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { requireAdmin } from "@/lib/auth";
 import { materializeRecipients } from "@/lib/campaign-sender";
+import { hasAudience, type Audience } from "@/lib/crm";
 import { db } from "@/lib/db";
 import { merge, renderEmail } from "@/lib/email-template";
 import { sendRichMail } from "@/lib/mail";
@@ -18,7 +19,12 @@ export async function saveCampaign(id: string | null, fd: FormData) {
   if (!name || !subject || !body) throw new Error("Nom, objet et message sont obligatoires.");
   const data = {
     name, subject, body, preheader: str(fd, "preheader"), ctaLabel: str(fd, "ctaLabel"), ctaUrl: str(fd, "ctaUrl"), image: str(fd, "image"),
-    audience: { lists: list(fd, "lists"), segments: list(fd, "segments"), statuses: list(fd, "statuses"), tags: tagList(str(fd, "tags")), excludeTags: tagList(str(fd, "excludeTags")) },
+    audience: {
+      lists: list(fd, "lists"), segments: list(fd, "segments"), statuses: list(fd, "statuses"), tags: tagList(str(fd, "tags")), excludeTags: tagList(str(fd, "excludeTags")),
+      categories: list(fd, "categories"), regions: list(fd, "regions"),
+      departments: (str(fd, "departments") ?? "").split(/[\s,;]+/).map((d) => d.trim().toUpperCase().padStart(2, "0")).filter((d) => /^(\d{2,3}|2A|2B)$/.test(d)),
+      stars: list(fd, "stars").map(Number).filter((n) => n >= 1 && n <= 5),
+    },
   };
   if (id) {
     const c = await db.campaign.findUniqueOrThrow({ where: { id } });
@@ -50,8 +56,7 @@ export async function launchCampaign(id: string, fd: FormData) {
   const c = await db.campaign.findUniqueOrThrow({ where: { id } });
   if (!["brouillon", "pause", "programmee"].includes(c.status)) redirect(`/admin/campagnes/${id}`);
   // Garde-fou : jamais d'envoi à « tous les contacts » par erreur.
-  const a = (c.audience ?? {}) as { lists?: string[]; segments?: string[]; statuses?: string[]; tags?: string[] };
-  if (!a.lists?.length && !a.segments?.length && !a.statuses?.length && !a.tags?.length) redirect(`/admin/campagnes/${id}?err=audience`);
+  if (!hasAudience((c.audience ?? {}) as Audience)) redirect(`/admin/campagnes/${id}?err=audience`);
   const when = str(fd, "scheduledAt");
   if (when) {
     await db.campaign.update({ where: { id }, data: { status: "programmee", scheduledAt: new Date(when) } });

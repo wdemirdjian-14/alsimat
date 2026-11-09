@@ -5,6 +5,7 @@ import { startTransition, useActionState } from "react";
 import { Loader2, Upload } from "lucide-react";
 import { importContacts, type ImportReport } from "@/app/admin/actions/crm";
 import { CONSENTS, SEGMENTS } from "@/lib/crm";
+import { CATEGORY_LABELS } from "@/lib/categories";
 
 export function ImportForm({ lists }: { lists: { id: string; name: string }[] }) {
   const [r, run, pending] = useActionState<ImportReport, FormData>(importContacts, null);
@@ -20,6 +21,9 @@ export function ImportForm({ lists }: { lists: { id: string; name: string }[] })
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block"><span className="label">Étiquettes à ajouter</span><input name="tags" className="field" placeholder="campings-loire, salon-2026" /></label>
         <label className="block"><span className="label">Provenance</span><input name="source" className="field" placeholder="Fichier CCI, salon…" /></label>
+        <label className="block sm:col-span-2"><span className="label">Catégorie (si le fichier n'a pas de colonne « Catégorie » ou « Type »)</span>
+          <select name="category" className="field" defaultValue=""><option value="">— Lue dans le fichier —</option>{Object.entries(CATEGORY_LABELS).map(([k, l]) => <option key={k} value={k}>{l}</option>)}</select>
+        </label>
         <label className="block"><span className="label">Segment</span><select name="segment" className="field">{SEGMENTS.map((s) => <option key={s.key} value={s.key}>{s.label}</option>)}</select></label>
         <label className="block"><span className="label">Base légale</span><select name="consent" className="field">{CONSENTS.map((s) => <option key={s.key} value={s.key}>{s.label}</option>)}</select></label>
       </div>
