@@ -29,19 +29,25 @@ function bodyToHtml(body: string, link: (u: string) => string) {
     esc(s)
       .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
       .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_, t, u) => `<a href="${esc(link(u.startsWith("/") ? SITE_URL + u : u))}" style="color:#2a6d57;font-weight:600">${t}</a>`);
-  return body
-    .replace(/\r/g, "")
-    .split(/\n\s*\n/)
-    .map((b) => b.trim())
-    .filter(Boolean)
-    .map((b) => {
-      if (b.startsWith("## ")) return `<h2 style="margin:28px 0 10px;font-size:20px;color:#0d2420">${inline(b.slice(3))}</h2>`;
-      const lines = b.split("\n");
-      if (lines.every((l) => /^[-*] /.test(l)))
-        return `<ul style="margin:0 0 16px;padding-left:20px">${lines.map((l) => `<li style="margin:4px 0">${inline(l.slice(2))}</li>`).join("")}</ul>`;
-      return `<p style="margin:0 0 16px">${lines.map(inline).join("<br>")}</p>`;
-    })
-    .join("");
+  // Chaque ligne « ## » est un intertitre ; les lignes « - » consécutives forment une liste ;
+  // le reste forme des paragraphes (une ligne vide = nouveau paragraphe).
+  const out: string[] = [];
+  let para: string[] = [], list: string[] = [];
+  const flush = () => {
+    if (para.length) out.push(`<p style="margin:0 0 16px">${para.map(inline).join("<br>")}</p>`);
+    if (list.length) out.push(`<ul style="margin:0 0 16px;padding-left:20px">${list.map((l) => `<li style="margin:4px 0">${inline(l)}</li>`).join("")}</ul>`);
+    para = []; list = [];
+  };
+  for (const raw of body.replace(/\r/g, "").split("\n")) {
+    const l = raw.trim();
+    if (!l) { flush(); continue; }
+    if (l.startsWith("## ")) { flush(); out.push(`<h2 style="margin:28px 0 10px;font-size:20px;line-height:1.3;color:#0d2420">${inline(l.slice(3))}</h2>`); continue; }
+    if (/^[-*] /.test(l)) { if (para.length) { const p = para; para = []; out.push(`<p style="margin:0 0 16px">${p.map(inline).join("<br>")}</p>`); } list.push(l.slice(2)); continue; }
+    if (list.length) flush();
+    para.push(l);
+  }
+  flush();
+  return out.join("");
 }
 
 export function renderEmail(o: {

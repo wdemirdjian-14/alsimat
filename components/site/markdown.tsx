@@ -17,7 +17,8 @@ function inline(text: string) {
 }
 
 export function Markdown({ text, className = "prose-alsimat" }: { text: string; className?: string }) {
-  const blocks = text.replace(/\r/g, "").split(/\n\s*\n/).map((b) => b.trim()).filter(Boolean);
+  // Un intertitre collé au texte suivant devient un bloc à part.
+  const blocks = text.replace(/\r/g, "").replace(/^(#{2,3} .+)$/gm, "\n$1\n").split(/\n\s*\n/).map((b) => b.trim()).filter(Boolean);
   return (
     <div className={className}>
       {blocks.map((b, i) => {
