@@ -16,7 +16,7 @@ export default async function CampaignsPage({ searchParams }: { searchParams: Pr
   const pct = (a: number, b: number) => (b ? `${Math.round((a / b) * 100)} %` : "—");
   return (
     <>
-      <PageTitle title="Campagnes e-mail" subtitle="Prospection et information de vos contacts." action={<NewButton href="/admin/campagnes/nouveau" label="Nouvelle campagne" />} />
+      <PageTitle title="Campagnes e-mail" subtitle="Prospection et information de vos contacts." action={<div className="flex flex-wrap gap-2"><Link href="/admin/emails" className="btn-ghost !py-2.5 text-ink">E-mail unique</Link><NewButton href="/admin/campagnes/nouveau" label="Nouvelle campagne" /></div>} />
       <Notice ok={(await searchParams).ok} />
       {!marketingConfigured() && (
         <p className="mb-6 rounded-xl bg-amber-50 p-4 text-sm text-amber-800">Aucun serveur d'envoi n'est configuré : les campagnes peuvent être préparées mais pas envoyées. Voir <strong>Marketing & SEA → Envoi des e-mails</strong>.</p>

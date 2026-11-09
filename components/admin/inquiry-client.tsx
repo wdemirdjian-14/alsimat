@@ -1,8 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { startTransition, useActionState, useState, useTransition } from "react";
-import { Archive, CheckCircle2, Loader2, Mail, Phone, Send } from "lucide-react";
+import { useState, useTransition } from "react";
+import { Archive, CheckCircle2, Loader2, Mail, Phone } from "lucide-react";
 import { setInquiryStatus } from "@/app/admin/actions/inquiries";
 import { INQUIRY_STATUS } from "@/lib/inquiry-labels";
 import { cn } from "@/lib/utils";
@@ -44,31 +44,5 @@ export function MobileActionBar({ id, phone, status }: { id: string; phone?: str
         </button>
       </div>
     </div>
-  );
-}
-
-type Tpl = { label: string; subject: string; body: string };
-
-/** Réponse rapide : modèles pré-remplis, modifiables avant envoi. */
-export function ReplyComposer({ action, templates }: { action: (prev: string | null, fd: FormData) => Promise<string | null>; templates: Tpl[] }) {
-  const [msg, run, pending] = useActionState(action, null);
-  const [tpl, setTpl] = useState(0);
-  const t = templates[tpl];
-  return (
-    <form key={tpl} onSubmit={(e) => { e.preventDefault(); const fd = new FormData(e.currentTarget); startTransition(() => run(fd)); }} className="space-y-3">
-      <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1">
-        {templates.map((x, i) => (
-          <button key={x.label} type="button" onClick={() => setTpl(i)}
-            className={cn("shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold", i === tpl ? "bg-brand-500 text-white" : "bg-sand text-ink/70")}>
-            {x.label}
-          </button>
-        ))}
-      </div>
-      <input name="subject" defaultValue={t.subject} placeholder="Objet" className="field" required />
-      <textarea name="body" defaultValue={t.body} rows={9} className="field" required />
-      <label className="flex items-center gap-2 text-sm"><input type="checkbox" name="close" className="h-4 w-4 accent-brand-500" /> Marquer la demande comme traitée</label>
-      {msg && <p className={msg === "ok" ? "text-sm text-brand-700" : "text-sm text-red-600"}>{msg === "ok" ? "Réponse envoyée et ajoutée au suivi." : msg}</p>}
-      <button disabled={pending} className="btn-primary w-full !py-3 sm:w-auto">{pending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />} Envoyer la réponse</button>
-    </form>
   );
 }

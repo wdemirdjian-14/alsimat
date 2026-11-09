@@ -76,6 +76,8 @@ export async function sendRichMail(opts: {
   replyTo?: string;
   unsubscribeUrl?: string;
   marketing?: boolean;
+  cc?: string;
+  attachments?: { filename: string; path: string }[];
 }) {
   if (opts.marketing ? !marketingConfigured() : !configured()) throw new Error("Aucun serveur d'envoi configuré (SMTP).");
   const fromAddr = (opts.marketing && process.env.MARKETING_MAIL_FROM) || defaultFrom();
@@ -87,6 +89,8 @@ export async function sendRichMail(opts: {
     html: opts.html,
     text: opts.text,
     replyTo: opts.replyTo || undefined,
+    cc: opts.cc || undefined,
+    attachments: opts.attachments?.length ? opts.attachments : undefined,
     headers: opts.unsubscribeUrl
       ? { "List-Unsubscribe": `<${opts.unsubscribeUrl}>`, "List-Unsubscribe-Post": "List-Unsubscribe=One-Click" }
       : undefined,

@@ -121,23 +121,23 @@ model Project {
 
 /// Articles « Conseils » (blog)
 model Article {
-  id             String    @id @default(cuid())
+  id             String   @id @default(cuid())
   title          String
-  slug           String    @unique
-  excerpt        String?   @db.Text
-  content        String    @db.Text
+  slug           String   @unique
+  excerpt        String?  @db.Text
+  content        String   @db.Text
   image          String?
-  published      Boolean   @default(true)
-  publishedAt    DateTime  @default(now())
+  published      Boolean  @default(true)
+  publishedAt    DateTime @default(now())
   seoTitle       String?
   seoDescription String?
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
 
 /// Demandes entrantes : devis, contact, SAV
 model Inquiry {
-  id           String   @id @default(cuid())
+  id           String     @id @default(cuid())
   type         String // "devis" | "contact" | "sav"
   firstName    String
   lastName     String
@@ -146,30 +146,38 @@ model Inquiry {
   phone        String?
   postalCode   String?
   subject      String?
-  message      String?  @db.Text
+  message      String?    @db.Text
   vehicleRef   String?
   serialNumber String?
   /// Provenance du contact (campagne, réseau, référencement…)
   source       String?
-  files        String[] @default([])
-  status       String   @default("nouveau") // nouveau | en_cours | traite | archive
+  files        String[]   @default([])
+  status       String     @default("nouveau") // nouveau | en_cours | traite | archive
   contactId    String?
-  contact      Contact? @relation(fields: [contactId], references: [id], onDelete: SetNull)
-  notes        String?  @db.Text
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  contact      Contact?   @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  activities   Activity[]
+  notes        String?    @db.Text
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
 
   @@index([type, status])
 }
 
 model User {
-  id             String   @id @default(cuid())
-  email          String   @unique
+  id             String    @id @default(cuid())
+  email          String    @unique
   hashedPassword String
   name           String?
-  role           String   @default("admin")
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  role           String    @default("admin")
+  /// Lien d'activation / de réinitialisation (empreinte SHA-256 du jeton envoyé par e-mail)
+  resetToken     String?
+  resetExpires   DateTime?
+  /// Mot de passe défini par l'utilisateur lui-même (faux tant que l'invitation n'est pas acceptée)
+  activated      Boolean   @default(true)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([resetToken])
 }
 
 model SiteSetting {
@@ -240,16 +248,22 @@ model ListMember {
 
 /// Historique d'un contact : notes, appels, e-mails, demandes, campagnes.
 model Activity {
-  id        String   @id @default(cuid())
-  contactId String
-  contact   Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
-  type      String // note | appel | email | demande | campagne | statut | rdv
-  title     String
-  content   String?  @db.Text
-  author    String?
-  createdAt DateTime @default(now())
+  id          String   @id @default(cuid())
+  contactId   String
+  contact     Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  type        String // note | appel | email | demande | campagne | statut | rdv
+  title       String
+  content     String?  @db.Text
+  author      String?
+  /// Pièces jointes privées (chemins relatifs à uploads/private)
+  attachments String[] @default([])
+  /// Demande à laquelle l'échange se rattache (vue « traitement de la demande »)
+  inquiryId   String?
+  inquiry     Inquiry? @relation(fields: [inquiryId], references: [id], onDelete: SetNull)
+  createdAt   DateTime @default(now())
 
   @@index([contactId, createdAt])
+  @@index([inquiryId])
 }
 
 /// Campagne e-mail de prospection / information.
@@ -302,14 +316,14 @@ model Redirect {
 
 /// Appareils (téléphone, ordinateur) abonnés aux notifications de l'admin.
 model PushSubscription {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   userId    String
-  endpoint  String   @unique
+  endpoint  String    @unique
   p256dh    String
   auth      String
   device    String?
   /// Types de notifications reçus : demandes, campagnes
-  topics    String[] @default(["demandes", "campagnes"])
-  createdAt DateTime @default(now())
+  topics    String[]  @default(["demandes", "campagnes"])
+  createdAt DateTime  @default(now())
   lastUsed  DateTime?
 }

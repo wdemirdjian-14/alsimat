@@ -3,7 +3,13 @@ import { SESSION_COOKIE, verifySession } from "@/lib/session";
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  if (pathname === "/admin/login") return NextResponse.next();
+  // Pages publiques de l'admin : connexion, activation d'un compte invité, mot de passe oublié.
+  if (pathname === "/admin/login" || pathname === "/admin/mot-de-passe-oublie" || pathname.startsWith("/admin/activation/")) {
+    const res = NextResponse.next();
+    res.headers.set("X-Robots-Tag", "noindex, nofollow");
+    res.headers.set("Referrer-Policy", "no-referrer");
+    return res;
+  }
   const session = await verifySession(req.cookies.get(SESSION_COOKIE)?.value);
   if (!session) {
     const url = req.nextUrl.clone();

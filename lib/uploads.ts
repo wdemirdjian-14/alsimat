@@ -55,6 +55,44 @@ export async function savePrivateFile(file: File, folder: string) {
   return `${folder}/${name}`;
 }
 
+const DOC_TYPES: Record<string, string> = {
+  ".pdf": "application/pdf", ".doc": "application/msword", ".docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  ".xls": "application/vnd.ms-excel", ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  ".odt": "application/vnd.oasis.opendocument.text", ".ods": "application/vnd.oasis.opendocument.spreadsheet",
+  ".csv": "text/csv", ".txt": "text/plain", ".zip": "application/zip",
+  ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".webp": "image/webp", ".heic": "image/heic", ".gif": "image/gif",
+  ".mp4": "video/mp4", ".mov": "video/quicktime",
+};
+export const ATTACHMENT_ACCEPT = Object.keys(DOC_TYPES).join(",");
+
+/**
+ * Pièces jointes des échanges (notes internes, e-mails envoyés) : stockage privé, lisibles depuis l'admin.
+ * Contrôle par extension (les navigateurs envoient des types MIME très variables pour les documents bureautiques).
+ */
+export async function saveAttachments(files: File[], folder = `echanges/${new Date().toISOString().slice(0, 7)}`) {
+  const list = files.filter((f) => f && typeof f === "object" && f.size > 0);
+  if (list.reduce((a, f) => a + f.size, 0) > 20 * 1024 * 1024) throw new Error("Pièces jointes trop lourdes (20 Mo au total maximum).");
+  for (const f of list) if (!DOC_TYPES[path.extname(f.name).toLowerCase()]) throw new Error(`Format non accepté : ${f.name}`);
+  const saved: string[] = [];
+  const dir = path.join(UPLOAD_DIR, "private", folder);
+  if (list.length) await mkdir(dir, { recursive: true });
+  for (const f of list) {
+    const name = safeName(f.name) + path.extname(f.name).toLowerCase();
+    await writeFile(path.join(dir, name), Buffer.from(await f.arrayBuffer()));
+    saved.push(`${folder}/${name}`);
+  }
+  return saved;
+}
+
+/** Nom lisible d'une pièce jointe enregistrée (sans le suffixe aléatoire). */
+export const attachmentLabel = (p: string) => {
+  const base = p.split("/").pop() ?? p;
+  return base.replace(/-[0-9a-f]{6}(\.[a-z0-9]+)$/, "$1");
+};
+
+/** Chemin disque d'une pièce jointe privée (pour l'envoi par e-mail). */
+export const privatePath = (p: string) => resolveInside(path.join(UPLOAD_DIR, "private"), p.split("/"));
+
 /** Résout un chemin demandé en restant confiné dans le dossier racine donné. */
 export function resolveInside(root: string, parts: string[]) {
   const target = path.resolve(root, ...parts);
@@ -64,4 +102,5 @@ export function resolveInside(root: string, parts: string[]) {
 export const MIME: Record<string, string> = {
   ".webp": "image/webp", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".gif": "image/gif",
   ".avif": "image/avif", ".heic": "image/heic", ".pdf": "application/pdf", ".mp4": "video/mp4", ".webm": "video/webm", ".mov": "video/quicktime",
+  ...DOC_TYPES,
 };

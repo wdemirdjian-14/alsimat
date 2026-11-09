@@ -5,9 +5,7 @@ import { redirect } from "next/navigation";
 import { requireAdmin } from "@/lib/auth";
 import { mapColumns, normEmail, readSpreadsheet, slugTag, STATUS } from "@/lib/crm";
 import { db } from "@/lib/db";
-import { merge, renderEmail } from "@/lib/email-template";
-import { sendRichMail } from "@/lib/mail";
-import { getSetting } from "@/lib/settings";
+import { addInternalNote, sendDirectEmail } from "@/lib/direct-mail";
 import { int, str } from "./helpers";
 
 const tagsOf = (v: string | null) => [...new Set((v ?? "").split(/[,;]/).map((t) => t.trim().toLowerCase()).filter(Boolean))];
@@ -47,33 +45,18 @@ export async function setStatus(id: string, status: string) {
   revalidatePath("/admin/contacts");
 }
 
-export async function addActivity(contactId: string, fd: FormData) {
+export async function addActivity(contactId: string, _prev: string | null, fd: FormData): Promise<string | null> {
   const admin = await requireAdmin();
-  const type = str(fd, "type") ?? "note";
-  const content = str(fd, "content");
-  if (!content) return;
-  const titles: Record<string, string> = { note: "Note", appel: "Appel téléphonique", rdv: "Rendez-vous", devis: "Devis envoyé" };
-  await db.activity.create({ data: { contactId, type, title: str(fd, "title") || titles[type] || "Note", content, author: admin.email } });
-  if (type !== "note") await db.contact.update({ where: { id: contactId }, data: { lastContactAt: new Date() } });
-  redirect(`/admin/contacts/${contactId}#historique`);
+  const res = await addInternalNote({ fd, author: admin.email, contactId });
+  revalidatePath(`/admin/contacts/${contactId}`);
+  return res;
 }
 
 export async function sendContactEmail(contactId: string, _prev: string | null, fd: FormData): Promise<string | null> {
   const admin = await requireAdmin();
-  const c = await db.contact.findUniqueOrThrow({ where: { id: contactId } });
-  const subject = str(fd, "subject"), body = str(fd, "body");
-  if (!subject || !body) return "Objet et message requis.";
-  const m = await getSetting("marketing");
-  const { html, text } = renderEmail({ subject, body, merge: { prenom: c.firstName, nom: c.lastName, societe: c.company, ville: c.city }, senderName: m.senderName, postalAddress: m.postalAddress });
-  try {
-    await sendRichMail({ to: c.email, subject: merge(subject, { prenom: c.firstName, nom: c.lastName, societe: c.company, ville: c.city }), html, text, fromName: m.senderName, replyTo: m.replyTo || admin.email });
-  } catch (e) {
-    return e instanceof Error ? e.message : "Échec de l'envoi.";
-  }
-  await db.activity.create({ data: { contactId, type: "email", title: `E-mail : ${subject}`, content: body, author: admin.email } });
-  await db.contact.update({ where: { id: contactId }, data: { lastContactAt: new Date() } });
+  const res = await sendDirectEmail({ fd, author: admin.email, contactId });
   revalidatePath(`/admin/contacts/${contactId}`);
-  return "ok";
+  return res;
 }
 
 export async function bulkAction(fd: FormData) {

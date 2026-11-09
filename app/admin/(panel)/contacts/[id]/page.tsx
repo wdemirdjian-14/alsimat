@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CalendarClock, FileText, Inbox, Mail, MessageSquare, Phone, RefreshCw, StickyNote } from "lucide-react";
-import { EmailComposer } from "@/components/admin/crm-client";
+import { Mail, Phone } from "lucide-react";
+import { MailComposer, NoteComposer } from "@/components/admin/composers";
+import { Timeline } from "@/components/admin/timeline";
 import { DeleteButton, SubmitButton } from "@/components/admin/form-parts";
 import { Badge, Card, Field, Notice, PageTitle, Select, TextArea, Toggle } from "@/components/admin/ui";
 import { CONSENTS, SEGMENTS, STATUS, STATUSES } from "@/lib/crm";
@@ -10,7 +11,6 @@ import { addActivity, deleteContact, saveContact, sendContactEmail, setContactLi
 
 type Props = { params: Promise<{ id: string }>; searchParams: Promise<{ ok?: string }> };
 
-const ICONS = { note: StickyNote, appel: Phone, email: Mail, demande: Inbox, campagne: MessageSquare, statut: RefreshCw, rdv: CalendarClock, devis: FileText } as const;
 
 export default async function ContactPage({ params, searchParams }: Props) {
   const { id } = await params;
@@ -47,7 +47,7 @@ export default async function ContactPage({ params, searchParams }: Props) {
         </div>
       )}
       <div className="grid gap-6 lg:grid-cols-5">
-        <form action={saveContact.bind(null, c?.id ?? null)} className="space-y-6 lg:col-span-3">
+        <form action={saveContact.bind(null, c?.id ?? null)} className="min-w-0 space-y-6 lg:col-span-3">
           <Card title="Coordonnées">
             <div className="grid gap-4 sm:grid-cols-2">
               <Field label="Prénom" name="firstName" defaultValue={c?.firstName} />
@@ -81,7 +81,7 @@ export default async function ContactPage({ params, searchParams }: Props) {
           <SubmitButton />
         </form>
 
-        <div className="space-y-6 lg:col-span-2">
+        <div className="order-first min-w-0 space-y-6 lg:order-none lg:col-span-2">
           {c && (
             <>
               <Card title="Listes de diffusion">
@@ -92,35 +92,14 @@ export default async function ContactPage({ params, searchParams }: Props) {
                   {allLists.length > 0 && <SubmitButton label="Mettre à jour" />}
                 </form>
               </Card>
-              <Card title="Ajouter à l'historique">
-                <form action={addActivity.bind(null, c.id)} className="space-y-3">
-                  <select name="type" className="field !py-2.5" defaultValue="note">
-                    <option value="note">Note</option><option value="appel">Appel</option><option value="rdv">Rendez-vous</option><option value="devis">Devis envoyé</option>
-                  </select>
-                  <textarea name="content" rows={3} className="field" placeholder="Compte rendu, prochaine étape…" required />
-                  <SubmitButton label="Ajouter" />
-                </form>
-              </Card>
               <Card title="Envoyer un e-mail">
-                <EmailComposer action={sendContactEmail.bind(null, c.id)} disabled={c.bounced ? "Adresse invalide : envoi désactivé." : undefined} />
+                <MailComposer action={sendContactEmail.bind(null, c.id)} disabled={c.bounced ? "Adresse invalide : envoi désactivé." : undefined} />
               </Card>
-              <Card title="Historique">
-                <ol id="historique" className="space-y-4">
-                  {c.activities.map((a) => {
-                    const Icon = ICONS[a.type as keyof typeof ICONS] ?? StickyNote;
-                    return (
-                      <li key={a.id} className="flex gap-3">
-                        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-brand-50 text-brand-600"><Icon className="h-4 w-4" /></span>
-                        <div className="min-w-0">
-                          <p className="text-sm font-semibold">{a.title}</p>
-                          <p className="text-xs text-ink/45">{a.createdAt.toLocaleString("fr-FR")}{a.author ? ` · ${a.author}` : ""}</p>
-                          {a.content && <p className="mt-1 text-sm whitespace-pre-line text-ink/70">{a.content}</p>}
-                        </div>
-                      </li>
-                    );
-                  })}
-                  {!c.activities.length && <li className="text-sm text-ink/50">Aucun échange pour le moment.</li>}
-                </ol>
+              <Card title="Ajouter à l'historique">
+                <NoteComposer action={addActivity.bind(null, c.id)} types />
+              </Card>
+              <Card title={`Historique 360 (${c.activities.length})`}>
+                <div id="historique"><Timeline items={c.activities} linkInquiries /></div>
               </Card>
               {c.recipients.length > 0 && (
                 <Card title="Campagnes reçues">

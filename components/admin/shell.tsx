@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import {
-  BookOpen, Car, ExternalLink, FolderTree, Gauge, Images, Inbox, LayoutTemplate, ListChecks, LogOut, Mail, Megaphone, Menu, MoreHorizontal, Recycle, Search, Settings, Tag, User, Users, X,
+  BookOpen, Car, ExternalLink, FolderTree, Gauge, Images, Inbox, LayoutTemplate, ListChecks, LogOut, Mail, Megaphone, Menu, MoreHorizontal, Recycle, Search, Send, Settings, ShieldCheck, Tag, User, Users, X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { RegisterSW } from "./app-install";
@@ -15,6 +15,7 @@ const NAV = [
   { href: "/admin/demandes", label: "Demandes", icon: Inbox, badge: "inbox" },
   { href: "/admin/contacts", label: "Contacts (CRM)", icon: Users },
   { href: "/admin/listes", label: "Listes de diffusion", icon: ListChecks },
+  { href: "/admin/emails", label: "E-mails", icon: Send },
   { href: "/admin/campagnes", label: "Campagnes e-mail", icon: Mail },
   { href: "/admin/seo", label: "SEO", icon: Search },
   { href: "/admin/marketing", label: "Marketing & SEA", icon: Megaphone },
@@ -26,6 +27,7 @@ const NAV = [
   { href: "/admin/conseils", label: "Conseils (blog)", icon: BookOpen },
   { href: "/admin/contenu", label: "Contenu des pages", icon: LayoutTemplate },
   { href: "/admin/parametres", label: "Paramètres", icon: Settings },
+  { href: "/admin/utilisateurs", label: "Administrateurs", icon: ShieldCheck },
   { href: "/admin/compte", label: "Mon compte", icon: User },
 ];
 

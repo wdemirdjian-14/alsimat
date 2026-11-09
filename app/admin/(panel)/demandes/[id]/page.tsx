@@ -1,15 +1,17 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Clock, Mail, Paperclip, Phone, UserRound } from "lucide-react";
-import { DeleteButton, SubmitButton } from "@/components/admin/form-parts";
-import { MobileActionBar, ReplyComposer, StatusPills } from "@/components/admin/inquiry-client";
-import { Badge, Card, Notice, TextArea } from "@/components/admin/ui";
+import { DeleteButton } from "@/components/admin/form-parts";
+import { MailComposer, NoteComposer } from "@/components/admin/composers";
+import { Timeline } from "@/components/admin/timeline";
+import { MobileActionBar, StatusPills } from "@/components/admin/inquiry-client";
+import { Badge, Card, Notice } from "@/components/admin/ui";
 import { db } from "@/lib/db";
 import { deadline } from "@/lib/inquiry-deadline";
 import { INQUIRY_STATUS, INQUIRY_TYPES } from "@/lib/inquiry-labels";
 import { getCompany } from "@/lib/settings";
-import { deleteInquiry, updateInquiry } from "../../../actions/content";
-import { replyToInquiry } from "../../../actions/inquiries";
+import { deleteInquiry } from "../../../actions/content";
+import { addInquiryNote, replyToInquiry } from "../../../actions/inquiries";
 
 type Props = { params: Promise<{ id: string }>; searchParams: Promise<{ ok?: string }> };
 
@@ -19,7 +21,12 @@ export default async function InquiryPage({ params, searchParams }: Props) {
   if (!q) notFound();
   // Ouvrir une nouvelle demande la passe automatiquement « en cours ».
   if (q.status === "nouveau") q.status = (await db.inquiry.update({ where: { id }, data: { status: "en_cours" } })).status;
-  const company = await getCompany();
+  const [company, activities] = await Promise.all([
+    getCompany(),
+    db.activity.findMany({ where: { inquiryId: id }, orderBy: { createdAt: "desc" } }),
+  ]);
+  // Anciennes notes (champ texte libre) affichées dans le fil.
+  const legacy = q.notes ? [{ id: "legacy", type: "note", title: "Notes internes", content: q.notes, author: null, attachments: [], createdAt: q.updatedAt }] : [];
   const open = q.status === "en_cours" || q.status === "nouveau";
   const due = open ? deadline(q.createdAt) : null;
   const what = q.vehicleRef ?? q.subject ?? "votre projet";
@@ -57,7 +64,7 @@ export default async function InquiryPage({ params, searchParams }: Props) {
         {q.contactId && <Link href={`/admin/contacts/${q.contactId}`} className="btn-ghost !py-2.5 text-ink"><UserRound className="h-4 w-4" /> Fiche contact</Link>}
       </div>
       <div className="grid gap-6 lg:grid-cols-3">
-        <div className="space-y-6 lg:col-span-2">
+        <div className="min-w-0 space-y-6 lg:col-span-2">
           <Card>
             {q.message && <p className="mb-6 rounded-xl bg-sand p-4 text-[15px] whitespace-pre-line">{q.message}</p>}
             <dl className="grid gap-x-6 gap-y-1 text-sm sm:grid-cols-[140px_1fr] sm:gap-y-3">
@@ -74,20 +81,24 @@ export default async function InquiryPage({ params, searchParams }: Props) {
             )}
             {q.contactId && <Link href={`/admin/contacts/${q.contactId}`} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brand-600 lg:hidden"><UserRound className="h-4 w-4" /> Fiche contact (CRM)</Link>}
           </Card>
+          <Card title={`Échanges & notes (${activities.length + legacy.length})`}>
+            <Timeline items={[...activities, ...legacy]} empty="Aucun échange : répondez au client ou ajoutez une note interne." />
+          </Card>
           <div id="repondre" className="scroll-mt-20">
-            <Card title={`Répondre à ${q.firstName}`}>
-              <ReplyComposer action={replyToInquiry.bind(null, q.id)} templates={templates} />
+            <Card title={`Envoyer un message à ${q.firstName}`}>
+              <p className="-mt-2 mb-4 text-xs text-ink/50">Envoyé par e-mail à {q.email}, enregistré ici et dans la fiche contact (vue 360).</p>
+              <MailComposer action={replyToInquiry.bind(null, q.id)} templates={templates} closeOption />
             </Card>
           </div>
         </div>
-        <div className="space-y-4">
+        <div className="min-w-0 space-y-4">
           <Card title="Statut"><StatusPills id={q.id} value={q.status} /></Card>
-          <Card title="Notes internes">
-            <form action={updateInquiry.bind(null, q.id)} className="space-y-4">
-              <TextArea label="Visibles uniquement par l'équipe" name="notes" defaultValue={q.notes} rows={5} />
-              <SubmitButton />
-            </form>
-          </Card>
+          <div id="note" className="scroll-mt-20">
+            <Card title="Note interne">
+              <p className="-mt-2 mb-3 text-xs text-ink/50">Visible uniquement par l'équipe. Photos, devis, bons de livraison… en pièces jointes.</p>
+              <NoteComposer action={addInquiryNote.bind(null, q.id)} />
+            </Card>
+          </div>
           <DeleteButton action={deleteInquiry.bind(null, q.id)} label="Supprimer la demande" />
         </div>
       </div>
