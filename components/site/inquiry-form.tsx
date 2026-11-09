@@ -4,27 +4,30 @@ import Link from "next/link";
 import { startTransition, useActionState, useEffect, useRef, useState } from "react";
 import { CheckCircle2, Loader2, Paperclip, Send } from "lucide-react";
 import { submitInquiry, type InquiryState } from "@/app/actions/inquiry";
+import { getSource, track } from "@/lib/track";
 import { cn } from "@/lib/utils";
 
 type Props = {
   type: "devis" | "contact" | "sav";
   vehicleRef?: string;
   vehicleOptions?: string[];
+  defaultVehicle?: string;
   compact?: boolean;
   submitLabel?: string;
 };
 
-export function InquiryForm({ type, vehicleRef, vehicleOptions, compact, submitLabel }: Props) {
+export function InquiryForm({ type, vehicleRef, vehicleOptions, defaultVehicle, compact, submitLabel }: Props) {
   const [state, action, pending] = useActionState<InquiryState, FormData>(submitInquiry, null);
-  const [kind, setKind] = useState(type);
+  const [kind, setKind] = useState(type === "contact" && defaultVehicle ? "devis" : type);
   const [startedAt, setStartedAt] = useState(0);
+  const [source, setSource] = useState("");
   const [fileNames, setFileNames] = useState<string[]>([]);
   const ref = useRef<HTMLFormElement>(null);
 
-  useEffect(() => setStartedAt(Date.now()), []);
+  useEffect(() => { setStartedAt(Date.now()); setSource(getSource()); }, []);
   useEffect(() => {
-    if (state?.ok) ref.current?.reset();
-  }, [state]);
+    if (state?.ok) { ref.current?.reset(); track("lead", { form: type, vehicle: vehicleRef ?? "" }); }
+  }, [state, type, vehicleRef]);
 
   if (state?.ok)
     return (
@@ -43,6 +46,7 @@ export function InquiryForm({ type, vehicleRef, vehicleOptions, compact, submitL
     <form ref={ref} onSubmit={(e) => { e.preventDefault(); const fd = new FormData(e.currentTarget); startTransition(() => action(fd)); }} className="grid gap-4" noValidate>
       <input type="hidden" name="type" value={kind} />
       <input type="hidden" name="startedAt" value={startedAt} />
+      <input type="hidden" name="source" value={source} />
       <div className="hidden" aria-hidden>
         <label>Site web <input name="website" tabIndex={-1} autoComplete="off" /></label>
       </div>
@@ -106,7 +110,7 @@ export function InquiryForm({ type, vehicleRef, vehicleOptions, compact, submitL
       ) : vehicleOptions?.length ? (
         <div>
           <label className="label" htmlFor="devis-vehicle">Modèle qui vous intéresse</label>
-          <select id="devis-vehicle" name="vehicleRef" className="field" defaultValue="">
+          <select id="devis-vehicle" name="vehicleRef" className="field" defaultValue={defaultVehicle && vehicleOptions.includes(defaultVehicle) ? defaultVehicle : ""}>
             <option value="">Je ne sais pas encore / plusieurs modèles</option>
             {vehicleOptions.map((v) => <option key={v}>{v}</option>)}
           </select>

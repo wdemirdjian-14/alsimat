@@ -1,4 +1,5 @@
-import { getAllVehicles, keySpecs, primaryCategory } from "./catalog";
+import { activePromo, getAllVehicles, keySpecs, primaryCategory } from "./catalog";
+import { parsePrice } from "./utils";
 import { SITE_URL } from "./site";
 import { truncate } from "./utils";
 
@@ -23,6 +24,9 @@ export async function feedItems() {
         extraImages: v.images.slice(1, 10).map((i) => SITE_URL + i),
         priceHt: ht,
         priceTtc: Math.round(ht * (1 + VAT) * 100) / 100,
+        saleTtc: (() => { const p = activePromo(v); const n = p && parsePrice(p.price); return n ? Math.round(n * (1 + VAT) * 100) / 100 : null; })(),
+        saleEnds: activePromo(v)?.endsAt ?? null,
+        inStock: v.stock > 0,
         productType: ["Véhicules électriques", cat?.name].filter(Boolean).join(" > "),
         mpn: v.sku,
         color: v.colors[0],

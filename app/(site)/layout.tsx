@@ -4,6 +4,8 @@ import { Footer } from "@/components/site/footer";
 import { Header } from "@/components/site/header";
 import { JsonLd } from "@/components/site/json-ld";
 import { RevealObserver } from "@/components/site/reveal";
+import { Tracking, type TrackingConfig } from "@/components/site/tracking";
+import { Walau } from "@/components/site/walau";
 import { getNav } from "@/lib/nav";
 import { organizationJsonLd } from "@/lib/seo";
 import { getCompany } from "@/lib/settings";
@@ -14,6 +16,14 @@ export const dynamic = "force-dynamic";
 
 export default async function SiteLayout({ children }: { children: React.ReactNode }) {
   const [{ categories, links }, company] = await Promise.all([getNav(), getCompany()]);
+  // Identifiants lus à l'exécution (fichier .env du serveur) : aucun rebuild nécessaire pour les changer.
+  const tracking: TrackingConfig = {
+    ga4: process.env.GA4_ID || undefined,
+    ads: process.env.GOOGLE_ADS_ID || undefined,
+    adsLead: process.env.GOOGLE_ADS_LEAD_LABEL || undefined,
+    metaPixel: process.env.META_PIXEL_ID || undefined,
+  };
+  const trackingOn = !!(tracking.ga4 || tracking.ads || tracking.metaPixel);
   return (
     <>
       <a href="#contenu" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:rounded-full focus:bg-white focus:px-4 focus:py-2">
@@ -21,7 +31,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
       </a>
       <Header categories={categories} links={links} phone={company.phone} phoneHref={telHref(company.phone)} />
       <main id="contenu" className="pb-16 lg:pb-0">{children}</main>
-      <Footer company={company} categories={categories} links={links} />
+      <Footer company={company} categories={categories} links={links} cookies={trackingOn} />
 
       {/* Barre d'action fixe sur mobile */}
       <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-2 border-t border-ink/5 bg-white/95 p-2 backdrop-blur lg:hidden">
@@ -33,6 +43,8 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
         </Link>
       </div>
 
+      <Walau phone={company.phone} phoneHref={telHref(company.phone)} />
+      <Tracking config={tracking} />
       <RevealObserver />
       <JsonLd data={organizationJsonLd(company)} />
     </>

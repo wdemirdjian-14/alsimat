@@ -25,6 +25,7 @@ const schema = z
     message: z.string().trim().max(5000).optional(),
     vehicleRef: z.string().trim().max(160).optional(),
     serialNumber: z.string().trim().max(80).optional(),
+    source: z.string().trim().max(300).optional(),
     consent: z.literal("on", { errorMap: () => ({ message: "Merci d'accepter le traitement de vos données" }) }),
   })
   .superRefine((d, ctx) => {
@@ -76,6 +77,7 @@ export async function submitInquiry(_prev: InquiryState, form: FormData): Promis
     data.vehicleRef && `Véhicule : ${data.vehicleRef}`,
     data.serialNumber && `N° de série : ${data.serialNumber}`,
     data.subject && `Objet : ${data.subject}`,
+    data.source && `Provenance : ${data.source}`,
     "",
     data.message ?? "",
     saved.length ? `\n${saved.length} pièce(s) jointe(s) à consulter dans l'admin.` : "",

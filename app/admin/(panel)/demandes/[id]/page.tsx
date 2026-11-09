@@ -24,6 +24,7 @@ export default async function InquiryPage({ params, searchParams }: Props) {
     ["Véhicule", q.vehicleRef],
     ["N° de série", q.serialNumber],
     ["Objet", q.subject],
+    ["Provenance", q.source],
     ["Reçue le", q.createdAt.toLocaleString("fr-FR")],
   ];
   return (

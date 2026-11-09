@@ -1,41 +1,35 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ArrowRight, BatteryCharging, Building2, Flag, HeartPulse, Leaf, MessagesSquare, Palette, Tent, Truck, Users, Wrench,
-} from "lucide-react";
+import { ArrowRight, Zap } from "lucide-react";
 import { CtaBand } from "@/components/site/cta-band";
 import { Faq, type FaqItem } from "@/components/site/faq";
-import { Spotlight } from "@/components/site/spotlight";
+import { HeroMoment, type MomentSlide } from "@/components/site/hero-moment";
+import { IntroLoader, introGateScript } from "@/components/site/intro-loader";
+import { MorphStory, type Chapter } from "@/components/site/morph-story";
 import { VehicleCard } from "@/components/site/vehicle-card";
-import { getAllVehicles, getCategoryTree, getFeaturedVehicles, getSpotlightVehicles, keySpecs } from "@/lib/catalog";
+import { activePromo, getAllVehicles, getCategoryTree, getFeaturedVehicles, getMomentVehicles, getStockSummary, keySpecs, stockLabel } from "@/lib/catalog";
 import { db } from "@/lib/db";
 import { getNav } from "@/lib/nav";
+import { vehicleKind } from "@/lib/product";
 import { pageMetadata } from "@/lib/seo";
 import { getCompany, getSetting } from "@/lib/settings";
-import { dateFr } from "@/lib/utils";
+import { dateFr, formatPrice } from "@/lib/utils";
 
 export const metadata = pageMetadata({
   title: "Golfette électrique professionnelle & véhicules électriques | Alsimat",
   absoluteTitle: true,
   description:
-    "Golfettes électriques 2 à 8 places, utilitaires, tout-terrain, homologuées route, PMR et bus électriques jusqu'à 29 places. Conseil, devis personnalisé, livraison et SAV sur site avec Alsimat.",
+    "Golfettes électriques 2 à 8 places, utilitaires, tout-terrain, homologuées route, PMR et bus électriques jusqu'à 29 places. Offres du moment, stock disponible, devis gratuit et SAV sur site partout en France.",
   path: "/",
 });
 
-const USES = [
-  { icon: Tent, title: "Hôtellerie & campings", text: "Navettes clients, bagagerie, entretien des allées.", href: "/gammes/transport-de-personnes", image: "/media/golfette-electrique-link-4-flex.webp" },
-  { icon: Flag, title: "Golfs & domaines", text: "Déplacements silencieux sur de grands espaces privés.", href: "/gammes/transport-de-personnes", image: "/media/golfette-electrique-link-6.webp" },
-  { icon: Building2, title: "Collectivités", text: "Espaces verts, voirie, services techniques.", href: "/gammes/utilitaires", image: "/media/golfette-electrique-city-2-box.webp" },
-  { icon: Truck, title: "Industrie & logistique", text: "Transport de matériel et d'outillage sur site.", href: "/gammes/utilitaires", image: "/media/golfette-electrique-atlas-2-cargo-xl.webp" },
-  { icon: HeartPulse, title: "Santé & PMR", text: "Transport médical et accès aux personnes à mobilité réduite.", href: "/gammes/medical-pmr", image: "/media/golfette-electrique-access-4-pmr.webp" },
-  { icon: Users, title: "Tourisme & événements", text: "Bus et navettes électriques jusqu'à 29 places.", href: "/gammes/bus", image: "/media/bus-electrique-shuttle-8.webp" },
-];
-
-const PROMISES = [
-  { icon: MessagesSquare, title: "Conseil sur mesure", text: "Nous partons de votre usage réel pour recommander le bon modèle, ni plus, ni moins." },
-  { icon: Palette, title: "Personnalisation", text: "Coloris de carrosserie, sellerie, ridelles, options : votre véhicule à vos couleurs." },
-  { icon: BatteryCharging, title: "Lithium garanti 5 ans", text: "Batteries Lithium sans entretien, jusqu'à 100 km d'autonomie selon les modèles." },
-  { icon: Wrench, title: "SAV sur site", text: "Entretien, diagnostic et suivi directement chez vous, sans immobiliser votre activité." },
+const TICKER = [
+  "SAV sur site partout en France",
+  "Batteries Lithium garanties 5 ans",
+  "Devis gratuit et sans engagement",
+  "Golfettes, utilitaires & navettes électriques",
+  "Modèles homologués route",
+  "Coloris & sellerie personnalisables",
 ];
 
 const FAQ: FaqItem[] = [
@@ -47,24 +41,21 @@ const FAQ: FaqItem[] = [
 ];
 
 export default async function HomePage() {
-  const [home, company, tree, featured, all, { sections }, spotlight] = await Promise.all([
+  const [home, company, tree, featured, all, { sections }, moment, summary] = await Promise.all([
     getSetting("home_content"),
     getCompany(),
     getCategoryTree(),
     getFeaturedVehicles(8),
     getAllVehicles(),
     getNav(),
-    getSpotlightVehicles(),
+    getMomentVehicles(),
+    getStockSummary(),
   ]);
   const article = sections.conseils
     ? await db.article.findFirst({ where: { published: true, publishedAt: { lte: new Date() } }, orderBy: { publishedAt: "desc" } })
     : null;
 
-  const gammes = tree
-    .flatMap((c) => [c, ...c.children.map((s) => ({ ...s, children: [], vehicleCount: 0 }))])
-    .filter((c) => c.image);
   const specs = all.filter((v) => v.categories.length).map(keySpecs);
-  const minPrice = Math.min(...specs.map((s) => s.price ?? Infinity));
   const maxSeats = Math.max(...specs.map((s) => s.seats ?? 0));
   const maxRange = Math.max(...specs.map((s) => s.rangeKm ?? 0));
   const stats = [
@@ -74,45 +65,94 @@ export default async function HomePage() {
     { value: "5 ans", label: "garantie batterie Lithium" },
   ];
 
+  const slides: MomentSlide[] = moment.map((v) => {
+    const s = keySpecs(v);
+    const promo = activePromo(v);
+    return {
+      slug: v.slug,
+      name: v.name.trim(),
+      kind: `${vehicleKind(v)}${s.seats ? ` · ${s.seats} places` : ""}`,
+      tagline: v.tagline ?? v.shortDescription?.split(". ")[0] ?? "",
+      image: v.images[0],
+      price: formatPrice(v.price),
+      promo: promo ? { price: formatPrice(promo.price), label: promo.label } : null,
+      stock: stockLabel(v.stock),
+      roadLegal: s.roadLegal,
+      specs: [
+        s.speedKmh && { value: String(s.speedKmh), unit: "km/h" },
+        s.rangeKm && { value: String(s.rangeKm), unit: "km" },
+        s.seats && { value: String(s.seats), unit: "places" },
+      ].filter(Boolean) as { value: string; unit: string }[],
+    };
+  });
+
+  const gammes = tree.flatMap((c) => [c, ...c.children.map((s) => ({ ...s, children: [], vehicleCount: 0 }))]).filter((c) => c.image);
+
+  const chapters: Chapter[] = [
+    {
+      eyebrow: "Nos gammes",
+      title: "Une gamme électrique pour chaque mission.",
+      text: "Golfettes 2 à 8 places, utilitaires à benne, tout-terrain, modèles homologués route, véhicules PMR et navettes jusqu'à 29 places.",
+      image: "/media/golfette-electrique-link-6.webp",
+      links: tree.flatMap((c) => [c, ...c.children]).slice(0, 7).map((c) => ({ href: `/gammes/${c.slug}`, label: c.name })),
+    },
+    {
+      eyebrow: "Par usage",
+      title: "Hôtels, campings, collectivités, industrie, santé…",
+      text: "Navettes clients, entretien des espaces verts, logistique sur site, transport médical : dites-nous ce que le véhicule doit faire, nous vous orientons vers le bon modèle.",
+      image: "/media/golfette-electrique-link-2-cargo-benne-photo-1.webp",
+      links: [
+        { href: "/gammes/transport-de-personnes", label: "Transport de personnes" },
+        { href: "/gammes/utilitaires", label: "Transport de matériel" },
+        { href: "/gammes/medical-pmr", label: "Santé & PMR" },
+        { href: "/gammes/bus", label: "Tourisme & événements" },
+      ],
+    },
+    {
+      eyebrow: "Énergie",
+      title: "Lithium garanti 5 ans. Branchez le soir, roulez la journée.",
+      text: "Batteries Lithium sans entretien, recharge à 85 % en 4 heures, et jusqu'à 110 km d'autonomie selon les modèles.",
+      image: "/media/golfette-electrique-tracker-4-flex.webp",
+      stats: [
+        { value: `${maxRange} km`, label: "d'autonomie max" },
+        { value: "4 h", label: "pour 85 % de charge" },
+        { value: "5 ans", label: "de garantie" },
+      ],
+    },
+    {
+      eyebrow: "Service",
+      title: "Du conseil au SAV, un seul interlocuteur.",
+      text: "Conseil, devis personnalisé, livraison et prise en main, puis entretien et diagnostic directement sur site, partout en France.",
+      image: "/media/utilitaire-electrique-street-2-cargo-homologue-route-profil.webp",
+      links: [
+        { href: "/contact", label: "Demander un devis" },
+        { href: "/sav", label: "Service après-vente" },
+        { href: "/a-propos", label: "Qui sommes-nous" },
+      ],
+    },
+  ];
+
   return (
     <>
-      {/* HERO */}
-      <section className="relative isolate flex min-h-[92svh] items-end overflow-hidden bg-ink pt-36 pb-16 text-white sm:pb-24">
-        <Image
-          src={home.heroImage}
-          alt="Golfette électrique Alsimat en situation"
-          fill
-          priority
-          sizes="100vw"
-          className="-z-20 animate-ken-burns object-cover"
-        />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-ink/55 to-ink/20" />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/80 via-ink/20 to-transparent" />
-        <div className="container-x">
-          <p className="eyebrow animate-fade-up text-brand-300">{home.heroEyebrow}</p>
-          <h1 className="mt-5 max-w-4xl animate-fade-up text-5xl leading-[1.02] font-extrabold [animation-delay:100ms] sm:text-6xl lg:text-7xl">
-            {home.heroTitle}{" "}
-            <span className="bg-gradient-to-r from-brand-300 to-brand-100 bg-clip-text text-transparent">{home.heroHighlight}</span>
-          </h1>
-          <p className="mt-6 max-w-2xl animate-fade-up text-lg text-white/85 [animation-delay:200ms] sm:text-xl">{home.heroSubtitle}</p>
-          <div className="mt-9 flex animate-fade-up flex-wrap gap-3 [animation-delay:300ms]">
-            <Link href="#gammes" className="btn-primary !px-7 !py-4 text-base">
-              Découvrir nos gammes <ArrowRight className="h-5 w-5" aria-hidden />
-            </Link>
-            <Link href="/contact" className="btn-light !px-7 !py-4 text-base">Demander un devis</Link>
-          </div>
-          {Number.isFinite(minPrice) && (
-            <p className="mt-6 animate-fade-up text-sm text-white/70 [animation-delay:400ms]">
-              Golfettes électriques à partir de{" "}
-              <strong className="text-white">{new Intl.NumberFormat("fr-FR").format(minPrice)} € HT</strong>
-            </p>
-          )}
+      <script dangerouslySetInnerHTML={{ __html: introGateScript }} />
+      <IntroLoader summary={summary} />
+
+      <div id="moment" className="scroll-mt-0">
+        <HeroMoment slides={slides} title={home.heroTitle} highlight={home.heroHighlight} subtitle={home.heroSubtitle} />
+      </div>
+
+      {/* BANDEAU DÉFILANT */}
+      <div className="overflow-hidden border-y border-white/10 bg-brand-500 py-3 text-white" aria-hidden>
+        <div className="flex w-max animate-marquee gap-10 whitespace-nowrap">
+          {[...TICKER, ...TICKER].map((t, i) => (
+            <span key={i} className="flex items-center gap-3 font-display text-sm font-bold tracking-wide uppercase"><Zap className="h-4 w-4" />{t}</span>
+          ))}
         </div>
-      </section>
+      </div>
 
       {/* CHIFFRES CLÉS */}
-      <section className="relative z-10 -mt-px bg-ink text-white">
-        <div className="container-x grid grid-cols-2 gap-px overflow-hidden border-t border-white/10 lg:grid-cols-4">
+      <section className="bg-ink text-white">
+        <div className="container-x grid grid-cols-2 gap-px lg:grid-cols-4">
           {stats.map((s, i) => (
             <div key={s.label} data-reveal style={{ "--reveal-delay": `${i * 80}ms` } as React.CSSProperties} className="py-8 lg:py-10">
               <p className="font-display text-4xl font-extrabold text-brand-300 sm:text-5xl">{s.value}</p>
@@ -122,158 +162,59 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <Spotlight vehicles={spotlight} />
+      {/* DÉCOUVERTE EN MORPHING */}
+      <MorphStory chapters={chapters} />
 
       {/* GAMMES */}
       <section id="gammes" className="container-x scroll-mt-24 py-20 lg:py-28">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div data-reveal>
-            <p className="eyebrow">Catalogue</p>
-            <h2 className="section-title mt-3">{home.gammesTitle}</h2>
-            <p className="mt-3 max-w-xl text-lg text-ink-soft">{home.gammesSubtitle}</p>
-          </div>
+        <div data-reveal>
+          <p className="eyebrow">Catalogue</p>
+          <h2 className="section-title mt-3">{home.gammesTitle}</h2>
+          <p className="mt-3 max-w-xl text-lg text-ink-soft">{home.gammesSubtitle}</p>
         </div>
         <div className="mt-12 grid auto-rows-[260px] gap-4 sm:grid-cols-2 lg:auto-rows-[300px] lg:grid-cols-4">
           {gammes.map((c, i) => (
-              <Link
-                key={c.slug}
-                href={`/gammes/${c.slug}`}
-                data-reveal
-                style={{ "--reveal-delay": `${(i % 4) * 70}ms` } as React.CSSProperties}
-                className={`group relative isolate flex flex-col justify-end overflow-hidden rounded-3xl p-6 text-white ${
-                  i === 0 ? "sm:col-span-2 sm:row-span-2" : i === 1 || (i === gammes.length - 1 && (gammes.length - 4) % 4 === 3) ? "lg:col-span-2" : ""
-                }`}
-              >
-                <Image
-                  src={c.image!}
-                  alt={c.name}
-                  fill
-                  sizes={i === 0 ? "(min-width: 1024px) 50vw, 100vw" : "(min-width: 1024px) 25vw, 50vw"}
-                  className="-z-20 object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 -z-10 bg-gradient-to-t from-ink/90 via-ink/30 to-transparent transition-opacity group-hover:opacity-90" />
-                <h3 className={`font-extrabold ${i === 0 ? "text-3xl sm:text-4xl" : "text-2xl"}`}>{c.name}</h3>
-                {i === 0 && c.description && <p className="mt-2 max-w-md text-white/80">{c.description}</p>}
-                <span className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-brand-200">
-                  Voir la gamme <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden />
-                </span>
-              </Link>
-            ))}
-        </div>
-      </section>
-
-      {/* USAGES */}
-      <section className="bg-sand py-20 lg:py-28">
-        <div className="container-x">
-          <div data-reveal className="max-w-2xl">
-            <p className="eyebrow">Par usage</p>
-            <h2 className="section-title mt-3">Une golfette électrique pour chaque métier</h2>
-            <p className="mt-3 text-lg text-ink-soft">Dites-nous ce que le véhicule devra faire au quotidien, nous vous orientons vers la bonne gamme.</p>
-          </div>
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {USES.map((u, i) => (
-              <Link
-                key={u.title}
-                href={u.href}
-                data-reveal
-                style={{ "--reveal-delay": `${(i % 3) * 80}ms` } as React.CSSProperties}
-                className="group card-lift flex items-center gap-5 overflow-hidden rounded-3xl bg-white p-3 pr-5"
-              >
-                <span className="relative h-24 w-28 shrink-0 overflow-hidden rounded-2xl">
-                  <Image src={u.image} alt="" fill sizes="112px" className="object-cover transition duration-700 group-hover:scale-110" />
-                </span>
-                <span className="min-w-0">
-                  <span className="flex items-center gap-2 font-display text-lg font-bold text-ink">
-                    <u.icon className="h-5 w-5 shrink-0 text-brand-500" aria-hidden /> {u.title}
-                  </span>
-                  <span className="mt-1 block text-sm text-ink-soft">{u.text}</span>
-                </span>
-              </Link>
-            ))}
-          </div>
+            <Link
+              key={c.slug}
+              href={`/gammes/${c.slug}`}
+              data-reveal
+              style={{ "--reveal-delay": `${(i % 4) * 70}ms` } as React.CSSProperties}
+              className={`group relative isolate flex flex-col justify-end overflow-hidden rounded-3xl p-6 text-white ${
+                i === 0 ? "sm:col-span-2 sm:row-span-2" : i === 1 || (i === gammes.length - 1 && (gammes.length - 4) % 4 === 3) ? "lg:col-span-2" : ""
+              }`}
+            >
+              <Image src={c.image!} alt={c.name} fill sizes={i === 0 ? "(min-width: 1024px) 50vw, 100vw" : "(min-width: 1024px) 25vw, 50vw"} className="-z-20 object-cover transition-transform duration-700 group-hover:scale-110" />
+              <div className="absolute inset-0 -z-10 bg-gradient-to-t from-ink/90 via-ink/30 to-transparent" />
+              <h3 className={`font-extrabold ${i === 0 ? "text-3xl sm:text-4xl" : "text-2xl"}`}>{c.name}</h3>
+              {i === 0 && c.description && <p className="mt-2 max-w-md text-white/80">{c.description}</p>}
+              <span className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-brand-200">
+                Voir la gamme <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden />
+              </span>
+            </Link>
+          ))}
         </div>
       </section>
 
       {/* MODÈLES PHARES */}
       {featured.length > 0 && (
-        <section className="py-20 lg:py-28">
+        <section className="bg-sand py-20 lg:py-28">
           <div className="container-x flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div data-reveal>
               <p className="eyebrow">Sélection</p>
               <h2 className="section-title mt-3">Nos modèles phares</h2>
             </div>
-            <Link href="/gammes/golfette-utilitaire" className="btn-ghost self-start text-ink sm:self-auto">
-              Tout le catalogue <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
+            <Link href="/gammes/golfette-utilitaire" className="btn-ghost self-start text-ink sm:self-auto">Tout le catalogue <ArrowRight className="h-4 w-4" aria-hidden /></Link>
           </div>
           <div className="scrollbar-none mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-px-4 px-4 pb-6 sm:scroll-px-6 sm:px-6 lg:scroll-px-[max(2rem,calc((100vw-80rem)/2+2rem))] lg:px-[max(2rem,calc((100vw-80rem)/2+2rem))]">
             {featured.map((v, i) => (
-              <div key={v.id} className="w-[82%] shrink-0 snap-start sm:w-[46%] lg:w-[23.5%]">
-                <VehicleCard vehicle={v} delay={(i % 4) * 70} />
-              </div>
+              <div key={v.id} className="w-[82%] shrink-0 snap-start sm:w-[46%] lg:w-[23.5%]"><VehicleCard vehicle={v} delay={(i % 4) * 70} /></div>
             ))}
           </div>
         </section>
       )}
 
-      {/* ENGAGEMENTS */}
-      <section className="relative overflow-hidden bg-ink py-20 text-white lg:py-28">
-        <Leaf className="absolute -right-20 -bottom-20 h-96 w-96 rotate-12 text-white/[0.03]" aria-hidden />
-        <div className="container-x grid gap-14 lg:grid-cols-12">
-          <div data-reveal className="lg:col-span-5">
-            <p className="eyebrow text-brand-300">Pourquoi Alsimat</p>
-            <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl lg:text-5xl">Du conseil au service après-vente, un seul interlocuteur.</h2>
-            <p className="mt-5 text-lg text-white/70">
-              Choisir une golfette électrique, c'est d'abord répondre à un besoin précis. Nous vous accompagnons à chaque étape, puis dans la durée.
-            </p>
-            <Link href="/a-propos" className="btn-light mt-8">Découvrir Alsimat</Link>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:col-span-7">
-            {PROMISES.map((p, i) => (
-              <div
-                key={p.title}
-                data-reveal
-                style={{ "--reveal-delay": `${i * 90}ms` } as React.CSSProperties}
-                className="rounded-3xl border border-white/10 bg-white/[0.04] p-7 transition hover:border-brand-400/40 hover:bg-white/[0.07]"
-              >
-                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-brand-500/15 text-brand-300">
-                  <p.icon className="h-6 w-6" aria-hidden />
-                </span>
-                <h3 className="mt-5 text-xl font-bold">{p.title}</h3>
-                <p className="mt-2 text-white/65">{p.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ÉTAPES */}
-      <section className="container-x py-20 lg:py-28">
-        <div data-reveal className="mx-auto max-w-2xl text-center">
-          <p className="eyebrow justify-center">Comment ça marche</p>
-          <h2 className="section-title mt-3">Votre projet en 4 étapes</h2>
-        </div>
-        <ol className="relative mt-14 grid gap-8 md:grid-cols-4">
-          <div className="absolute top-7 right-[12%] left-[12%] hidden h-px bg-gradient-to-r from-brand-200 via-brand-400 to-brand-200 md:block" aria-hidden />
-          {[
-            ["Votre besoin", "Usage, terrain, nombre de places, chargement : on fait le point ensemble."],
-            ["Devis personnalisé", "Modèle, options et personnalisation, avec un prix clair."],
-            ["Livraison", "Votre véhicule est livré prêt à l'emploi, avec prise en main."],
-            ["Suivi & SAV", "Entretien et diagnostic sur site pendant toute la vie du véhicule."],
-          ].map(([t, d], i) => (
-            <li key={t} data-reveal style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties} className="relative text-center">
-              <span className="relative mx-auto grid h-14 w-14 place-items-center rounded-full bg-brand-500 font-display text-xl font-extrabold text-white shadow-lg shadow-brand-500/30 ring-8 ring-white">
-                {i + 1}
-              </span>
-              <h3 className="mt-5 text-lg font-bold">{t}</h3>
-              <p className="mt-2 text-sm text-ink-soft">{d}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
-
       {/* CONSEILS + FAQ */}
-      <section className="bg-sand py-20 lg:py-28">
+      <section className="py-20 lg:py-28">
         <div className="container-x grid gap-14 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <div data-reveal>
@@ -281,7 +222,7 @@ export default async function HomePage() {
               <h2 className="section-title mt-3">Tout savoir sur la golfette électrique</h2>
             </div>
             {article && (
-              <Link href={`/conseils/${article.slug}`} data-reveal className="group card-lift mt-10 block overflow-hidden rounded-3xl bg-white">
+              <Link href={`/conseils/${article.slug}`} data-reveal className="group card-lift mt-10 block overflow-hidden rounded-3xl border border-ink/5 bg-white">
                 {article.image && (
                   <span className="relative block aspect-[16/9] overflow-hidden">
                     <Image src={article.image} alt="" fill sizes="(min-width: 1024px) 40vw, 100vw" className="object-cover transition duration-700 group-hover:scale-105" />
@@ -294,9 +235,7 @@ export default async function HomePage() {
               </Link>
             )}
           </div>
-          <div className="lg:col-span-7">
-            <Faq items={FAQ} />
-          </div>
+          <div className="lg:col-span-7"><Faq items={FAQ} /></div>
         </div>
       </section>
 

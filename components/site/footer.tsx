@@ -4,8 +4,9 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import type { CompanyInfo } from "@/lib/site";
 import { telHref } from "@/lib/site";
 import type { NavCategory, NavLink } from "./header";
+import { CookieSettingsLink } from "./tracking";
 
-export function Footer({ company, categories, links }: { company: CompanyInfo; categories: NavCategory[]; links: NavLink[] }) {
+export function Footer({ company, categories, links, cookies }: { company: CompanyInfo; categories: NavCategory[]; links: NavLink[]; cookies?: boolean }) {
   const address = [company.street, [company.postalCode, company.city].filter(Boolean).join(" ")].filter(Boolean).join(", ");
   return (
     <footer className="relative overflow-hidden bg-ink text-white/70">
@@ -65,6 +66,7 @@ export function Footer({ company, categories, links }: { company: CompanyInfo; c
             <li><Link href="/mentions-legales" className="hover:text-white">Mentions légales</Link></li>
             <li><Link href="/confidentialite" className="hover:text-white">Confidentialité</Link></li>
             <li><Link href="/plan-du-site" className="hover:text-white">Plan du site</Link></li>
+            {cookies && <li><CookieSettingsLink /></li>}
           </ul>
         </div>
       </div>

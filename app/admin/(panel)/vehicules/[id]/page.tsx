@@ -84,6 +84,15 @@ export default async function VehicleEdit({ params, searchParams }: Props) {
             </div>
             <div className="mt-5"><SubmitButton /></div>
           </Card>
+          <Card title="Stock & promotion">
+            <div className="space-y-3">
+              <Field label="Stock disponible" name="stock" type="number" defaultValue={v?.stock ?? 0} hint="0 = sur commande. Affiché « Dernières unités » à 1-2, et annoncé par l'écran d'accueil." />
+              <Field label="Prix promo" name="promoPrice" defaultValue={v?.promoPrice} placeholder="8 900 € HT" hint="Laisser vide = pas de promotion." />
+              <Field label="Libellé de l'offre" name="promoLabel" defaultValue={v?.promoLabel} placeholder="Offre d'automne (sinon : -X %)" />
+              <Field label="Fin de l'offre" name="promoEndsAt" type="date" defaultValue={v?.promoEndsAt?.toISOString().slice(0, 10)} hint="L'offre disparaît automatiquement après cette date." />
+            </div>
+            <div className="mt-5"><SubmitButton /></div>
+          </Card>
           <Card title="Gammes">
             <div className="space-y-2">
               {cats.map((c) => (

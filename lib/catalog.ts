@@ -101,3 +101,32 @@ export const getSpotlightVehicles = cache(
   async (): Promise<VehicleWithCats[]> =>
     db.vehicle.findMany({ where: { published: true, spotlight: true }, include: vehicleInclude, orderBy: [{ order: "asc" }, { updatedAt: "desc" }], take: 2 }),
 );
+
+/**
+ * « Véhicules du moment » pour le haut de l'accueil : vitrines, puis promotions en cours,
+ * puis véhicules en stock, puis coups de cœur (5 maximum).
+ */
+export const getMomentVehicles = cache(async (): Promise<VehicleWithCats[]> => {
+  const all = await getAllVehicles();
+  const listed = all.filter((v) => v.categories.length && v.images.length);
+  const now = new Date();
+  const promo = (v: VehicleWithCats) => !!v.promoPrice && (!v.promoEndsAt || v.promoEndsAt > now);
+  const ranked = [
+    ...listed.filter((v) => v.spotlight),
+    ...listed.filter((v) => promo(v)),
+    ...listed.filter((v) => v.stock > 0).sort((a, b) => b.stock - a.stock),
+    ...listed.filter((v) => v.featured),
+  ];
+  return [...new Map(ranked.map((v) => [v.id, v])).values()].slice(0, 5);
+});
+
+/** Chiffres annoncés par l'écran de chargement. */
+export const getStockSummary = cache(async () => {
+  const all = (await getAllVehicles()).filter((v) => v.categories.length);
+  const now = new Date();
+  return {
+    models: all.length,
+    inStock: all.reduce((n, v) => n + Math.max(0, v.stock), 0),
+    promos: all.filter((v) => v.promoPrice && (!v.promoEndsAt || v.promoEndsAt > now)).length,
+  };
+});

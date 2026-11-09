@@ -1,12 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, BatteryCharging, Gauge, Users } from "lucide-react";
-import { keySpecs, type VehicleWithCats } from "@/lib/specs";
+import { activePromo, keySpecs, stockLabel, type VehicleWithCats } from "@/lib/specs";
 import { formatPrice } from "@/lib/utils";
 
 export function VehicleCard({ vehicle, priority = false, delay = 0 }: { vehicle: VehicleWithCats; priority?: boolean; delay?: number }) {
   const s = keySpecs(vehicle);
   const image = vehicle.images[0];
+  const promo = activePromo(vehicle);
+  const stock = stockLabel(vehicle.stock);
   return (
     <article
       data-reveal
@@ -26,7 +28,8 @@ export function VehicleCard({ vehicle, priority = false, delay = 0 }: { vehicle:
         )}
         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
           {s.roadLegal && <span className="rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-semibold text-ink backdrop-blur">Homologué route</span>}
-          {vehicle.featured && <span className="rounded-full bg-brand-500 px-2.5 py-1 text-[11px] font-semibold text-white">Coup de cœur</span>}
+          {promo && <span className="rounded-full bg-amber-400 px-2.5 py-1 text-[11px] font-extrabold text-ink uppercase">{promo.label}</span>}
+          {vehicle.featured && !promo && <span className="rounded-full bg-brand-500 px-2.5 py-1 text-[11px] font-semibold text-white">Coup de cœur</span>}
         </div>
       </div>
       <div className="flex flex-1 flex-col p-5">
@@ -60,8 +63,18 @@ export function VehicleCard({ vehicle, priority = false, delay = 0 }: { vehicle:
         </dl>
         <div className="mt-auto flex items-end justify-between pt-5">
           <p className="text-sm">
-            {s.price ? <span className="text-ink/50">À partir de </span> : null}
-            <span className="block text-lg font-bold text-ink">{formatPrice(vehicle.price)}</span>
+            {stock && <span className="mb-1 flex items-center gap-1.5 text-xs font-semibold text-brand-700"><span className="h-1.5 w-1.5 rounded-full bg-brand-500" />{stock}</span>}
+            {promo ? (
+              <>
+                <span className="text-ink/45 line-through">{formatPrice(vehicle.price)}</span>
+                <span className="block text-lg font-bold text-amber-600">{formatPrice(promo.price)}</span>
+              </>
+            ) : (
+              <>
+                {s.price ? <span className="text-ink/50">À partir de </span> : null}
+                <span className="block text-lg font-bold text-ink">{formatPrice(vehicle.price)}</span>
+              </>
+            )}
           </p>
           <span className="grid h-10 w-10 place-items-center rounded-full bg-brand-50 text-brand-600 transition-all duration-300 group-hover:rotate-45 group-hover:bg-brand-500 group-hover:text-white">
             <ArrowUpRight className="h-5 w-5" aria-hidden />

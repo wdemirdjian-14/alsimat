@@ -92,3 +92,72 @@
 .is-visible .benne-draw path { stroke-dashoffset: 0; }
 .benne-draw g[stroke] path { stroke-dasharray: 5 4; stroke-dashoffset: 0; }
 @media (prefers-reduced-motion: reduce) { .charge-bar { width: var(--w); } .benne-draw path { stroke-dashoffset: 0; } }
+
+/* ---------- Intro batterie ---------- */
+html[data-intro="off"] .intro { display: none; }
+.intro { animation: intro-failsafe 0s linear 4s forwards; }
+@keyframes intro-failsafe { to { visibility: hidden; pointer-events: none; } }
+.intro[data-phase="boom"] { animation: intro-reveal 0.65s cubic-bezier(0.7, 0, 0.3, 1) forwards; }
+@keyframes intro-reveal {
+  0% { clip-path: circle(150% at 50% 45%); }
+  100% { clip-path: circle(0% at 50% 45%); }
+}
+.intro[data-phase="charge"] .intro-battery { animation: battery-hum 0.18s ease-in-out infinite alternate; }
+@keyframes battery-hum { to { transform: translateY(-1px) rotate(-0.4deg); } }
+.intro[data-phase="boom"] .intro-battery svg { animation: battery-boom 0.4s ease-out forwards; }
+@keyframes battery-boom {
+  0% { transform: scale(1); filter: brightness(1); }
+  40% { transform: scale(1.25); filter: brightness(2.2) drop-shadow(0 0 30px #aee4c7); }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+.intro[data-phase="boom"] .intro-core > p { opacity: 0; transition: opacity 0.2s; }
+.intro-particles { position: absolute; inset: 50% auto auto 50%; }
+.intro-particles span {
+  position: absolute; width: 14px; height: 14px; margin: -7px; border-radius: 3px 10px;
+  background: linear-gradient(135deg, #69ca98, #aee4c7);
+  animation: particle 0.6s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+.intro-particles span:nth-child(3n) { background: #fff; border-radius: 50%; width: 8px; height: 8px; }
+@keyframes particle {
+  from { transform: translate(0, 0) rotate(0) scale(1); opacity: 1; }
+  to { transform: translate(var(--dx), var(--dy)) rotate(var(--r)) scale(0.3); opacity: 0; }
+}
+
+/* ---------- Hero « véhicules du moment » ---------- */
+.moment-car { animation: car-arrive 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@keyframes car-arrive {
+  0% { transform: translateX(70%) skewX(-14deg) scale(0.92); filter: blur(10px); opacity: 0; }
+  60% { transform: translateX(-2%) skewX(3deg); filter: blur(0); opacity: 1; }
+  100% { transform: none; }
+}
+.moment-text > * { animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.moment-text > *:nth-child(2) { animation-delay: 60ms; }
+.moment-text > *:nth-child(3) { animation-delay: 110ms; }
+.moment-text > *:nth-child(4) { animation-delay: 160ms; }
+.moment-text > *:nth-child(5) { animation-delay: 210ms; }
+.moment-text > *:nth-child(6) { animation-delay: 260ms; }
+.moment-text > *:nth-child(7) { animation-delay: 310ms; }
+.speed-lines span {
+  position: absolute; right: -40%; height: 2px; border-radius: 2px;
+  background: linear-gradient(90deg, transparent, rgba(174, 228, 199, 0.5), transparent);
+  animation: speed 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes speed { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-180vw); opacity: 0; } }
+.road-fill { width: 0; animation: road linear forwards; }
+@keyframes road { to { width: 100%; } }
+@media (prefers-reduced-motion: reduce) { .moment-car, .speed-lines span { animation: none; } .road-fill { width: 100%; } }
+
+/* ---------- Walau ---------- */
+.walau-car { animation: walau-drive 3.2s ease-in-out infinite; }
+@keyframes walau-drive {
+  0%, 100% { transform: translateX(0) translateY(0); }
+  25% { transform: translateX(-6px) translateY(-1.5px); }
+  50% { transform: translateX(0) translateY(0); }
+  75% { transform: translateX(4px) translateY(-1px); }
+}
+.walau-wheel { animation: wheel 0.6s linear infinite; }
+@keyframes wheel { to { transform: rotate(360deg); } }
+.walau-honk { animation: walau-honk 0.5s ease-in-out 3; }
+@keyframes walau-honk { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-6deg) translateY(-4px); } 75% { transform: rotate(5deg); } }
+.walau-panel, .walau-bubble { animation: fade-up 0.35s cubic-bezier(0.22, 1, 0.36, 1) both; transform-origin: bottom right; }
+@media (prefers-reduced-motion: reduce) { .walau-car, .walau-wheel { animation: none; } }

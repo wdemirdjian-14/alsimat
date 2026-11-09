@@ -10,7 +10,7 @@ import { JsonLd } from "@/components/site/json-ld";
 import { VehicleShowcase } from "@/components/site/vehicle-showcase";
 import { productFaq, productJsonLd } from "@/lib/product";
 import { VehicleCard } from "@/components/site/vehicle-card";
-import { getRelatedVehicles, getVehicle, keySpecs, primaryCategory, specsOf } from "@/lib/catalog";
+import { activePromo, getRelatedVehicles, getVehicle, keySpecs, primaryCategory, specsOf, stockLabel } from "@/lib/catalog";
 import { pageMetadata } from "@/lib/seo";
 import { getCompany } from "@/lib/settings";
 import { telHref } from "@/lib/site";
@@ -99,8 +99,18 @@ export default async function VehiclePage({ params }: Props) {
             )}
 
             <div className="mt-8 rounded-3xl bg-ink p-6 text-white">
-              <p className="text-sm text-white/60">{s.price ? "Prix de base, à partir de" : "Tarif"}</p>
-              <p className="font-display text-3xl font-extrabold">{formatPrice(v.price)}</p>
+              {stockLabel(v.stock) && <p className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-bold"><span className="h-2 w-2 animate-pulse rounded-full bg-brand-300" />{stockLabel(v.stock)}</p>}
+              {activePromo(v) ? (
+                <>
+                  <p className="text-sm text-amber-300 font-bold uppercase">{activePromo(v)!.label}</p>
+                  <p><span className="mr-2 text-white/50 line-through">{formatPrice(v.price)}</span><span className="font-display text-3xl font-extrabold text-amber-300">{formatPrice(activePromo(v)!.price)}</span></p>
+                </>
+              ) : (
+                <>
+                  <p className="text-sm text-white/60">{s.price ? "Prix de base, à partir de" : "Tarif"}</p>
+                  <p className="font-display text-3xl font-extrabold">{formatPrice(v.price)}</p>
+                </>
+              )}
               <div className="mt-5 grid gap-3 sm:grid-cols-2">
                 <a href="#devis" className="btn-primary">Demander un devis</a>
                 <a href={telHref(company.phone)} className="btn-ghost text-white"><Phone className="h-4 w-4" aria-hidden /> {company.phone}</a>

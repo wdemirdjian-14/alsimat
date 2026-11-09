@@ -15,7 +15,11 @@ export default async function PrivacyPage() {
       <h2>Durée de conservation</h2>
       <p>Les demandes sont conservées 3 ans à compter du dernier contact, puis supprimées.</p>
       <h2>Cookies</h2>
-      <p>Ce site n'utilise aucun cookie publicitaire ni de mesure d'audience tiers. Seul un cookie technique est utilisé pour l'espace d'administration.</p>
+      {process.env.GA4_ID || process.env.GOOGLE_ADS_ID || process.env.META_PIXEL_ID ? (
+        <p>Avec votre accord uniquement (bandeau affiché lors de votre première visite, modifiable via le lien « Cookies » en bas de page), nous utilisons des outils de mesure d'audience et de publicité : {[process.env.GA4_ID && "Google Analytics", process.env.GOOGLE_ADS_ID && "Google Ads", process.env.META_PIXEL_ID && "Meta (Facebook / Instagram)"].filter(Boolean).join(", ")}. Si vous refusez, aucun de ces outils n'est chargé. La provenance de votre visite (campagne, site d'origine) est conservée 30 jours dans votre navigateur pour être jointe à vos demandes.</p>
+      ) : (
+        <p>Ce site n'utilise aucun cookie publicitaire ni de mesure d'audience tiers. Seul un cookie technique est utilisé pour l'espace d'administration.</p>
+      )}
       <h2>Vos droits</h2>
       <p>Conformément au RGPD, vous disposez d'un droit d'accès, de rectification, d'effacement et d'opposition. Écrivez-nous à <a href={`mailto:${c.email}`}>{c.email}</a>. Vous pouvez également saisir la CNIL (www.cnil.fr).</p>
     </LegalPage>

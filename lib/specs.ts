@@ -36,3 +36,20 @@ export function keySpecs(v: Vehicle & { categories?: { category: Category }[] })
   };
 }
 
+
+/** Offre promotionnelle en cours (prix promo renseigné et non expiré). */
+export function activePromo(v: { promoPrice: string | null; promoLabel: string | null; promoEndsAt: Date | null; price: string | null }) {
+  if (!v.promoPrice) return null;
+  if (v.promoEndsAt && new Date(v.promoEndsAt) < new Date()) return null;
+  const promo = parsePrice(v.promoPrice);
+  const base = parsePrice(v.price);
+  const pct = promo && base && base > promo ? Math.round((1 - promo / base) * 100) : null;
+  return { price: v.promoPrice, label: v.promoLabel || (pct ? `-${pct} %` : "Offre spéciale"), pct, endsAt: v.promoEndsAt };
+}
+
+/** Libellé de disponibilité : null si sur commande. */
+export function stockLabel(stock: number) {
+  if (stock <= 0) return null;
+  if (stock <= 2) return stock === 1 ? "Dernier exemplaire" : "Dernières unités";
+  return `${stock} en stock`;
+}

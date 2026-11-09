@@ -25,9 +25,10 @@ ${items
 <g:link>${x(i.link)}</g:link>
 <g:image_link>${x(i.image)}</g:image_link>
 ${i.extraImages.map((u) => `<g:additional_image_link>${x(u)}</g:additional_image_link>`).join("\n")}
-<g:availability>in_stock</g:availability>
+<g:availability>${i.inStock ? "in_stock" : "preorder"}</g:availability>
 <g:condition>new</g:condition>
 <g:price>${i.priceTtc.toFixed(2)} EUR</g:price>
+${i.saleTtc ? `<g:sale_price>${i.saleTtc.toFixed(2)} EUR</g:sale_price>${i.saleEnds ? `\n<g:sale_price_effective_date>${new Date().toISOString().slice(0, 10)}T00:00+01:00/${new Date(i.saleEnds).toISOString().slice(0, 10)}T23:59+01:00</g:sale_price_effective_date>` : ""}` : ""}
 <g:brand>${x(i.brand)}</g:brand>
 ${i.mpn ? `<g:mpn>${x(i.mpn)}</g:mpn>` : "<g:identifier_exists>no</g:identifier_exists>"}
 <g:product_type>${x(i.productType)}</g:product_type>

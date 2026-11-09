@@ -1,7 +1,7 @@
 import type { FaqItem } from "@/components/site/faq";
 import { SITE_URL } from "./site";
-import { keySpecs, specsOf, type VehicleWithCats } from "./specs";
-import { firstNumber } from "./utils";
+import { activePromo, keySpecs, specsOf, type VehicleWithCats } from "./specs";
+import { firstNumber, parsePrice } from "./utils";
 
 /** Regroupement des caractéristiques pour la fiche technique. */
 const GROUPS: [string, RegExp][] = [
@@ -57,6 +57,8 @@ export function productJsonLd(v: VehicleWithCats, categoryName?: string) {
     const n = firstNumber(Object.entries(specs).find(([k]) => re.test(k))?.[1]?.replace(/\s/g, ""));
     return n ? { "@type": "QuantitativeValue", value: n, unitCode: "MMT" } : undefined;
   };
+  const promo = activePromo(v);
+  const offerPrice = (promo && parsePrice(promo.price)) || s.price;
   const weight = firstNumber(Object.entries(specs).find(([k]) => /poids/i.test(k))?.[1]);
   return {
     "@context": "https://schema.org",
@@ -86,11 +88,11 @@ export function productJsonLd(v: VehicleWithCats, categoryName?: string) {
             "@type": "Offer",
             url,
             priceCurrency: "EUR",
-            price: s.price,
-            priceSpecification: { "@type": "UnitPriceSpecification", price: s.price, priceCurrency: "EUR", valueAddedTaxIncluded: false },
-            priceValidUntil: `${new Date().getFullYear()}-12-31`,
+            price: offerPrice,
+            priceSpecification: { "@type": "UnitPriceSpecification", price: offerPrice, priceCurrency: "EUR", valueAddedTaxIncluded: false },
+            priceValidUntil: promo?.endsAt ? new Date(promo.endsAt).toISOString().slice(0, 10) : `${new Date().getFullYear()}-12-31`,
             itemCondition: "https://schema.org/NewCondition",
-            availability: "https://schema.org/InStock",
+            availability: v.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/PreOrder",
             seller: { "@id": `${SITE_URL}/#organization` },
           },
         }

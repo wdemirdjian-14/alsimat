@@ -4,7 +4,7 @@ import {
   ArrowDown, BatteryCharging, Check, Download, FileText, Gauge, MoveHorizontal, Package, Phone, ShieldCheck, Users, Wrench, Zap,
 } from "lucide-react";
 import { productFaq, groupedSpecs, vehicleKind } from "@/lib/product";
-import { keySpecs, specsOf, type VehicleWithCats } from "@/lib/specs";
+import { activePromo, keySpecs, specsOf, stockLabel, type VehicleWithCats } from "@/lib/specs";
 import { telHref } from "@/lib/site";
 import { firstNumber, formatPrice, paragraphs } from "@/lib/utils";
 import { Breadcrumbs, type Crumb } from "./breadcrumbs";
@@ -31,6 +31,8 @@ export function VehicleShowcase({ v, crumbs, related, phone }: { v: VehicleWithC
   const r100 = firstNumber(find(/recharge.*100/i));
   const equipment = (v.equipment ?? "").split("\n").map((l) => l.trim()).filter(Boolean);
   const paras = paragraphs(v.description);
+  const promo = activePromo(v);
+  const stock = stockLabel(v.stock);
 
   const numbers = [
     s.speedKmh && { value: s.speedKmh, unit: "km/h", label: "vitesse maximale", icon: Gauge },
@@ -66,7 +68,9 @@ export function VehicleShowcase({ v, crumbs, related, phone }: { v: VehicleWithC
           <Breadcrumbs items={crumbs} light />
           <p className="mt-8 flex animate-fade-up flex-wrap items-center gap-2">
             <span className="rounded-full bg-brand-500 px-3 py-1 text-xs font-bold tracking-wide uppercase">À la une</span>
-            {s.roadLegal && <span className="rounded-full bg-amber-400 px-3 py-1 text-xs font-bold text-ink uppercase">Homologué route</span>}
+            {promo && <span className="rounded-full bg-amber-400 px-3 py-1 text-xs font-extrabold text-ink uppercase">{promo.label}</span>}
+            {stock && <span className="flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-bold backdrop-blur"><span className="h-2 w-2 animate-pulse rounded-full bg-brand-300" />{stock}</span>}
+            {s.roadLegal && <span className="rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-ink uppercase">Homologué route</span>}
             {v.sku && <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold backdrop-blur">Réf. {v.sku}</span>}
           </p>
           <h1 className="mt-4 animate-fade-up text-5xl leading-none font-extrabold [animation-delay:80ms] sm:text-7xl lg:text-8xl">
@@ -84,8 +88,18 @@ export function VehicleShowcase({ v, crumbs, related, phone }: { v: VehicleWithC
               </a>
             )}
             <p className="ml-1 text-white/80">
-              {s.price && <span className="text-sm">à partir de </span>}
-              <strong className="font-display text-2xl text-white">{formatPrice(v.price)}</strong>
+              {promo ? (
+                <>
+                  <span className="mr-2 text-white/50 line-through">{formatPrice(v.price)}</span>
+                  <strong className="font-display text-2xl text-amber-300">{formatPrice(promo.price)}</strong>
+                  {promo.endsAt && <span className="block text-xs text-white/60">jusqu'au {new Date(promo.endsAt).toLocaleDateString("fr-FR")}</span>}
+                </>
+              ) : (
+                <>
+                  {s.price && <span className="text-sm">à partir de </span>}
+                  <strong className="font-display text-2xl text-white">{formatPrice(v.price)}</strong>
+                </>
+              )}
             </p>
           </div>
           <a href="#decouvrir" aria-label="Découvrir" className="mt-12 hidden h-12 w-12 animate-bounce place-items-center rounded-full border border-white/30 sm:grid">

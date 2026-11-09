@@ -46,6 +46,11 @@ model Vehicle {
   /// Marque constructeur (ex. « Little ») et type affiché (ex. « Utilitaire électrique »)
   brand            String?
   vehicleType      String?
+  /// Stock disponible immédiatement (0 = sur commande) et offre promotionnelle éventuelle
+  stock            Int               @default(0)
+  promoPrice       String?
+  promoLabel       String?
+  promoEndsAt      DateTime?
   tagline          String?
   sku              String?
   video            String?
@@ -144,6 +149,8 @@ model Inquiry {
   message      String?  @db.Text
   vehicleRef   String?
   serialNumber String?
+  /// Provenance du contact (campagne, réseau, référencement…)
+  source       String?
   files        String[] @default([])
   status       String   @default("nouveau") // nouveau | en_cours | traite | archive
   notes        String?  @db.Text

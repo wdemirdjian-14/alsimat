@@ -13,7 +13,8 @@ export const metadata = pageMetadata({
   path: "/contact",
 });
 
-export default async function ContactPage() {
+export default async function ContactPage({ searchParams }: { searchParams: Promise<{ vehicule?: string }> }) {
+  const { vehicule } = await searchParams;
   const [company, vehicles] = await Promise.all([getCompany(), getAllVehicles()]);
   const address = [company.street, [company.postalCode, company.city].filter(Boolean).join(" ")].filter(Boolean).join(", ");
   const items = [
@@ -29,7 +30,7 @@ export default async function ContactPage() {
         <div className="rounded-3xl border border-ink/10 bg-white p-6 shadow-xl shadow-ink/5 sm:p-10 lg:col-span-8">
           <h2 className="text-2xl font-bold">Envoyez-nous votre demande</h2>
           <p className="mt-2 mb-8 text-ink-soft">Les champs marqués d'un * sont obligatoires.</p>
-          <InquiryForm type="contact" vehicleOptions={vehicles.filter((v) => v.categories.length).map((v) => v.name.trim())} />
+          <InquiryForm type="contact" defaultVehicle={vehicule} vehicleOptions={vehicles.filter((v) => v.categories.length).map((v) => v.name.trim())} />
         </div>
         <aside className="space-y-4 lg:col-span-4">
           {items.map((it) => (
