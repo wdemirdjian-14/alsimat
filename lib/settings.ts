@@ -57,6 +57,26 @@ export const DEFAULT_ABOUT: AboutContent = {
   ],
 };
 
+export type Marketing = {
+  ga4: string;
+  ads: string;
+  adsLabel: string;
+  metaPixel: string;
+  googleVerification: string;
+  bingVerification: string;
+  senderName: string;
+  replyTo: string;
+  postalAddress: string;
+  dailyLimit: number;
+  perMinute: number;
+  indexing: boolean;
+};
+
+export const DEFAULT_MARKETING: Marketing = {
+  ga4: "", ads: "", adsLabel: "", metaPixel: "", googleVerification: "", bingVerification: "",
+  senderName: "Alsimat", replyTo: "", postalAddress: "", dailyLimit: 300, perMinute: 10, indexing: true,
+};
+
 export const DEFAULT_VISIBILITY: Visibility = { occasion: true, promotions: true, realisations: true, conseils: true };
 
 const DEFAULTS = {
@@ -64,9 +84,10 @@ const DEFAULTS = {
   about_content: DEFAULT_ABOUT,
   visibility: DEFAULT_VISIBILITY,
   company: DEFAULT_COMPANY,
+  marketing: DEFAULT_MARKETING,
 } as const;
 
-type Settings = { home_content: HomeContent; about_content: AboutContent; visibility: Visibility; company: CompanyInfo };
+type Settings = { home_content: HomeContent; about_content: AboutContent; visibility: Visibility; company: CompanyInfo; marketing: Marketing };
 export type SettingKey = keyof Settings;
 
 const loadAll = cache(async () => {

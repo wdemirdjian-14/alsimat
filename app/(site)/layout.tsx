@@ -8,20 +8,32 @@ import { Tracking, type TrackingConfig } from "@/components/site/tracking";
 import { Walau } from "@/components/site/walau";
 import { getNav } from "@/lib/nav";
 import { organizationJsonLd } from "@/lib/seo";
-import { getCompany } from "@/lib/settings";
+import type { Metadata } from "next";
+import { getCompany, getSetting } from "@/lib/settings";
 import { telHref } from "@/lib/site";
 
 // Le contenu vient de la base et est modifiable à tout moment depuis l'admin.
 export const dynamic = "force-dynamic";
 
+export async function generateMetadata(): Promise<Metadata> {
+  const mk = await getSetting("marketing");
+  return {
+    verification: {
+      ...(mk.googleVerification ? { google: mk.googleVerification } : {}),
+      ...(mk.bingVerification ? { other: { "msvalidate.01": mk.bingVerification } } : {}),
+    },
+    ...(!mk.indexing || process.env.ALLOW_INDEXING === "false" ? { robots: { index: false, follow: false } } : {}),
+  };
+}
+
 export default async function SiteLayout({ children }: { children: React.ReactNode }) {
-  const [{ categories, links }, company] = await Promise.all([getNav(), getCompany()]);
-  // Identifiants lus à l'exécution (fichier .env du serveur) : aucun rebuild nécessaire pour les changer.
+  const [{ categories, links }, company, mk] = await Promise.all([getNav(), getCompany(), getSetting("marketing")]);
+  // Identifiants réglés dans l'admin (Marketing & SEA), à défaut dans le .env du serveur.
   const tracking: TrackingConfig = {
-    ga4: process.env.GA4_ID || undefined,
-    ads: process.env.GOOGLE_ADS_ID || undefined,
-    adsLead: process.env.GOOGLE_ADS_LEAD_LABEL || undefined,
-    metaPixel: process.env.META_PIXEL_ID || undefined,
+    ga4: mk.ga4 || process.env.GA4_ID || undefined,
+    ads: mk.ads || process.env.GOOGLE_ADS_ID || undefined,
+    adsLead: mk.adsLabel || process.env.GOOGLE_ADS_LEAD_LABEL || undefined,
+    metaPixel: mk.metaPixel || process.env.META_PIXEL_ID || undefined,
   };
   const trackingOn = !!(tracking.ga4 || tracking.ads || tracking.metaPixel);
   return (

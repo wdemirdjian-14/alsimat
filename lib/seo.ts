@@ -28,6 +28,20 @@ export function pageMetadata({
   };
 }
 
+/**
+ * Titre Google ≤ 60 caractères (suffixe « | Alsimat » compris) : on retire les éléments
+ * de fin (prix, puis détails) tant que c'est trop long.
+ */
+export function shortTitle(parts: string[], max = 60 - " | Alsimat".length) {
+  const p = parts.filter(Boolean);
+  while (p.length > 1) {
+    const t = p[0] + (p.length > 1 ? ` – ${p.slice(1).join(" ")}` : "");
+    if (t.length <= max) return t;
+    p.pop();
+  }
+  return p[0];
+}
+
 export function organizationJsonLd(c: CompanyInfo) {
   const sameAs = [c.linkedin, c.facebook, c.instagram].filter(Boolean);
   return {

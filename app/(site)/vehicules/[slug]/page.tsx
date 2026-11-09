@@ -9,9 +9,10 @@ import { Faq } from "@/components/site/faq";
 import { JsonLd } from "@/components/site/json-ld";
 import { VehicleShowcase } from "@/components/site/vehicle-showcase";
 import { productFaq, productJsonLd } from "@/lib/product";
+import { redirectIfAny } from "@/lib/redirects";
 import { VehicleCard } from "@/components/site/vehicle-card";
 import { activePromo, getRelatedVehicles, getVehicle, keySpecs, primaryCategory, specsOf, stockLabel } from "@/lib/catalog";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, shortTitle } from "@/lib/seo";
 import { getCompany } from "@/lib/settings";
 import { telHref } from "@/lib/site";
 import { formatPrice, paragraphs } from "@/lib/utils";
@@ -28,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const s = keySpecs(v);
   const facts = [s.seats && `${s.seats} places`, s.rangeKm && `${s.rangeKm} km d'autonomie`, s.speedKmh && `${s.speedKmh} km/h`].filter(Boolean).join(", ");
   return pageMetadata({
-    title: v.seoTitle || `${v.name.trim()} – ${kind(v)}${s.seats ? ` ${s.seats} places` : ""}${s.price ? ` dès ${new Intl.NumberFormat("fr-FR").format(s.price)} € HT` : ""}`,
+    title: v.seoTitle || shortTitle([v.name.trim(), `${kind(v)}${s.seats ? ` ${s.seats} places` : ""}`, s.price ? `dès ${new Intl.NumberFormat("fr-FR").format(s.price)} € HT` : ""]),
     description: v.seoDescription || `${kind(v)} ${v.name.trim()}${facts ? ` : ${facts}` : ""}. ${v.shortDescription ?? ""}`,
     path: `/vehicules/${v.slug}`,
     image: v.images[0],
@@ -38,7 +39,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function VehiclePage({ params }: Props) {
   const { slug } = await params;
   const v = await getVehicle(slug);
-  if (!v) notFound();
+  if (!v) {
+    await redirectIfAny(`/vehicules/${slug}`);
+    notFound();
+  }
   const [related, company] = await Promise.all([getRelatedVehicles(v), getCompany()]);
   const s = keySpecs(v);
   const specs = specsOf(v);

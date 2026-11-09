@@ -18,6 +18,9 @@ Tout ce qui est prêt dans le site, et les réglages à faire une seule fois de 
 
 ## 2. Brancher les outils (une seule fois)
 
+> Plus simple : **Admin → Marketing & SEA → Mesure d'audience & publicité** — collez les identifiants, enregistrez, c'est actif immédiatement. La méthode `.env` ci-dessous reste possible.
+
+
 1. Créez les comptes et récupérez les identifiants :
    - **Google Analytics 4** → Administration → Flux de données → `G-XXXXXXXXXX`
    - **Google Ads** → Objectifs → Conversions → nouvelle conversion « Site web », catégorie *Envoi de formulaire pour prospect*, configuration **manuelle avec Google tag** → notez `AW-XXXXXXXXX` et le **libellé** de conversion.

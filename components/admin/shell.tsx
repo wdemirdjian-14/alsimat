@@ -5,13 +5,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import {
-  BookOpen, Car, ExternalLink, FolderTree, Gauge, Images, Inbox, LayoutTemplate, LogOut, Menu, Recycle, Settings, Tag, User, X,
+  BookOpen, Car, ExternalLink, FolderTree, Gauge, Images, Inbox, LayoutTemplate, LogOut, Mail, Megaphone, Menu, Recycle, Search, Settings, Tag, User, Users, X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const NAV = [
   { href: "/admin", label: "Tableau de bord", icon: Gauge },
   { href: "/admin/demandes", label: "Demandes", icon: Inbox, badge: "inbox" },
+  { href: "/admin/contacts", label: "Contacts (CRM)", icon: Users },
+  { href: "/admin/campagnes", label: "Campagnes e-mail", icon: Mail },
+  { href: "/admin/seo", label: "SEO", icon: Search },
+  { href: "/admin/marketing", label: "Marketing & SEA", icon: Megaphone },
   { href: "/admin/vehicules", label: "Véhicules", icon: Car },
   { href: "/admin/gammes", label: "Gammes", icon: FolderTree },
   { href: "/admin/occasion", label: "Occasion", icon: Recycle },
@@ -28,7 +32,7 @@ export function AdminShell({ children, user, newInquiries, logout }: { children:
   const [open, setOpen] = useState(false);
   const active = (href: string) => (href === "/admin" ? pathname === "/admin" : pathname.startsWith(href));
   const nav = (
-    <nav className="flex flex-1 flex-col gap-1 p-3">
+    <nav className="flex flex-1 flex-col gap-1 overflow-y-auto p-3">
       {NAV.map((n) => (
         <Link key={n.href} href={n.href} onClick={() => setOpen(false)}
           className={cn("flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition", active(n.href) ? "bg-brand-500 text-white" : "text-white/70 hover:bg-white/5 hover:text-white")}>

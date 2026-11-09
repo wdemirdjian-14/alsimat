@@ -153,6 +153,8 @@ model Inquiry {
   source       String?
   files        String[] @default([])
   status       String   @default("nouveau") // nouveau | en_cours | traite | archive
+  contactId    String?
+  contact      Contact? @relation(fields: [contactId], references: [id], onDelete: SetNull)
   notes        String?  @db.Text
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
@@ -175,4 +177,102 @@ model SiteSetting {
   key       String   @unique
   value     String   @db.Text
   updatedAt DateTime @updatedAt
+}
+
+// ======================= CRM =======================
+
+/// Contact (prospect, client, partenaire) — alimenté par les formulaires du site, l'import CSV ou la saisie.
+model Contact {
+  id             String              @id @default(cuid())
+  email          String              @unique
+  firstName      String?
+  lastName       String?
+  company        String?
+  jobTitle       String?
+  phone          String?
+  city           String?
+  postalCode     String?
+  segment        String              @default("prospect") // prospect | client | partenaire
+  status         String              @default("nouveau") // voir lib/crm.ts
+  tags           String[]            @default([])
+  source         String?
+  /// Base légale : "b2b" (intérêt légitime pro) | "optin" (accord explicite) | "client"
+  consent        String              @default("b2b")
+  originNote     String?
+  notes          String?             @db.Text
+  estimatedValue Int?
+  unsubscribed   Boolean             @default(false)
+  unsubscribedAt DateTime?
+  bounced        Boolean             @default(false)
+  lastContactAt  DateTime?
+  activities     Activity[]
+  inquiries      Inquiry[]
+  recipients     CampaignRecipient[]
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+
+  @@index([status])
+  @@index([segment])
+}
+
+/// Historique d'un contact : notes, appels, e-mails, demandes, campagnes.
+model Activity {
+  id        String   @id @default(cuid())
+  contactId String
+  contact   Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  type      String // note | appel | email | demande | campagne | statut | rdv
+  title     String
+  content   String?  @db.Text
+  author    String?
+  createdAt DateTime @default(now())
+
+  @@index([contactId, createdAt])
+}
+
+/// Campagne e-mail de prospection / information.
+model Campaign {
+  id          String              @id @default(cuid())
+  name        String
+  subject     String
+  preheader   String?
+  body        String              @db.Text
+  ctaLabel    String?
+  ctaUrl      String?
+  image       String?
+  /// Filtre des destinataires : { segments: [], statuses: [], tags: [], excludeTags: [] }
+  audience    Json                @default("{}")
+  status      String              @default("brouillon") // brouillon | programmee | envoi | envoyee | pause
+  scheduledAt DateTime?
+  startedAt   DateTime?
+  finishedAt  DateTime?
+  recipients  CampaignRecipient[]
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+}
+
+model CampaignRecipient {
+  id         String    @id @default(cuid())
+  campaignId String
+  campaign   Campaign  @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  contactId  String
+  contact    Contact   @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  token      String    @unique @default(cuid())
+  status     String    @default("attente") // attente | envoye | echec | ignore
+  error      String?
+  sentAt     DateTime?
+  openedAt   DateTime?
+  clickedAt  DateTime?
+  clicks     Int       @default(0)
+
+  @@unique([campaignId, contactId])
+  @@index([campaignId, status])
+}
+
+/// Redirections 301 gérées depuis l'admin (anciennes URL, pages supprimées…).
+model Redirect {
+  id        String   @id @default(cuid())
+  from      String   @unique
+  to        String
+  hits      Int      @default(0)
+  createdAt DateTime @default(now())
 }

@@ -9,6 +9,7 @@ grep -q '^POSTGRES_PASSWORD=.\+' .env || { echo "POSTGRES_PASSWORD manquant dans
 grep -q '^AUTH_SECRET=.\{32,\}' .env || { echo "AUTH_SECRET manquant ou trop court dans .env"; exit 1; }
 
 PORT=$(grep -E '^APP_PORT=' .env | cut -d= -f2); PORT=${PORT:-3010}
+grep -q '^CRON_SECRET=.\+' .env || { sed -i '/^CRON_SECRET=/d' .env; echo "CRON_SECRET=$(openssl rand -hex 24)" >> .env; }
 if command -v ss >/dev/null && ss -ltn | grep -q ":$PORT "; then echo "Le port $PORT est déjà utilisé : choisissez un autre APP_PORT dans .env (et dans la conf Nginx)."; exit 1; fi
 
 mkdir -p uploads/public uploads/private backups

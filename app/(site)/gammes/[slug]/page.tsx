@@ -6,6 +6,7 @@ import { CtaBand } from "@/components/site/cta-band";
 import { JsonLd } from "@/components/site/json-ld";
 import { PageHero } from "@/components/site/page-hero";
 import { getCategory, getVehiclesInCategory, keySpecs } from "@/lib/catalog";
+import { redirectIfAny } from "@/lib/redirects";
 import { pageMetadata } from "@/lib/seo";
 import { getCompany } from "@/lib/settings";
 import { SITE_URL } from "@/lib/site";
@@ -31,7 +32,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function CategoryPage({ params }: Props) {
   const { slug } = await params;
   const cat = await getCategory(slug);
-  if (!cat) notFound();
+  if (!cat) {
+    await redirectIfAny(`/gammes/${slug}`);
+    notFound();
+  }
   const [vehicles, company] = await Promise.all([getVehiclesInCategory(cat.id), getCompany()]);
 
   // Navigation entre sous-gammes : enfants de la gamme, ou « frères » si l'on est déjà dans une sous-gamme.

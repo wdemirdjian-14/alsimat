@@ -128,3 +128,28 @@ public/media/      images du catalogue d'origine (WebP)
 scripts/           import du catalogue, création d'administrateur
 deploy/            Nginx, installation, mise à jour, sauvegarde
 ```
+
+---
+
+## CRM, campagnes e-mail, SEO et marketing (back-office)
+
+| Menu | Rôle |
+|---|---|
+| **Contacts (CRM)** | Fiches contacts, pipeline commercial (Nouveau → À contacter → En discussion → Devis envoyé → Gagné/Perdu), historique (demandes du site, appels, notes, e-mails, campagnes), e-mail individuel, import/export CSV, actions groupées. Chaque demande du site crée ou complète automatiquement le contact. |
+| **Campagnes e-mail** | Rédaction (champs de fusion `{{prenom}}`, `{{societe}}`…), audience par segment/statut/étiquettes, aperçu, envoi test, lancement immédiat ou programmé, statistiques (ouvertures, clics, désinscriptions). Désinscription en un clic et liste « ne plus contacter » appliquées automatiquement. |
+| **SEO** | Audit de toutes les pages (titre, description, contenu, photos), redirections 301, codes de validation Google Search Console / Bing, indexation. |
+| **Marketing & SEA** | Identifiants Google Analytics / Google Ads / Meta, générateur de liens UTM, demandes et ventes par provenance, état des flux produits, réglages d'envoi (expéditeur, adresse postale, débit). |
+
+### Activer l'envoi des campagnes (une fois)
+
+1. Créez un compte d'envoi dédié (recommandé : **Brevo**, gratuit jusqu'à 300 e-mails/jour), validez le domaine `alsimat.com` (enregistrements SPF/DKIM à ajouter dans le DNS IONOS, Brevo les fournit).
+2. Ajoutez dans `/opt/alsimat/.env` :
+   ```
+   MARKETING_SMTP_HOST=smtp-relay.brevo.com
+   MARKETING_SMTP_PORT=587
+   MARKETING_SMTP_USER=…            (identifiant SMTP Brevo)
+   MARKETING_SMTP_PASSWORD=…        (clé SMTP Brevo)
+   MARKETING_MAIL_FROM="Alsimat <info@alsimat.com>"
+   ```
+3. `docker compose up -d app` puis `./deploy/setup-cron.sh` (installe l'envoi automatique chaque minute et la sauvegarde nocturne).
+4. Admin → Marketing & SEA → Envoi des e-mails : nom d'expéditeur, adresse de réponse, **adresse postale** (obligatoire), débit.

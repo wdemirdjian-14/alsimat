@@ -1,6 +1,7 @@
 "use server";
 
 import { z } from "zod";
+import { syncInquiryToContact } from "@/lib/crm";
 import { db } from "@/lib/db";
 import { sendMail } from "@/lib/mail";
 import { rateLimit } from "@/lib/rate-limit";
@@ -63,7 +64,12 @@ export async function submitInquiry(_prev: InquiryState, form: FormData): Promis
     return { ok: false, message: e instanceof Error ? e.message : "Fichier refusé.", errors: { files: "Fichier refusé" } };
   }
 
-  const inquiry = await db.inquiry.create({ data: { ...data, files: saved } });
+  const inquiry = await db.inquiry.create({ data: { ...data, email: data.email.toLowerCase(), files: saved } });
+  try {
+    await syncInquiryToContact(inquiry.id);
+  } catch (e) {
+    console.error("[crm] synchronisation du contact impossible", e);
+  }
 
   const company = await getCompany();
   const label = TYPES[data.type];

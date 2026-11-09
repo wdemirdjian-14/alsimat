@@ -7,6 +7,7 @@ import { CtaBand } from "@/components/site/cta-band";
 import { JsonLd } from "@/components/site/json-ld";
 import { Markdown, headingsOf } from "@/components/site/markdown";
 import { getArticle } from "@/lib/content";
+import { redirectIfAny } from "@/lib/redirects";
 import { pageMetadata } from "@/lib/seo";
 import { getCompany } from "@/lib/settings";
 import { SITE_URL } from "@/lib/site";
@@ -24,8 +25,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ArticlePage({ params }: Props) {
-  const a = await getArticle((await params).slug);
-  if (!a) notFound();
+  const { slug } = await params;
+  const a = await getArticle(slug);
+  if (!a) {
+    await redirectIfAny(`/conseils/${slug}`);
+    notFound();
+  }
   const company = await getCompany();
   const toc = headingsOf(a.content);
   const minutes = Math.max(1, Math.round(a.content.split(/\s+/).length / 220));
