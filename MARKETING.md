@@ -18,6 +18,9 @@ Tout ce qui est prêt dans le site, et les réglages à faire une seule fois de 
 
 ## 2. Brancher les outils (une seule fois)
 
+**Avec Google Tag Manager (GTM)** : collez l'ID `GTM-…` dans Admin → Marketing & SEA. Le site pousse dans le `dataLayer` les événements `generate_lead`, `click_to_call`, `file_download`, `walau_open` : dans GTM, créez un déclencheur « Événement personnalisé » portant ce nom, puis les balises GA4 / Google Ads / Meta associées. N'activez pas en plus le champ GA4 de l'admin (sinon double comptage).
+
+
 > Plus simple : **Admin → Marketing & SEA → Mesure d'audience & publicité** — collez les identifiants, enregistrez, c'est actif immédiatement. La méthode `.env` ci-dessous reste possible.
 
 

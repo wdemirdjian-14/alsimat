@@ -1,12 +1,14 @@
 "use client";
 
 /** Envoi d'événements aux outils de mesure chargés (uniquement après consentement). */
-type W = Window & { gtag?: (...a: unknown[]) => void; fbq?: (...a: unknown[]) => void; __adsLead?: string };
+type W = Window & { gtag?: (...a: unknown[]) => void; fbq?: (...a: unknown[]) => void; __adsLead?: string; __gtm?: boolean; dataLayer?: unknown[] };
 
 export function track(event: "lead" | "call" | "datasheet" | "walau_open" | "walau_message", params: Record<string, unknown> = {}) {
   if (typeof window === "undefined") return;
   const w = window as W;
   const ga: Record<string, string> = { lead: "generate_lead", call: "click_to_call", datasheet: "file_download", walau_open: "walau_open", walau_message: "generate_lead" };
+  // Google Tag Manager : événement personnalisé (déclencheur « Événement personnalisé » dans GTM).
+  if (w.__gtm) w.dataLayer?.push({ event: ga[event], ...params });
   w.gtag?.("event", ga[event], params);
   if ((event === "lead" || event === "walau_message") && w.__adsLead) w.gtag?.("event", "conversion", { send_to: w.__adsLead });
   if (event === "lead" || event === "walau_message") w.fbq?.("track", "Lead", params);

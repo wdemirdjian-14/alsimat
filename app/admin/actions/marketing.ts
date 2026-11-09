@@ -11,7 +11,7 @@ export async function saveMarketing(back: string, fd: FormData) {
   await requireAdmin();
   const cur = await getSetting("marketing");
   const next = { ...cur };
-  for (const k of ["ga4", "ads", "adsLabel", "metaPixel", "googleVerification", "bingVerification", "senderName", "replyTo", "postalAddress"] as const)
+  for (const k of ["gtm", "ga4", "ads", "adsLabel", "metaPixel", "googleVerification", "bingVerification", "senderName", "replyTo", "postalAddress"] as const)
     if (fd.has(k)) next[k] = (str(fd, k) ?? "").replace(/<meta[^>]*content="([^"]+)"[^>]*>/i, "$1");
   if (fd.has("dailyLimit")) next.dailyLimit = Math.min(5000, Math.max(1, int(fd, "dailyLimit")));
   if (fd.has("perMinute")) next.perMinute = Math.min(100, Math.max(1, int(fd, "perMinute")));

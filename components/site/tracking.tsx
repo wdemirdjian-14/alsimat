@@ -4,13 +4,22 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { captureSource, track } from "@/lib/track";
 
-export type TrackingConfig = { ga4?: string; ads?: string; adsLead?: string; metaPixel?: string };
+export type TrackingConfig = { gtm?: string; ga4?: string; ads?: string; adsLead?: string; metaPixel?: string };
 
 const KEY = "alsimat-consent";
-type W = Window & { dataLayer?: unknown[]; gtag?: (...a: unknown[]) => void; fbq?: unknown; __adsLead?: string };
+type W = Window & { dataLayer?: unknown[]; gtag?: (...a: unknown[]) => void; fbq?: unknown; __adsLead?: string; __gtm?: boolean };
 
 function load(cfg: TrackingConfig) {
   const w = window as W;
+  if (cfg.gtm && !w.__gtm) {
+    w.__gtm = true;
+    w.dataLayer = w.dataLayer || [];
+    w.dataLayer.push({ "gtm.start": Date.now(), event: "gtm.js" });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = `https://www.googletagmanager.com/gtm.js?id=${cfg.gtm}`;
+    document.head.appendChild(s);
+  }
   if ((cfg.ga4 || cfg.ads) && !w.gtag) {
     const s = document.createElement("script");
     s.async = true;
@@ -37,7 +46,7 @@ function load(cfg: TrackingConfig) {
  * accord du visiteur (exigence CNIL). Sans identifiant configuré : aucun bandeau, aucun cookie.
  */
 export function Tracking({ config }: { config: TrackingConfig }) {
-  const enabled = !!(config.ga4 || config.ads || config.metaPixel);
+  const enabled = !!(config.gtm || config.ga4 || config.ads || config.metaPixel);
   const [ask, setAsk] = useState(false);
 
   useEffect(() => {

@@ -58,6 +58,7 @@ export const DEFAULT_ABOUT: AboutContent = {
 };
 
 export type Marketing = {
+  gtm: string;
   ga4: string;
   ads: string;
   adsLabel: string;
@@ -73,7 +74,7 @@ export type Marketing = {
 };
 
 export const DEFAULT_MARKETING: Marketing = {
-  ga4: "", ads: "", adsLabel: "", metaPixel: "", googleVerification: "", bingVerification: "",
+  gtm: "", ga4: "", ads: "", adsLabel: "", metaPixel: "", googleVerification: "", bingVerification: "",
   senderName: "Alsimat", replyTo: "", postalAddress: "", dailyLimit: 300, perMinute: 10, indexing: true,
 };
 

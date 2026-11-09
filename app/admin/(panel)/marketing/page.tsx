@@ -56,7 +56,7 @@ export default async function MarketingPage({ searchParams }: { searchParams: Pr
   const rows = [...table.entries()].sort((a, b) => b[1].leads - a[1].leads);
   const excluded = vehicles.filter((v) => !feed.some((f) => f.link.endsWith(`/vehicules/${v.slug}`)));
   const pages = [{ url: "/", label: "Accueil" }, ...cats.map((c) => ({ url: `/gammes/${c.slug}`, label: `Gamme · ${c.name}` })), ...vehicles.map((v) => ({ url: `/vehicules/${v.slug}`, label: `Véhicule · ${v.name.trim()}` })), { url: "/contact", label: "Contact / devis" }];
-  const trackingOn = !!(mk.ga4 || mk.ads || mk.metaPixel || process.env.GA4_ID || process.env.GOOGLE_ADS_ID || process.env.META_PIXEL_ID);
+  const trackingOn = !!(mk.gtm || mk.ga4 || mk.ads || mk.metaPixel || process.env.GA4_ID || process.env.GOOGLE_ADS_ID || process.env.META_PIXEL_ID);
 
   return (
     <>
@@ -85,6 +85,7 @@ export default async function MarketingPage({ searchParams }: { searchParams: Pr
         <Card title="Mesure d'audience & publicité">
           <p className="mb-4 flex items-center gap-2 text-sm">État : {trackingOn ? <Badge tone="green">Actif (après accord du visiteur)</Badge> : <Badge>Inactif — aucun cookie</Badge>}</p>
           <form action={saveMarketing.bind(null, "/admin/marketing")} className="space-y-4">
+            <Field label="Google Tag Manager (ID du conteneur)" name="gtm" defaultValue={mk.gtm} placeholder="GTM-XXXXXXX" hint="Facultatif. Si vous utilisez GTM, n'y ajoutez pas de balise GA4 en double avec le champ ci-dessous." />
             <Field label="Google Analytics 4 (ID de mesure)" name="ga4" defaultValue={mk.ga4} placeholder="G-XXXXXXXXXX" />
             <Field label="Google Ads (ID de conversion)" name="ads" defaultValue={mk.ads} placeholder="AW-123456789" />
             <Field label="Google Ads (libellé de la conversion « demande »)" name="adsLabel" defaultValue={mk.adsLabel} placeholder="AbCdEfGhIjK" />

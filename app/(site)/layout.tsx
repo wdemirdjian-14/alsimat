@@ -30,12 +30,13 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
   const [{ categories, links }, company, mk] = await Promise.all([getNav(), getCompany(), getSetting("marketing")]);
   // Identifiants réglés dans l'admin (Marketing & SEA), à défaut dans le .env du serveur.
   const tracking: TrackingConfig = {
+    gtm: mk.gtm || process.env.GTM_ID || undefined,
     ga4: mk.ga4 || process.env.GA4_ID || undefined,
     ads: mk.ads || process.env.GOOGLE_ADS_ID || undefined,
     adsLead: mk.adsLabel || process.env.GOOGLE_ADS_LEAD_LABEL || undefined,
     metaPixel: mk.metaPixel || process.env.META_PIXEL_ID || undefined,
   };
-  const trackingOn = !!(tracking.ga4 || tracking.ads || tracking.metaPixel);
+  const trackingOn = !!(tracking.gtm || tracking.ga4 || tracking.ads || tracking.metaPixel);
   return (
     <>
       <a href="#contenu" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:rounded-full focus:bg-white focus:px-4 focus:py-2">
