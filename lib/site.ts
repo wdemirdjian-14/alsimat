@@ -18,6 +18,8 @@ export type CompanyInfo = {
   linkedin: string;
   facebook: string;
   instagram: string;
+  /** Destinataires des notifications du site (séparés par des virgules) */
+  notifyEmails: string;
 };
 
 export const DEFAULT_COMPANY: CompanyInfo = {
@@ -37,6 +39,7 @@ export const DEFAULT_COMPANY: CompanyInfo = {
   linkedin: "",
   facebook: "",
   instagram: "",
+  notifyEmails: "admin@alsimat.com",
 };
 
 export const telHref = (phone: string) => "tel:" + phone.replace(/[^\d+]/g, "").replace(/^0/, "+33");

@@ -10,6 +10,7 @@ const LABELS: Record<string, string> = {
   street: "Adresse (rue)", postalCode: "Code postal", city: "Ville", region: "Région", hours: "Horaires",
   serviceArea: "Zone d'intervention", siret: "SIRET", director: "Directeur de la publication",
   linkedin: "Page LinkedIn (URL)", facebook: "Page Facebook (URL)", instagram: "Compte Instagram (URL)",
+  notifyEmails: "Notifications des demandes : e-mails supplémentaires (séparés par des virgules)",
 };
 
 export default async function SettingsAdmin({ searchParams }: { searchParams: Promise<{ ok?: string }> }) {

@@ -93,7 +93,9 @@ export async function submitInquiry(_prev: InquiryState, form: FormData): Promis
 
   await Promise.all([
     sendMail({
-      to: process.env.NOTIFY_EMAIL || company.email,
+      // Notification : e-mail de contact + destinataires réglés dans l'admin + NOTIFY_EMAIL du serveur (sans doublon).
+      to: [...new Set([company.email, ...(company.notifyEmails ?? "").split(/[,;\s]+/), ...(process.env.NOTIFY_EMAIL ?? "").split(/[,;\s]+/)]
+        .map((e) => e.trim().toLowerCase()).filter((e) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)))],
       replyTo: data.email,
       subject: `[Alsimat] ${label} – ${data.firstName} ${data.lastName}${data.vehicleRef ? ` – ${data.vehicleRef}` : ""}`,
       text: lines.join("\n"),
